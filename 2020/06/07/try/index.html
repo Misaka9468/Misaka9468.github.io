@@ -6,26 +6,16 @@
     
     <meta name="author" content="Misaka Mikoto">
     
-    <meta name="description" content="真tm服了
+    <meta name="description" content="就当练习Markdown了
+发博客的时候，这篇论文还没交，老师不会找到我的博客然后认定我在抄袭吧，不会吧不会吧
+我发现我不会插入图片
+使用Kmeans聚类算法对bilibili视频作者进行聚类分析
 
-？
-？
-？
-？
-？
-？
-？
-?
-?
-?
-?
-?
-?
-?
-?
-?
-?
-?">
+
+
+应用场景描述
+
+​        哔哩哔哩弹幕视频网（以下简称b站）是国内知名的视频弹幕网站，为">
     
     
 
@@ -38,7 +28,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>try | 某Misaka的blog</title>
+    <title>AI导论带作业 | 某Misaka的blog</title>
 
     <!-- Bootstrap -->
     
@@ -108,44 +98,95 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>try</h1>
+        <h1>AI导论带作业</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-07T08:24:58.000Z" itemprop="datePublished">2020-06-07</time>，更新于:<time datetime="2020-06-07T08:33:56.622Z" itemprop="dateModified">2020-06-07</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-07T08:24:58.000Z" itemprop="datePublished">2020-06-07</time>，更新于:<time datetime="2020-06-07T08:57:07.345Z" itemprop="dateModified">2020-06-07</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">真tm服了</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">使用Kmeans聚类算法对bilibili视频作者进行聚类分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.1.</span> <span class="toc-text">应用场景描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.2.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.3.</span> <span class="toc-text">方法步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.4.</span> <span class="toc-text">分析成果展示与分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.5.</span> <span class="toc-text">优缺点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.6.</span> <span class="toc-text">可改进的地方</span></a></li></ol></li></ol>
             </div>
             
-            <h3>真tm服了</h3>
+            <p><del>就当练习Markdown了</del></p>
+<p><del>发博客的时候，这篇论文还没交，老师不会找到我的博客然后认定我在抄袭吧，不会吧不会吧</del></p>
+<p><del>我发现我不会插入图片</del></p>
+<h1>使用Kmeans聚类算法对bilibili视频作者进行聚类分析</h1>
 
-<p>？</p>
-<p>？</p>
-<p>？</p>
-<p>？</p>
-<p>？</p>
-<p>？</p>
-<p>？</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
-<p>?</p>
+
+
+<h2>应用场景描述</h2>
+
+<p>​        哔哩哔哩弹幕视频网（以下简称b站）是国内知名的视频弹幕网站，为中国年轻世代高度聚集的文化社区和视频平台，受到广大年轻群体的欢迎，并吸引了众多优秀的视频作者（up主）在该平台投稿视频。</p>
+<p>​        在b站平台内， “视频播放量”被看作是视频流行与受欢迎程度的重要衡量指标，具有较高的参考价值。视频的播放量越高，表示该视频的点击量较高，一定程度上反映了视频的受欢迎程度。在b站平台，用户可以关注up主，表示对视频制作者的支持和青睐，同时也是对其产出视频质量的肯定，这一特征表现在up主们“粉丝数”的多少。通常，视频播放量普遍较高的up主收获的粉丝数也会越多。然而，视频播放量高并不意味着up主的粉丝数就会高。原因大概分为两点：第一，有些视频通过猎奇的封面与标题，吸引不知情的观众播放视频增加视频播放量数，然而其视频真正的质量并不高，于是up主并不会因此得到观众的认可；第二，用户在判断是否要关注up主时，不仅要考虑其视频质量的高低，还需要判断up主的视频更新频率、up主产出的优质视频占总投稿视频的比率等等。由此可见，up主的视频播放量与粉丝数并不呈明显的正向关系。</p>
+<pre><code>综上，我使用python爬虫随机爬取并筛选了b站平台内1000名up主的公开信息，数据信息的属性包括其视频总播放量与粉丝数。使用Kmeans聚类算法希望将这些up主分为三个聚类，即高播放量-高粉丝数型up主，高播放量-低粉丝数型up主与低播放量-高粉丝数型up主。希望能从各聚类内up主数量的多少中，窥见b站平台up主的生态。</code></pre><h2>算法原理</h2>
+
+<p>​        Kmeans算法简单的来说，就是在没有监督的情况下将数据分为K份聚类。Kmeans算法，首先定义了每个簇的目标函数：该簇中每个文档到质心距离的平方和，并定义总目标函数G为每个簇的目标函数之和。Kmeans算法的目标在于使得G最小，当G达到最小值或算法的迭代次数达到指定值时便停止迭代，得到的聚类划分便认为是该数据集的最佳划分。</p>
+<pre><code>Kmeans算法的数学原理，是使用最大期望算法（Expectation-Maximization algorithm）求解的高斯混合模型（Gaussian Mixture Model, GMM）在正态分布的协方差为单位矩阵，且隐变量的后验分布为一组狄拉克δ函数时所得到的特例，因此可以保证Kmeans算法是收敛的。</code></pre><p>​        Kmeans算法在指定了k值(即为要聚集的clusters数量)的情况下，在数据集中依据一定的策略选择k个点作为每个簇的初始中心，即“种子”，然后将剩下的数据划分到距离这k个点最近的簇中。然而由于种子的选择差异，分类得到的新簇不一定是该数据集最好的划分。因此，需要重新计算每个簇的中心点（质心），并利用新得到的质心将各数据再次进行划分。在不断迭代的情况下，最终数据集得到的聚类划分便越接近于该数据集的最佳划分。</p>
+<h2>方法步骤</h2>
+
+<p>1.根据数据集的特征，选择适当的k值作为要划分的聚类数量，在这里我根据实际需求令k=3, 将数据集分为三个簇。</p>
+<p>2.将得到的数据集的各个属性映射到[0,1]区间内，有利于反映真实的相异度。</p>
+<p>3.在选择种子时，选择采用生成随机数的方法确定下标，随机选择k个种子，作为k个簇各自的中心。</p>
+<p>4.通过计算欧氏距离，得到剩下的元素到k个簇中心的相异度，将这些元素分别划到相异度最低的簇。</p>
+<p>5.根据聚类结果，通过取各簇中所有元素各自维度的算术平均数，重新计算k个簇各自的质心，并将其作为新的中心。</p>
+<p>6.将数据集中的全部元素按照新的中心进行聚类。</p>
+<p>7.重复步骤5与步骤6，直到聚类结果不再发生变化，或者迭代次数达到指定要求。</p>
+<p>8.输出可视化结果并进行分析。</p>
+<h2>分析成果展示与分析</h2>
+
+<p>结果分析：</p>
+<p>Kmeans聚类算法对数据集分类，并没有按预期完美地分为紫色圆圈附近的三个簇，即左上：低播放量-高粉丝数型up主。右上：高播放量-高粉丝数型up主。右下：高播放量-低粉丝数型up主。符合预期聚类的只有高播放量-高粉丝数型up主聚类与高播放量-低粉丝数型up主聚类。而出现这一结果的原因，经分析推测为两点：第一，播放量低而粉丝数高的up主，大多是非平台原生的明星up主，其几乎不产出视频，然而因为其他因素获得了较高的粉丝数，这类up主所占比例极低，几乎可以忽略不计。第二，实际上低播放量-低粉丝数的up主们才占了大多数，很大地影响了聚类的结果。</p>
+<p>然而，我们仍能从Kmeans聚类算法对up主聚类结果得到一些有用的结论：</p>
+<p>(1)通过猎奇的封面与标题来增加视频播放量数的做法，并不会将视频总播放量达到一个特别高的层次。由图中可见，总播放量明显高于粉丝数的样本点大多数位于颜色为绿色的簇，该簇的总播放量仅处于中档水平。</p>
+<p>(2)几乎所有高粉丝数的up主，视频总播放量都处在一个较高的水平。这说明，作为平台原生的up主，提高视频质量来提高视频总播放量，是增加粉丝数的有效正确方法；并且高粉丝数使得up主的视频能够获得更多播放量，二者是相辅相成的。</p>
+<p>(3)低播放量-低粉丝数类型的up主才是b站平台up主的中坚部分，能够获得高视频播放量与高粉丝量的up主不过是凤毛麟角。这在一定程度上反映了b站平台的up主生态。</p>
+<h2>优缺点分析</h2>
+
+<p>优点：</p>
+<ol>
+<li><p>Kmeans算法的计算复杂度低，为O(nkq),n是数据集的总量，m是类别（即k），q是迭代次数。一般来讲m、q会比N小得多，那么此时复杂度相当于O(n)。因此收敛速度较快，在对1000名up主进行聚类分析时速度很快。</p>
+</li>
+<li><p>Kmeans算法原理较为简单，代码无论是理解还是实现起来比较容易，比较适合初学者。</p>
+</li>
+<li><p>在该实例中，无论是视频的总播放量还是up主的粉丝数，都具有连续性，而非离散性的数据。若在分析离散的 数据，如男性=1，女性=0的情况下，使用Kmeans算法可能导致划分出的簇的质心落在0-1之间，与实际情况不符。因此在分析连续型数据的时候，使用Kmeans算法较为合理。</p>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li><p>Kmeans算法作为启发式算法，只能找到局部最优解，无法保证能够找到全局最优解。</p>
+</li>
+<li><p>在Kmeans聚类算法分类up主时，低粉丝数-低播放量型up主占比过高，造成类别规模差异过于明显。 </p>
+</li>
+<li><p>Kmeans算法需要预先设置k值，可能会导致像本实例出现的结果：预期簇与实际分簇差别较大，无法提供较为清晰的参考。</p>
+</li>
+</ol>
+<h2>可改进的地方</h2>
+
+<p>1.由于Kmeans算法的分类结果依赖于分类中心（质心）的初始化，因此可以考虑通过进行多次的Kmeans，使得分类中心的初始化所造成的影响降低，最终通过取最优来解决这一问题。</p>
+<p>\2. Kmeans算法对异常值过于敏感，若没有刻意分析异常值的打算，可考虑筛选掉异常值。</p>
+<p>3.针对Kmeans算法固有的缺点，有许多科学家对Kmeans算法进行了改进，经查阅资料发现两种可行有效的改进算法。</p>
+<p>(1) mini-batch K-means算法:</p>
+<p>Kmeans存在的固有缺点之一在于，除了最开始的几次迭代能够引起簇较大的变动，其余的很多次迭代仅仅是对一些边缘样本做微调，使得大部分的计算被浪费。而mini-batch K-means使用了一个种叫做Mini Batch（分批处理）的方法对数据点之间的距离进行计算。算法步骤包括：</p>
+<p>　　Step1:首先抽取部分数据集,使用K-Means算法构建出K个聚簇点的模型。</p>
+<p>　　Step2:继续抽取训练数据集中的部分数据集样本数据，并将其添加到模型中，分配给距离最近的聚簇中心点。</p>
+<p>　　Step3:更新聚簇的中心点值(每次更新都只用抽取出来的部分数据集)。</p>
+<p>Step4:循环迭代第二步和第三步操作，直到中心点稳定或者达到迭代次数,停止计算操作。</p>
+<p>mini-batch K-means算法，优化了数据量大情况下的计算速度，而舍弃了一部分分类的精度。如果在本实例中，选取的up主数量继续扩大，使用mini-batch K-means算法或许是一个不错的选择。</p>
+<p>(2) 二分K-means算法：</p>
+<p>二分K-Means算法首先将所有样本点作为一个簇，然后将该簇一分为二。之后选择其中一个簇继续进行划分，选择哪一个簇进行划分取决于对其划分是否可以最大程度降低SSE的值。上述基于SSE的划分过程不断重复，直到得到用户指定的簇数目为止。算法步骤包括：</p>
+<p>Step1: 把所有数据初始化为一个簇，将这个簇分为两个簇。</p>
+<p>Step2: 选择满足条件的可以分解的簇。选择条件综合考虑簇的元素个数以及聚类代价（也就是误差平方和SSE）。</p>
+<p>Step3: 使用Kmeans算法，将能够分裂的簇分为两簇。</p>
+<p>Step4: 一直重复Step2与Step3，直到满足迭代结束条件。</p>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/06/07/try/" data-title="try" data-url="https://Misaka9468.github.io/2020/06/07/try/"></div>
+	<div class="ds-thread" data-thread-key="/2020/06/07/try/" data-title="AI导论带作业" data-url="https://Misaka9468.github.io/2020/06/07/try/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
