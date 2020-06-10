@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="写在前面掌握Markdown也是一项重要的技能，作为一名CS专业的带学生很有学一个的必要。
+由于博客里的文章都是用Markdown编写的嘛，相信这篇文章写成的时候，大概也就是俺的Markdown入门的时候。
+(基于Typora
+Markdown 标题
+# 一级标题
+## 二级标题
+…     
+##">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Markdown学习笔记 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/06/10/Markdown学习笔记/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>Markdown学习笔记</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-06-10T11:59:12.000Z" itemprop="datePublished">2020-06-10</time>，更新于:<time datetime="2020-06-10T13:36:02.090Z" itemprop="dateModified">2020-06-10</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-标题"><span class="toc-number">2.</span> <span class="toc-text">Markdown 标题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-段落"><span class="toc-number">3.</span> <span class="toc-text">Markdown 段落</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字体"><span class="toc-number">3.1.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分隔线"><span class="toc-number">3.2.</span> <span class="toc-text">分隔线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除线"><span class="toc-number">3.3.</span> <span class="toc-text">删除线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下划线"><span class="toc-number">3.4.</span> <span class="toc-text">下划线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚注"><span class="toc-number">3.5.</span> <span class="toc-text">脚注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解除格式"><span class="toc-number">3.6.</span> <span class="toc-text">解除格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转义"><span class="toc-number">3.7.</span> <span class="toc-text">转义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-列表"><span class="toc-number">4.</span> <span class="toc-text">Markdown 列表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-区块"><span class="toc-number">5.</span> <span class="toc-text">Markdown 区块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-代码与公式"><span class="toc-number">6.</span> <span class="toc-text">Markdown 代码与公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码片段"><span class="toc-number">6.1.</span> <span class="toc-text">代码片段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码区块"><span class="toc-number">6.2.</span> <span class="toc-text">代码区块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式"><span class="toc-number">6.3.</span> <span class="toc-text">公式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-链接"><span class="toc-number">7.</span> <span class="toc-text">Markdown 链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-图片"><span class="toc-number">8.</span> <span class="toc-text">Markdown 图片</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-表格"><span class="toc-number">9.</span> <span class="toc-text">Markdown 表格</span></a></li></ol>
+            </div>
+            
+            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>掌握Markdown也是一项重要的技能，作为一名CS专业的带学生很有学一个的必要。</p>
+<p>由于博客里的文章都是用Markdown编写的嘛，相信这篇文章写成的时候，大概也就是俺的Markdown入门的时候。</p>
+<p>(基于Typora</p>
+<h1 id="Markdown-标题"><a href="#Markdown-标题" class="headerlink" title="Markdown 标题"></a>Markdown 标题</h1><blockquote>
+<p># 一级标题</p>
+<p>## 二级标题</p>
+<p>…     </p>
+<p>###### 六级标题</p>
+</blockquote>
+<p>注意：#与标题之间保留一个空格</p>
+<h1 id="Markdown-段落"><a href="#Markdown-段落" class="headerlink" title="Markdown 段落"></a>Markdown 段落</h1><h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p><em>斜体文本</em> :  </p>
+<blockquote>
+<p>*斜体文本*</p>
+<p>_斜体文本_</p>
+</blockquote>
+<p><strong>粗体文本</strong></p>
+<blockquote>
+<p>*<em>粗体文本*</em></p>
+<p>_<em>粗体文本_</em></p>
+</blockquote>
+<p><strong><em>粗斜体文本</em></strong></p>
+<blockquote>
+<p>***斜粗体文本***</p>
+<p>___斜粗体文本____</p>
+</blockquote>
+<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><blockquote>
+<p>-–</p>
+<p>***</p>
+</blockquote>
+<p>要超过三个及以上</p>
+<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><blockquote>
+<p>~<del>有一说一确实</del></p>
+</blockquote>
+<p><del>有一说一确实</del></p>
+<h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><blockquote>
+<p>&lt;u&gt;是这样的</u></p>
+</blockquote>
+<p><u>是这样的</u></p>
+<h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><blockquote>
+<p>有一说一[^确实]</p>
+</blockquote>
+<p>有一说一[^确实]</p>
+<h2 id="解除格式"><a href="#解除格式" class="headerlink" title="解除格式"></a>解除格式</h2><blockquote>
+<p>在该行按几次回车</p>
+</blockquote>
+<h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><blockquote>
+<p>\ 作为前缀与* - + &gt; 等搭配使用</p>
+</blockquote>
+<h1 id="Markdown-列表"><a href="#Markdown-列表" class="headerlink" title="Markdown 列表"></a>Markdown 列表</h1><blockquote>
+<p>* 第一项</p>
+<p>* 第二项</p>
+<p>* 第三项</p>
+<p>* 也可以用 + - 代替</p>
+</blockquote>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<blockquote>
+<ol>
+<li><p>第一项</p>
+</li>
+<li><p>第二项</p>
+</li>
+<li><p>第三项</p>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<blockquote>
+<ol>
+<li><p>第一项</p>
+<p>- 第一项第一个</p>
+<p>- 第一项第二个</p>
+</li>
+<li><p>第二项</p>
+<p>- 第二项第一个</p>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>第一项<ul>
+<li>第一项第一个</li>
+<li>第一项第二个</li>
+</ul>
+</li>
+<li>第二项<ul>
+<li>第二项第一个</li>
+</ul>
+</li>
+</ol>
+<h1 id="Markdown-区块"><a href="#Markdown-区块" class="headerlink" title="Markdown 区块"></a>Markdown 区块</h1><blockquote>
+<p>&gt;区块引用</p>
+<p>&gt; 是这样的</p>
+<blockquote>
+<p>&gt; &gt; 一层嵌套  </p>
+<blockquote>
+<p>&gt; &gt; &gt; 二层嵌套</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="Markdown-代码与公式"><a href="#Markdown-代码与公式" class="headerlink" title="Markdown 代码与公式"></a>Markdown 代码与公式</h1><h2 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h2><blockquote>
+<p>`rand()` 函数</p>
+</blockquote>
+<p><code>rand()</code> 函数</p>
+<h2 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h2><blockquote>
+<p>   ```</p>
+<p>   std::cout &gt;&gt; “hello world” ;</p>
+<p>   std::cout &gt;&gt; endl ;</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::cout &gt;&gt; &quot;hello world&quot;;</span><br><span class="line">std::cout &gt;&gt; endl;</span><br></pre></td></tr></table></figure>
+
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>需要加载Mathjax渲染数学公式</p>
+<blockquote>
+<p>$$</p>
+<p>Tex或LaTeX格式的数学公式</p>
+<p>$$</p>
+</blockquote>
+<h1 id="Markdown-链接"><a href="#Markdown-链接" class="headerlink" title="Markdown 链接"></a>Markdown 链接</h1><blockquote>
+<p>[链接名称](链接地址)</p>
+<p>or</p>
+<p>&lt; https: //Misaka9468.github.io&gt;</p>
+</blockquote>
+<p><a href="https://misaka9468.github.io">Misaka妙妙屋</a></p>
+<p><a href="https://Misaka9468.github.io">https://Misaka9468.github.io</a></p>
+<blockquote>
+<p>第一个网址[Google][1]</p>
+<p>第二个网址[Baidu][2]</p>
+<p>…快进到文档结尾</p>
+<p>[1]: http:// www .google.com</p>
+<p>[2]: http:// www .baidu.com</p>
+</blockquote>
+<p>(空格是战略性打上的，为了防止链接变蓝233</p>
+<h1 id="Markdown-图片"><a href="#Markdown-图片" class="headerlink" title="Markdown 图片"></a>Markdown 图片</h1><blockquote>
+<p>![替换文字](“图片链接”)</p>
+</blockquote>
+<p><img src="https://i0.hdslb.com/bfs/album/2f917430e8b7ae322af906d3c73d840a9676eafe.png@518w_1e_1c.png" alt="Misaka"></p>
+<blockquote>
+<p>若需要指定图片的高度与宽度</p>
+<p>&lt;img src=”链接” width=”50%”&gt;</p>
+</blockquote>
+<h1 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h1><p>Markdown 制作表格使用 <strong>|</strong> 来分隔不同的单元格，使用 <strong>-</strong> 来分隔表头和其他行</p>
+<blockquote>
+<p>|  表头 | 表头|</p>
+<p>| — | — |</p>
+<p>|格子 |格子 |</p>
+</blockquote>
+<p>(然而Typora已经智能地帮忙补全了</p>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/06/10/Markdown学习笔记/" data-title="Markdown学习笔记" data-url="https://Misaka9468.github.io/2020/06/10/Markdown学习笔记/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
