@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="前言:第一次系统性地阅读cpp primer plus是在大一上学期期末左右，断断续续一直持续到了寒假才算是对整本书的大体框架有了一个大体的认识，完成了课后编程练习。
+
+然后，由于大一下学期四门数学＋大物的缘故，我基本上就再没写过c++. 唯一写过几次c++，就是用仅存的知识帮高中同学解答问题，然而">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cppp二周目补充笔记 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/06/18/cppp二周目补充笔记/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>cppp二周目补充笔记</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-19T07:25:26.867Z" itemprop="dateModified">2020-06-19</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chpater-1-开始"><span class="toc-number">2.</span> <span class="toc-text">Chpater 1 开始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-2-变量和基本类型"><span class="toc-number">3.</span> <span class="toc-text">Chapter 2 变量和基本类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-3-字符串、向量与数组"><span class="toc-number">4.</span> <span class="toc-text">Chapter 3 字符串、向量与数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4-表达式"><span class="toc-number">5.</span> <span class="toc-text">Chapter 4 表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-5-语句"><span class="toc-number">6.</span> <span class="toc-text">Chapter 5 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-函数"><span class="toc-number">7.</span> <span class="toc-text">Chapter 6 函数</span></a></li></ol>
+            </div>
+            
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h1><p>第一次系统性地阅读cpp primer plus是在大一上学期期末左右，断断续续一直持续到了寒假才算是对整本书的大体框架有了一个大体的认识，完成了课后编程练习。</p>
+<hr>
+<p>然后，由于大一下学期四门数学＋大物的缘故，我基本上就再没写过c++. 唯一写过几次c++，就是用仅存的知识帮高中同学解答问题，然而事实证明我真的快忘完了。</p>
+<p>终于在2020.6.18，我终于复习完了最后一门科目概率论与数理统计。一时间想起的事情就是再拾起c++，重刷cppp。</p>
+<hr>
+<p>阅读cppp二周目的预期目标: </p>
+<ul>
+<li><p><del>巩固</del> 拾起c++基本语法，达到能够用来刷oj的水平</p>
+</li>
+<li><p>补充在第一遍刷书的时候错过/没在意的知识</p>
+</li>
+</ul>
+<h1 id="Chpater-1-开始"><a href="#Chpater-1-开始" class="headerlink" title="Chpater 1 开始"></a>Chpater 1 开始</h1><ul>
+<li><p>写入endl，可以将与设备关联的缓冲区(buffer)中的内容刷到设备中，保证到目前为止程序所产生的所有输出都真正写入输出流中。</p>
+</li>
+<li><blockquote>
+<p>while( std::cin &gt;&gt; value)</p>
+</blockquote>
+<p>实质上是用istream对象作为条件，遇到文件结束符(end-of-file)或无效输入(读入的值不符合类型) , istream对线使条件为假。</p>
+</li>
+</ul>
+<h1 id="Chapter-2-变量和基本类型"><a href="#Chapter-2-变量和基本类型" class="headerlink" title="Chapter 2 变量和基本类型"></a>Chapter 2 变量和基本类型</h1><ul>
+<li><p>wchar_t 16位 确保可以存放机器最大扩展字符集中的任意一个字符</p>
+</li>
+<li><p>char16_t 和 char32_t 为Unicode字符集服务</p>
+</li>
+<li><blockquote>
+<p>unsigned char c = -1;   //    -1 % 256  =  255</p>
+</blockquote>
+<p>赋给无符号类型一个超过其范围的值，结果是初始值对无符号类型表示数值总数取模后的余数.</p>
+</li>
+<li><blockquote>
+<p>int a=0;</p>
+<p>int a= {0};</p>
+<p>int a{0};</p>
+<p>int a(0);</p>
+</blockquote>
+<p>四种初始化</p>
+</li>
+<li><blockquote>
+<p>int a=10; //必须具有全局作用域</p>
+<p>{</p>
+<p>std:: cout &lt;&lt; :: a; //显式访问全局变量</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>int &amp;refVal = ival </p>
+<p>int *p;</p>
+<p>int *&amp;r= p; //指针的引用, 从右向左读，离变量名越近影响越直接</p>
+</blockquote>
+<p>引用必须初始化；引用可以理解为别名</p>
+</li>
+<li><p>初始化指针为nullptr (c++11) 或 0</p>
+</li>
+<li><p>void* 类型指针可以存放任意对象的地址</p>
+</li>
+<li><p>如果想在多个文件之间共享const对线，必须在变量的定义之前添加extern关键字</p>
+</li>
+<li><blockquote>
+<p>const int *p = &val; //底层const，离p远，限定int</p>
+<p>int *const p = &val; //顶层const，离p近，限定p</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>const auto f = ci;  // 希望推断出的auto是一个顶层的const</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>decltype( f() ) sum = x; // c++ 11 sum的类型就是函数f的返回类型</p>
+</blockquote>
+<p>decltype((variable))的结果永远是引用，而decltype(variable)结果只有在variable本身是一个引用时才是引用</p>
+</li>
+</ul>
+<h1 id="Chapter-3-字符串、向量与数组"><a href="#Chapter-3-字符串、向量与数组" class="headerlink" title="Chapter 3 字符串、向量与数组"></a>Chapter 3 字符串、向量与数组</h1><blockquote>
+<p>string s1 = “hello”;   //拷贝初始化，显式创建一个临时对象用于拷贝</p>
+<p>string s2(“hello”);   // 直接初始化</p>
+</blockquote>
+<ul>
+<li><p>getline( is , s ) 不包含换行符</p>
+</li>
+<li><p>string.size() 返回的是无符号整型数，在一条表达式中最好不要混用有符号类型如int</p>
+</li>
+<li><p>字符串字面值与string是不同的类型</p>
+</li>
+<li><p>遍历string</p>
+<blockquote>
+<p>for ( auto c: str) {               // str是一个string类对象</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p>修改string</p>
+<blockquote>
+<p>for (auto &amp;c: str) {      // 此时c是引用</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>vector&lt;int&gt; ivec(10,3);  // 填充10个值为3的int类型元素</p>
+<p>ivec.push_back(4); //在尾部添加值为4的int类型元素</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>auto b = ivec.begin() ,  e = ivec.end();   //返回迭代器, 其中end方法返回的是尾后迭代器</p>
+<p>int num =  *b;   //迭代器的解引用，得到迭代器指向的对线</p>
+<p>auto it = ivec.cbegin();  // it的类型是vector<int>::const_iterator</p>
+</blockquote>
+<p>iter-&gt;mem 与 (*iter).mem 等价</p>
+</li>
+<li><p>凡是使用了迭代器的循环体，都不要向迭代器所属的容器添加元素</p>
+</li>
+<li><blockquote>
+<p>int ia[]={0,1};</p>
+<p>auto ia2(ia);  // ia2 是 int*</p>
+<p>int *beg = end(ia);  // begin与end函数返回的是指针，且end()返回的是尾后指针</p>
+</blockquote>
+</li>
+<li><p>使用数组初始化vector，只需指明拷贝区域的首元素地址与尾后地址</p>
+<blockquote>
+<p>int arr[]={0,1,2,3};</p>
+<p>vector&lt;int&gt; ivec( begin(arr) , end(arr) );</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>for auto(auto &amp;row : ia)       //外层数组ia的每一个元素</p>
+<p>​       for(auto col: row)           //对于内层数组的每一个元素</p>
+</blockquote>
+<p>将外层循环的控制变量声明成引用类型，避免数组被自动转换成指针，否则程序将在int*内遍历，显然不科学</p>
+</li>
+</ul>
+<h1 id="Chapter-4-表达式"><a href="#Chapter-4-表达式" class="headerlink" title="Chapter 4 表达式"></a>Chapter 4 表达式</h1><ul>
+<li><p>短路求值</p>
+<ul>
+<li>对于逻辑与运算符来说，当且仅当左侧运算对象为真时才对右侧运算对象求值。</li>
+<li>对于逻辑或运算符来说，当且仅当左侧运算对象为假时才对右侧运算对象求值。</li>
+</ul>
+</li>
+<li><p>移位运算符满足左结合律</p>
+<blockquote>
+<p>cout &lt;&lt; “1” &lt;&lt; “2” &lt;&lt; “3”;</p>
+</blockquote>
+</li>
+<li><p>sizeof</p>
+<ul>
+<li>对指针执行sizeof运算得到指针本身所占空间的大小</li>
+<li>对解引用指针执行sizeof匀速那得到指针指向的对象所占空间的大小</li>
+<li>对string对象或vector对象执行sizeof运算只返回该类型固定部分的大小，不会计算对象总的元素占用了多少空间</li>
+</ul>
+</li>
+<li><p>强制类型转换:   <em>cast-name</em>&lt;<em>type</em>&gt;(<em>expression</em>);</p>
+<ul>
+<li><p><strong>static_cast</strong>: 任何具有明确定义的类型转换，只要不包含底层const都可以使用</p>
+<blockquote>
+<p>double slope = static_cast&lt;double&gt;(j) /i;</p>
+</blockquote>
+</li>
+<li><p><strong>const_cast</strong>: 只能改变运算对象的底层const (去掉const性质)</p>
+<blockquote>
+<p>const char *pc;</p>
+<p>char <em>p =  const_cast&lt;char\</em>&gt;(pc);</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Chapter-5-语句"><a href="#Chapter-5-语句" class="headerlink" title="Chapter 5 语句"></a>Chapter 5 语句</h1><ul>
+<li><p>try语句块</p>
+<blockquote>
+<p>if(…)</p>
+<p>​    throw exception(“”);</p>
+<p>…</p>
+<p>try {</p>
+<p>​    <em>programs-statements</em></p>
+<p>}    catch (<em>exception-declaration</em>) {           //接受throw抛出的异常</p>
+<p>​            <em>handler-statements</em></p>
+<p>}    catch (<em>exception-declaration</em>) {</p>
+<p>​            <em>handler-statements</em></p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p>&lt;stdexcept&gt;定义的异常类</p>
+<ul>
+<li>runtime_error   只有在运行时才能检测出的问题<ul>
+<li>range_error </li>
+<li>overflow_error</li>
+<li>underflow_error</li>
+</ul>
+</li>
+<li>logic_error  程序逻辑错误<ul>
+<li>domain_error   参数对应结果值不存在</li>
+<li>invalid_argument</li>
+<li>length_error 试图创建一个超出该类型最大长度的对象</li>
+<li>out_of_range</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Chapter-6-函数"><a href="#Chapter-6-函数" class="headerlink" title="Chapter 6 函数"></a>Chapter 6 函数</h1>
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/06/18/cppp二周目补充笔记/" data-title="cppp二周目补充笔记" data-url="https://Misaka9468.github.io/2020/06/18/cppp二周目补充笔记/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
