@@ -94,13 +94,13 @@
         <h1>cppp二周目补充笔记</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-19T07:25:26.867Z" itemprop="dateModified">2020-06-19</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-20T09:32:14.375Z" itemprop="dateModified">2020-06-20</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chpater-1-开始"><span class="toc-number">2.</span> <span class="toc-text">Chpater 1 开始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-2-变量和基本类型"><span class="toc-number">3.</span> <span class="toc-text">Chapter 2 变量和基本类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-3-字符串、向量与数组"><span class="toc-number">4.</span> <span class="toc-text">Chapter 3 字符串、向量与数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4-表达式"><span class="toc-number">5.</span> <span class="toc-text">Chapter 4 表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-5-语句"><span class="toc-number">6.</span> <span class="toc-text">Chapter 5 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-函数"><span class="toc-number">7.</span> <span class="toc-text">Chapter 6 函数</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chpater-1-开始"><span class="toc-number">2.</span> <span class="toc-text">Chpater 1 开始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-2-变量和基本类型"><span class="toc-number">3.</span> <span class="toc-text">Chapter 2 变量和基本类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-3-字符串、向量与数组"><span class="toc-number">4.</span> <span class="toc-text">Chapter 3 字符串、向量与数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4-表达式"><span class="toc-number">5.</span> <span class="toc-text">Chapter 4 表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-5-语句"><span class="toc-number">6.</span> <span class="toc-text">Chapter 5 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-函数"><span class="toc-number">7.</span> <span class="toc-text">Chapter 6 函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-7-类"><span class="toc-number">8.</span> <span class="toc-text">Chapter 7 类</span></a></li></ol>
             </div>
             
             <h1 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h1><p>第一次系统性地阅读cpp primer plus是在大一上学期期末左右，断断续续一直持续到了寒假才算是对整本书的大体框架有了一个大体的认识，完成了课后编程练习。</p>
@@ -160,7 +160,12 @@
 </li>
 <li><p>void* 类型指针可以存放任意对象的地址</p>
 </li>
-<li><p>如果想在多个文件之间共享const对线，必须在变量的定义之前添加extern关键字</p>
+<li><blockquote>
+<p>typedef int arrT[10];  // arrT表示类型为int[10]</p>
+<p>using arrT = int[10]; //与上条语句等价</p>
+</blockquote>
+</li>
+<li><p>如果想在多个文件之间共享const对象，必须在变量的定义之前添加extern关键字</p>
 </li>
 <li><blockquote>
 <p>const int *p = &val; //底层const，离p远，限定int</p>
@@ -301,7 +306,184 @@
 </ul>
 </li>
 </ul>
-<h1 id="Chapter-6-函数"><a href="#Chapter-6-函数" class="headerlink" title="Chapter 6 函数"></a>Chapter 6 函数</h1>
+<h1 id="Chapter-6-函数"><a href="#Chapter-6-函数" class="headerlink" title="Chapter 6 函数"></a>Chapter 6 函数</h1><ul>
+<li><p>传递引用：避免拷贝，且无修改需求可声明为常量引用</p>
+<blockquote>
+<p>void reset(int &amp;i){</p>
+<p>i=0;</p>
+<p>}</p>
+<p>int j = 42;</p>
+<p>reset( j );  //直接传递对象而无须传递对象的地址</p>
+</blockquote>
+</li>
+<li><p>使用实参初始化形参时会忽略<strong>顶层const</strong></p>
+<blockquote>
+<p>void fcn (const int i);</p>
+<p>void fcn (int i); // 错误：重复定义了fcn(int)</p>
+<p>void fcn (int*);</p>
+<p>void fcn (int* const); //重复声明了fcn(int*)</p>
+<p>void fcn(const int*); //新函数，作用于指向常量的指针</p>
+<p>void fcn(int&amp;);</p>
+<p>void fcn(const int&amp;); //新函数，作用于常量引用</p>
+</blockquote>
+</li>
+<li><p>数组引用形参,此时维度成为类型</p>
+<blockquote>
+<p>void print( int (&amp;arr) [3] ) {</p>
+<p>} //现在维度是类型的一部分</p>
+<p>int i[2]={1,2};</p>
+<p>int j[3]={1,2,3};</p>
+<p>print(i); //错误：参数不对应</p>
+<p>print(j); //正确</p>
+</blockquote>
+</li>
+<li><p>了解initializer_list形参 c++11</p>
+</li>
+<li><p>了解初始化列表返回值 c++11</p>
+</li>
+<li><p>函数复杂返回值的方法 c++11</p>
+<ul>
+<li><p>使用尾置返回类型 auto fun(int a) -&gt;int(*)[10]</p>
+</li>
+<li><p>使用decltype </p>
+<blockquote>
+<p>int odd[]={1,2,3};</p>
+<p>decltype(odd) * fun(int a);</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>重载对作用域的一般性质没有改变：如果在内层作用域声明名字，它将隐藏外层作用域中声明的重载实体</p>
+</li>
+<li><p>了解默认实参：调用时只能只能忽略尾部的实参</p>
+</li>
+<li><p>了解内联函数</p>
+</li>
+<li><p>重载函数匹配</p>
+<ul>
+<li><blockquote>
+<p>void ff (int);</p>
+<p>void ff (short);</p>
+<p>ff(‘a’); //char提升成int,调用ff(int)</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>void manip (long);</p>
+<p>void manip (float);</p>
+<p>manip(3.14); // 二义性调用,类型为double的字面值既可以转换成float也可以转换成long</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>函数指针：</p>
+<ul>
+<li><p>使用重载函数的指针时，必须明确界定到底该选取哪个函数</p>
+</li>
+<li><blockquote>
+<p>bool function(int);  //一个函数的声明</p>
+<p>void fun( bool func(int) ); </p>
+<p>void fun( bool (*func)(int) ); //与上一条语句等价，函数类型自动转化换成函数指针</p>
+</blockquote>
+</li>
+<li><p>decltype作用于某个函数时，返回函数类型而非指针类型。故需要显式加上*</p>
+<blockquote>
+<p>int sum(int);</p>
+<p>decltype(sum)* func(int); </p>
+<p>//该func函数返回一个int(*)(int)类型 （即一个指向返回值为int，接受一个int参数的函数的指针)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Chapter-7-类"><a href="#Chapter-7-类" class="headerlink" title="Chapter 7 类"></a>Chapter 7 类</h1><ul>
+<li><p>定义在类内部的函数是隐式的inline函数</p>
+</li>
+<li><p>类的所有成员都必须在类的内部声明，但是成员函数体可以定义在类外。</p>
+</li>
+<li><p>成员函数通过一个名为this的额外的隐式参数来访问调用它的那个对象。</p>
+<p>即 total.isbn() 等价于 Sales_data::isbn(&amp;total)</p>
+</li>
+<li><p>默认情况下, this的类型是指向类类型非常量版本的常量指针，不能将其绑定到一个常量对象上，也就使得我们不能在一个常量对象上调用普通的成员函数。</p>
+<p>然而this是隐式的不会出现在参数列表中，因此允许把const关键字放在成员函数的参数列表之后。</p>
+<p>这样使用const的成员函数被称为常量成员函数。</p>
+<p><strong>常量对象，常量对象的引用或指针都只能调用常量成员函数</strong></p>
+<blockquote>
+<p>std::string isbn() const {return bookNo;}</p>
+</blockquote>
+</li>
+<li><p><strong>在类的外部定义成员函数时</strong>：与类内的声明保持一致，且使用作用域运算符</p>
+<blockquote>
+<p>double Sales::avg_price() const {…}</p>
+</blockquote>
+<p>而定义<strong>类的非成员接口函数</strong>，则不需要</p>
+</li>
+<li><blockquote>
+<p>return *this;     //有时是为了让函数模仿某些内置运算符，返回引用类型，即调用该函数的对象</p>
+</blockquote>
+</li>
+<li><p>构造函数</p>
+<ul>
+<li><p>构造函数不能声明成const的</p>
+</li>
+<li><p>某些类不能依赖于合成的默认构造函数</p>
+<ul>
+<li>当该类已经由我们定义了一些其他的构造函数</li>
+<li>合成的默认构造函数可能执行错误的操作 如给数组和指针对象初始化</li>
+<li>如果类中包含一个其他类类型的成员并且这个成员的类型没有默认构造函数</li>
+</ul>
+</li>
+<li><p>可使用</p>
+<blockquote>
+<p>Sales_data() = default; //显式指明需要一个默认构造函数</p>
+<p>Sales_data(const std::string &amp;s): bookNo(s) {}  //花括号内理解为”副作用”，一般为空</p>
+<p>// 真正构造的实现是在参数列表后,被称为构造函数初始值列表,可以为空，构造由花括号内完成</p>
+<p>Sales_data(std::istream &amp;);   //在类内声明，而在类外进行定义(需要加上类作用域),没有返回类型</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>private成员可以被类的成员函数访问，不能被类的非成员接口函数访问</p>
+</li>
+<li><p>友元: </p>
+<ul>
+<li><p>类的<strong>非成员接口函数</strong>若想访问类的非公有成员，可以在类内友元声明。在类外同样需要声明、定义。</p>
+<p>即友元声明的作用是影响访问权限，并非普通意义上的声明。</p>
+</li>
+<li><p>如果一个类指定了友元类，则友元类的成员函数可以访问此类的所有成员。</p>
+<blockquote>
+<p>class Screen{</p>
+<p>​    friend class Windows_mgr; //现在Windows_mgr类的成员函数可以访问Screen类的所有成员</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p>也可以仅令另一个类的某成员函数作为友元</p>
+<blockquote>
+<p>class Screen{</p>
+<p>​    friend void Windows_mgr::fun(int) ; //现在成员函数 void fun(int) 可以访问Screen类的所有成员</p>
+<p>}</p>
+</blockquote>
+<p>一个类想把一组重载函数声明为它的友元，它需要对这组函数中的每一个分别声明。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>可变数据成员</strong></p>
+<p>在数据类型前加mutable, 则即使是一个const对象的该成员的值也可以修改。 </p>
+<p>可用于追踪成员函数被调用了多少次</p>
+</li>
+<li><p>类内初始值必须使用=的初始化形式或花括号的直接初始化形式。</p>
+</li>
+<li><p>一个const成员函数如果以引用好的形式返回<em>this ,那么它的返回类型将是常量引用，得到的是一个常量对象。即使调用该成员函数的原对象是非const类型。*</em>这意味着不能利用返回的对象来调用某些需要改变类内成员值的成员函数**。</p>
+</li>
+<li><p>基于const的重载：通过区分成员函数是否是const的，可以对其进行重载。</p>
+<p>具体方法：重载一个<strong>常量成员函数</strong></p>
+<p>若常量成员函数返回引用时，应对应地返回常量引用</p>
+</li>
+<li><p>对于两个类来说，即使它们的成员完全一样，这两个类也不是同一个类型。</p>
+</li>
+<li><p>一个类的成员类型不能是类本身，但可以是指向其自身类型的引用或指针。</p>
+</li>
+</ul>
+
 
 			
             <section class="comment">
