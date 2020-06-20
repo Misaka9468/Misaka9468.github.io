@@ -21,7 +21,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>cppp二周目补充笔记 | Misaka妙妙屋</title>
+    <title>cppp二周目补充笔记1-7 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -81,7 +81,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "2020/06/18/cppp-note/";
+        var pageId = "2020/06/18/cppp-note1/";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -91,10 +91,10 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>cppp二周目补充笔记</h1>
+        <h1>cppp二周目补充笔记1-7</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-20T09:32:14.375Z" itemprop="dateModified">2020-06-20</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-20T14:50:26.463Z" itemprop="dateModified">2020-06-20</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
@@ -337,9 +337,9 @@
 <p>print(j); //正确</p>
 </blockquote>
 </li>
-<li><p>了解initializer_list形参 c++11</p>
+<li><p>了解<strong>initializer_list形参</strong> c++11</p>
 </li>
-<li><p>了解初始化列表返回值 c++11</p>
+<li><p>了解<strong>初始化列表返回值</strong> c++11</p>
 </li>
 <li><p>函数复杂返回值的方法 c++11</p>
 <ul>
@@ -355,9 +355,9 @@
 </li>
 <li><p>重载对作用域的一般性质没有改变：如果在内层作用域声明名字，它将隐藏外层作用域中声明的重载实体</p>
 </li>
-<li><p>了解默认实参：调用时只能只能忽略尾部的实参</p>
+<li><p>了解<strong>默认实参</strong>：调用时只能只能忽略尾部的实参</p>
 </li>
-<li><p>了解内联函数</p>
+<li><p>了解<strong>内联函数</strong></p>
 </li>
 <li><p>重载函数匹配</p>
 <ul>
@@ -440,6 +440,16 @@
 <p>Sales_data(std::istream &amp;);   //在类内声明，而在类外进行定义(需要加上类作用域),没有返回类型</p>
 </blockquote>
 </li>
+<li><p>如果成员是const、引用，或者属于某种未提供默认构造函数的类类型，我们必须通过构造函数初始值列表为这些成员提供初值，而不能用花括号为其提供初值。</p>
+</li>
+<li><p>最好避免使用某些成员初始化其他成员，最好用构造函数的参数作为成员的初始值。</p>
+</li>
+<li><p>默认构造函数的正确打开方式</p>
+<blockquote>
+<p>Sale_data obj(); //原意是声明一个类实例，并初始化；实际上定义了一个函数</p>
+<p>Sale_data obj; //正确用法</p>
+</blockquote>
+</li>
 </ul>
 </li>
 <li><p>private成员可以被类的成员函数访问，不能被类的非成员接口函数访问</p>
@@ -482,13 +492,65 @@
 </li>
 <li><p>一个类的成员类型不能是类本身，但可以是指向其自身类型的引用或指针。</p>
 </li>
+<li><p>作用域和定义在类外部的成员</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Window_mgr::Screenindex <span class="title">Window_mgr::clear</span><span class="params">(ScreenIndex i)</span></span>&#123;</span><br><span class="line">    <span class="comment">// ScreenIndex是Window_mgr类内的一个成员</span></span><br><span class="line">    <span class="comment">// 编译器在处理参数列表之前已经明确了我们位于Window_mgr类内作用域，故在参数及函数体内</span></span><br><span class="line">    <span class="comment">// 访问类内成员不需要加作用域符</span></span><br><span class="line">    <span class="comment">// 而返回值类型在函数名前，故若返回Window_mgr类内成员，还需要加上作用域</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>了解<strong>委托构造函数</strong> c++11</p>
+</li>
+<li><p>隐式的类类型转换：<strong>能通过一个实参调用的构造函数</strong>定义了一条从构造函数的参数类型向类类型隐式转换的规则。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sale_data定义了一个combine成员函数，接受一个Sale_data&amp;类型参数</span></span><br><span class="line"><span class="comment">// Sale_data定义了一个只接受string的构造函数</span></span><br><span class="line">Sale_data item;</span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span> = <span class="string">"hello"</span>;</span><br><span class="line">item.combine(<span class="keyword">word</span>); <span class="comment">//编译器用给定的string自动创建了一个临时sale_data对象</span></span><br><span class="line"><span class="comment">//只允许一步类型转换</span></span><br><span class="line">item.combine(<span class="string">"hello"</span>); <span class="comment">// 错误</span></span><br><span class="line">item.combine(<span class="built_in">string</span>(<span class="string">"hello"</span>)); <span class="comment">//正确</span></span><br><span class="line">item.combine(Sales_data(<span class="string">"hello"</span>)); <span class="comment">//正确</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在构造函数的某个版本前面加explict，能够阻止隐式转换</p>
+<p>此时使用该构造函数只能用于直接初始化</p>
+<blockquote>
+<p>Sale_data item(word); // 正确：直接初始化</p>
+<p>Sale_data item1= word; //错误</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>了解<strong>聚合类</strong>与<strong>字面值常量类</strong></p>
+</li>
+<li><p>类的静态成员</p>
+<ul>
+<li><p>成员声明前加关键字static ; 既可以是private也可是public ; 类型可以是常量、引用、指针、类类型、函数等。所有类共享这一个静态成员，不与任何对象绑定在一起</p>
+</li>
+<li><p>静态函数成员不包含this指针，不能声明成是const的，在函数体内也不能使用this指针。</p>
+</li>
+<li><p>类的静态函数的定义：</p>
+<p>既可以在类的内部定义也可在类的外部定义，在类的外部定义时不能重复static关键字。</p>
+</li>
+<li><p>类的静态成员的使用方法:</p>
+<blockquote>
+<p>r = Account::rate(); //使用作用域运算符</p>
+<p>r = ac.rate(); //通过某对象或引用</p>
+<p>r = pac-&gt;rate(); // 通过指向Account对象的指针</p>
+</blockquote>
+</li>
+<li><p>成员函数无需通过作用域运算符就能直接访问静态成员。</p>
+</li>
+<li><p>静态成员能做普通成员无法做到的：</p>
+<ul>
+<li><blockquote>
+<p>class Bar{</p>
+<p>static Bar mem; //可以</p>
+<p>Bar mem; //不阔以</p>
+<p>Bar* mem; //阔以</p>
+<p>}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/06/18/cppp-note/" data-title="cppp二周目补充笔记" data-url="https://Misaka9468.github.io/2020/06/18/cppp-note/"></div>
+	<div class="ds-thread" data-thread-key="/2020/06/18/cppp-note1/" data-title="cppp二周目补充笔记1-7" data-url="https://Misaka9468.github.io/2020/06/18/cppp-note1/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
