@@ -113,13 +113,13 @@ se">
         <h1>cpp-note3</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-22T15:02:07.000Z" itemprop="datePublished">2020-06-22</time>，更新于:<time datetime="2020-06-23T03:16:21.607Z" itemprop="dateModified">2020-06-23</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-22T15:02:07.000Z" itemprop="datePublished">2020-06-22</time>，更新于:<time datetime="2020-06-23T13:22:04.662Z" itemprop="dateModified">2020-06-23</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-11-关联容器"><span class="toc-number">1.</span> <span class="toc-text">Chapter 11 关联容器</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-11-关联容器"><span class="toc-number">1.</span> <span class="toc-text">Chapter 11 关联容器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字类型的要求"><span class="toc-number">1.1.</span> <span class="toc-text">关键字类型的要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pair"><span class="toc-number">1.2.</span> <span class="toc-text">pair</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关联容器操作"><span class="toc-number">1.3.</span> <span class="toc-text">关联容器操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关联容器迭代器"><span class="toc-number">1.3.1.</span> <span class="toc-text">关联容器迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加元素"><span class="toc-number">1.3.2.</span> <span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除元素"><span class="toc-number">1.3.3.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下标操作"><span class="toc-number">1.3.4.</span> <span class="toc-text">下标操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找元素"><span class="toc-number">1.3.5.</span> <span class="toc-text">查找元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无序容器"><span class="toc-number">1.4.</span> <span class="toc-text">无序容器</span></a></li></ol></li></ol>
             </div>
             
             <h1 id="Chapter-11-关联容器"><a href="#Chapter-11-关联容器" class="headerlink" title="Chapter 11 关联容器"></a>Chapter 11 关联容器</h1><ul>
@@ -173,6 +173,286 @@ se">
 <tr>
 <td><code>unordered_multiset</code></td>
 <td>哈希组织的<code>set</code>，关键字可以重复出现</td>
+</tr>
+</tbody></table>
+<p>// map的用法<br>map&lt;string,size_t&gt; word_count;<br>string word;<br>while(cin &gt;&gt; word)<br>    ++word_count[word];<br>for(const auto &amp;w:word_count)<br>    cout &lt;&lt; w.first &lt;&lt; “ occurs “ &lt;&lt; w.second; //读取map里元素时，返回一个pair<br>//set的用法<br>set&lt;string&gt; exclude = {“the”,”But”};<br>string word;<br>while(cin&gt;&gt;word)<br>    if(exclude.find(word) == exclude.end())  //等于尾后迭代器，等于没有找到<br>        …</p>
+<h2 id="关键字类型的要求"><a href="#关键字类型的要求" class="headerlink" title="关键字类型的要求"></a>关键字类型的要求</h2><ul>
+<li>对于有序容器，如果一个类型定义了行为正常的”&lt;”运算符，则可以将其用作关键字类型。默认是<code>&lt;</code>。</li>
+<li>如果想传递一个比较的函数，可以这样定义：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareIsbn</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs,<span class="keyword">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> lhs.isbn() &lt; rhs.isbn();</span><br><span class="line">&#125;</span><br><span class="line">mutiset&lt;Sales_data,<span class="keyword">decltype</span>(compareIsbn)*&gt;bookstore(compareIsbn);</span><br><span class="line"><span class="comment">// decltype后使用*表示希望比较操作类型是一种函数指针类型</span></span><br><span class="line"><span class="comment">//用compareIsbn初始化bookstore对象 表示向bookstore添加元素时，调用compareIsbn来进行排序</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="pair"><a href="#pair" class="headerlink" title="pair"></a>pair</h2><ul>
+<li>在<code>utility</code>头文件中定义。</li>
+<li>一个<code>pair</code>保存两个数据成员，两个类型不要求一样。</li>
+</ul>
+<p><strong>pair的操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pair p;</code></td>
+<td><code>p</code>是一个<code>pair</code>，两个类型分别是<code>T1</code>和<code>T2</code>的成员都进行了值初始化。</td>
+</tr>
+<tr>
+<td><code>pair p(v1, v2);</code></td>
+<td><code>first</code>和<code>second</code>分别用<code>v1</code>和<code>v2</code>进行初始化。</td>
+</tr>
+<tr>
+<td><code>pairp = {v1, v2};</code></td>
+<td>等价于<code>p(v1, v2)</code></td>
+</tr>
+<tr>
+<td><code>make_pair(v1, v2);</code></td>
+<td><code>pair</code>的类型从<code>v1</code>和<code>v2</code>的类型推断出来。</td>
+</tr>
+<tr>
+<td><code>p.first</code></td>
+<td>返回<code>p</code>的名为<code>first</code>的数据成员。</td>
+</tr>
+<tr>
+<td><code>p.second</code></td>
+<td>返回<code>p</code>的名为<code>second</code>的数据成员。</td>
+</tr>
+<tr>
+<td><code>p1 relop p2</code></td>
+<td>&lt; &gt; &lt;= &gt;=运算关系符按字典序定义。</td>
+</tr>
+<tr>
+<td><code>p1 == p2</code></td>
+<td>必须两对元素两两相等</td>
+</tr>
+<tr>
+<td><code>p1 != p2</code></td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string,int&gt; process(vector&lt;string&gt; &amp;v)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!v.empty())</span><br><span class="line">        <span class="keyword">return</span> &#123;v.back(),v.back.<span class="built_in">size</span>()&#125;;  <span class="comment">//列表初始化</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> pair&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;(); <span class="comment">//隐式构造返回值</span></span><br><span class="line">    	<span class="comment">//也可以是return make_pair(v.back(),v.back().size());</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h2><p><strong>关联容器额外的类型别名</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型别名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>key_type</code></td>
+<td>此容器类型的关键字类型</td>
+</tr>
+<tr>
+<td><code>mapped_type</code></td>
+<td>每个关键字关联的类型，只适用于<code>map</code></td>
+</tr>
+<tr>
+<td><code>value_type</code></td>
+<td>对于<code>map</code>，是<code>pair</code>; 对于<code>set</code>，和<code>key_type</code>相同。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>set&lt;string&gt;::value_type v1; //v1是一个string  </p>
+<p>map&lt;string, int&gt;::value_type v3 ; //v3是一个pair&lt;const string, int&gt;</p>
+<p>map&lt;string, int&gt;::key_type v4; //v4是一个string</p>
+<p>map&lt;string, int&gt;::mapped_type v5; //v5是一个int</p>
+</blockquote>
+<h3 id="关联容器迭代器"><a href="#关联容器迭代器" class="headerlink" title="关联容器迭代器"></a>关联容器迭代器</h3><ul>
+<li>解引用一个关联容器迭代器时，会得到一个类型为容器的<code>value_type</code>的值的引用。</li>
+<li><code>set</code>的迭代器是<code>const</code>的。</li>
+<li>遍历关联容器：使用<code>begin</code>和<code>end</code>，遍历<code>map</code>、<code>multimap</code>、<code>set</code>、<code>multiset</code>时，迭代器按<strong>关键字升序</strong>遍历元素。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> map_it = word_count.<span class="built_in">begin</span>(); <span class="comment">//*map_it是一个指向pair&lt;const string,size_t&gt;对象的引用</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; map_it-&gt;first;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; map_it-&gt;second;</span><br><span class="line">map_it-&gt;first = <span class="string">"new key"</span>; <span class="comment">//错误:关键字是const的</span></span><br><span class="line">++map_it-&gt;second; <span class="comment">//正确</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>通常不对关联容器使用泛型算法</strong> <ul>
+<li>在实际过程中要么是把它当作一个源序列：使用泛型copy算法将元素从一个关联容器拷贝到另一个序列。</li>
+<li>可以调用inserter将一个插入器绑定到一个关联容器。通过使用inserter可以将关联容器当作一个目的位置来调用另一个算法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><p><strong>关联容器<code>insert</code>操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><code>insert</code>操作</th>
+<th>关联容器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.insert(v)</code> <code>c.emplace(args)</code></td>
+<td><code>v</code>是<code>value_type</code>类型的对象；<code>args</code>用来构造一个元素。 对于<code>map</code>和<code>set</code>，只有元素的关键字不存在<code>c</code>中才插入或构造元素。函数返回一个<code>pair</code>，包含一个迭代器，指向具有指定关键字的元素，以及一个指示插入是否成功的<code>bool</code>值。对于<code>multimap</code>和<code>multiset</code>则会插入范围中的每个元素。</td>
+</tr>
+<tr>
+<td><code>c.insert(b, e)</code> <code>c.insert(il)</code></td>
+<td><code>b</code>和<code>e</code>是迭代器，表示一个<code>c::value_type</code>类型值的范围；<code>il</code>是这种值的花括号列表。函数返回<code>void</code>。对于 <code>map</code>和<code>set</code>，只插入关键字不在<code>c</code>中的元素。</td>
+</tr>
+<tr>
+<td><code>c.insert(p, v)</code> <code>c.emplace(p, args)</code></td>
+<td>类似<code>insert(v)</code>，但将迭代器<code>p</code>作为一个提示，指出从哪里开始搜索新元素应该存储的位置。返回一个迭代器，指向具有给定关键字的元素。</td>
+</tr>
+</tbody></table>
+<p>向<code>map</code>添加元素：</p>
+<ul>
+<li><code>word_count.insert({word, 1});</code></li>
+<li><code>word_count.insert(make_pair(word, 1));</code></li>
+<li><code>word_count.insert(pair(word, 1));</code></li>
+<li><code>word_count.insert(map::value_type (word, 1));</code></li>
+</ul>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p><strong>从关联容器中删除元素</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.erase(k)</code></td>
+<td>从<code>c</code>中删除每个<strong>关键字</strong>为<code>k</code>的元素。返回一个<code>size_type</code>值，指出删除的元素的数量。</td>
+</tr>
+<tr>
+<td><code>c.erase(p)</code></td>
+<td>从<code>c</code>中删除迭代器<code>p</code>指定的元素。<code>p</code>必须指向<code>c</code>中一个真实元素，不能等于<code>c.end()</code>。返回一个指向<code>p</code>之后元素的迭代器，若<code>p</code>指向<code>c</code>中的尾元素，则返回<code>c.end()</code></td>
+</tr>
+<tr>
+<td><code>c.erase(b, e)</code></td>
+<td>删除迭代器对<code>b</code>和<code>e</code>所表示范围中的元素。返回<code>e</code>。</td>
+</tr>
+</tbody></table>
+<h3 id="下标操作"><a href="#下标操作" class="headerlink" title="下标操作"></a>下标操作</h3><p><strong><code>map</code>和<code>unordered_map</code>的下标操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c[k]</code></td>
+<td>返回关键字为<code>k</code>的元素；如果<code>k</code>不在<code>c</code>中，添加一个关键字为<code>k</code>的元素，对其值初始化。</td>
+</tr>
+<tr>
+<td><code>c.at(k)</code></td>
+<td>访问关键字为<code>k</code>的元素，带参数检查；若<code>k</code>不存在在<code>c</code>中，抛出一个<code>out_of_range</code>异常。</td>
+</tr>
+</tbody></table>
+<p>set类型不支持下标，因为set中没有与关键字相关联的”值”。</p>
+<p>通常，解引用一个迭代器所返回的类型与下标运算符返回的类型是一样的。但对map则不然：当对一个map进行下标操作时，会获得一个mapped_type对象(value);但解引用一个map迭代器时，得到一个value_type对象(pair)</p>
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p><strong>在一个关联容器中查找元素</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>c.find(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字为<code>k</code>的元素，若<code>k</code>不在容器中，则返回尾后迭代器</td>
+</tr>
+<tr>
+<td><code>c.count(k)</code></td>
+<td>返回关键字等于<code>k</code>的元素的数量。对于不允许重复关键字的容器，返回值永远是0或1。</td>
+</tr>
+<tr>
+<td><code>c.lower_bound(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字<strong>不小于</strong><code>k</code>的元素。</td>
+</tr>
+<tr>
+<td><code>c.upper_bound(k)</code></td>
+<td>返回一个迭代器，指向第一个关键字<strong>大于</strong><code>k</code>的元素。</td>
+</tr>
+<tr>
+<td><code>c.equal_range(k)</code></td>
+<td>返回一个迭代器<code>pair</code>，表示关键字等于<code>k</code>的元素的范围。若<code>k</code>不存在，<code>pair</code>的两个成员均等于<code>c.end()</code>。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>lower_bound</code>和<code>upper_bound</code>不适用于无序容器。</li>
+<li>下标和<code>at</code>操作只适用于非<code>const</code>的<code>map</code>和<code>unordered_map</code>。</li>
+</ul>
+<ul>
+<li><p>如果一个multimap或multiset中有多个元素具有给定关键字，则这些元素在容器中会相邻存储。结合使用count与find，来寻找该关键字对应的所有值。</p>
+<p>或者结合使用lower_bound与upper_bound，原因在于lower_bound是左闭，指向第一个指定关键字。</p>
+<p>或者使用equal_range，此函数接受一个关键字，返回一个迭代器pair.若关键字存在，则第一个迭代器指向第一个与关键字匹配的元素，第二个迭代器是最后一个匹配元素的尾后。若未找到匹配元素，则两个迭代器都指向关键字可以插入的位置。</p>
+</li>
+</ul>
+<h2 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h2><ul>
+<li>有序容器使用比较运算符来组织元素；无序容器使用哈希函数和关键字类型的<code>==</code>运算符。</li>
+<li>理论上哈希技术可以获得更好的性能。</li>
+<li>无序容器在存储上组织为一组桶(bucket)，每个桶保存零个或多个元素。无序容器使用一个哈希函数将元素映射到桶。</li>
+</ul>
+<p><strong>无序容器管理操作</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>桶接口</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>c.bucket_count()</code></td>
+<td>正在使用的桶的数目</td>
+</tr>
+<tr>
+<td><code>c.max_bucket_count()</code></td>
+<td>容器能容纳的最多的桶的数目</td>
+</tr>
+<tr>
+<td><code>c.bucket_size(n)</code></td>
+<td>第<code>n</code>个桶中有多少个元素</td>
+</tr>
+<tr>
+<td><code>c.bucket(k)</code></td>
+<td>关键字为<code>k</code>的元素在哪个桶中</td>
+</tr>
+<tr>
+<td><strong>桶迭代</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>local_iterator</code></td>
+<td>可以用来访问桶中元素的迭代器类型</td>
+</tr>
+<tr>
+<td><code>const_local_iterator</code></td>
+<td>桶迭代器的<code>const</code>版本</td>
+</tr>
+<tr>
+<td><code>c.begin(n)</code>，<code>c.end(n)</code></td>
+<td>桶<code>n</code>的首元素迭代器</td>
+</tr>
+<tr>
+<td><code>c.cbegin(n)</code>，<code>c.cend(n)</code></td>
+<td>与前两个函数类似，但返回<code>const_local_iterator</code>。</td>
+</tr>
+<tr>
+<td><strong>哈希策略</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>c.load_factor()</code></td>
+<td>每个桶的平均元素数量，返回<code>float</code>值。</td>
+</tr>
+<tr>
+<td><code>c.max_load_factor()</code></td>
+<td><code>c</code>试图维护的平均比桶大小，返回<code>float</code>值。<code>c</code>会在需要时添加新的桶，以使得<code>load_factor&lt;=max_load_factor</code></td>
+</tr>
+<tr>
+<td><code>c.rehash(n)</code></td>
+<td>重组存储，使得<code>bucket_count&gt;=n</code>，且<code>bucket_count&gt;size/max_load_factor</code></td>
+</tr>
+<tr>
+<td><code>c.reverse(n)</code></td>
+<td>重组存储，使得<code>c</code>可以保存<code>n</code>个元素且不必<code>rehash</code>。</td>
 </tr>
 </tbody></table>
 
