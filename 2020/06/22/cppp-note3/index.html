@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="Chapter 11 关联容器
+关联容器和顺序容器的不同：关联容器中的元素时按照关键字来保存和访问的。
+关联容器支持通过关键字来高效地查找和读取元素，基本的关联容器类型是 map和 set。
+
+关联容器类型：
+
+
+
+容器类型
+解释
+
+
+
+按顺序存储
+
+
+
+map
+关键数组：保存关键字-值对
+
+
+se">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cpp-note3 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/06/22/cppp-note3/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>cpp-note3</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-06-22T15:02:07.000Z" itemprop="datePublished">2020-06-22</time>，更新于:<time datetime="2020-06-23T03:16:21.607Z" itemprop="dateModified">2020-06-23</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-11-关联容器"><span class="toc-number">1.</span> <span class="toc-text">Chapter 11 关联容器</span></a></li></ol>
+            </div>
+            
+            <h1 id="Chapter-11-关联容器"><a href="#Chapter-11-关联容器" class="headerlink" title="Chapter 11 关联容器"></a>Chapter 11 关联容器</h1><ul>
+<li>关联容器和顺序容器的不同：关联容器中的元素时按照<strong>关键字</strong>来保存和访问的。</li>
+<li>关联容器支持通过关键字来高效地查找和读取元素，基本的关联容器类型是 <code>map</code>和 <code>set</code>。</li>
+</ul>
+<p><strong>关联容器类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>容器类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按顺序存储</td>
+<td></td>
+</tr>
+<tr>
+<td><code>map</code></td>
+<td>关键数组：保存<code>关键字-值</code>对</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td>关键字即值，即只保存关键字的容器</td>
+</tr>
+<tr>
+<td><code>multimap</code></td>
+<td>支持同一个键多次出现的<code>map</code></td>
+</tr>
+<tr>
+<td><code>multiset</code></td>
+<td>支持同一个键多次出现的<code>set</code></td>
+</tr>
+<tr>
+<td>无序集合</td>
+<td></td>
+</tr>
+<tr>
+<td><code>unordered_map</code></td>
+<td>用哈希函数组织的<code>map</code></td>
+</tr>
+<tr>
+<td><code>unordered_set</code></td>
+<td>用哈希函数组织的<code>set</code></td>
+</tr>
+<tr>
+<td><code>unordered_multimap</code></td>
+<td>哈希组织的<code>map</code>，关键字可以重复出现</td>
+</tr>
+<tr>
+<td><code>unordered_multiset</code></td>
+<td>哈希组织的<code>set</code>，关键字可以重复出现</td>
+</tr>
+</tbody></table>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/06/22/cppp-note3/" data-title="cpp-note3" data-url="https://Misaka9468.github.io/2020/06/22/cppp-note3/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+

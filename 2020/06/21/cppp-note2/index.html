@@ -23,7 +23,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>cppp-note2 | Misaka妙妙屋</title>
+    <title>cppp二周目补充笔记8-10 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -93,16 +93,16 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>cppp-note2</h1>
+        <h1>cppp二周目补充笔记8-10</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-21T00:51:59.000Z" itemprop="datePublished">2020-06-21</time>，更新于:<time datetime="2020-06-22T14:36:07.558Z" itemprop="dateModified">2020-06-22</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-21T00:51:59.000Z" itemprop="datePublished">2020-06-21</time>，更新于:<time datetime="2020-06-23T03:16:40.398Z" itemprop="dateModified">2020-06-23</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-8-IO库"><span class="toc-number">1.</span> <span class="toc-text">Chapter 8 IO库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-9-顺序容器"><span class="toc-number">2.</span> <span class="toc-text">Chapter 9 顺序容器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器操作"><span class="toc-number">2.2.</span> <span class="toc-text">容器操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">2.2.1.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值与swap"><span class="toc-number">2.2.2.</span> <span class="toc-text">赋值与swap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大小"><span class="toc-number">2.2.3.</span> <span class="toc-text">大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加元素"><span class="toc-number">2.2.4.</span> <span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问元素"><span class="toc-number">2.2.5.</span> <span class="toc-text">访问元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除元素"><span class="toc-number">2.2.6.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊的forwad-list操作"><span class="toc-number">2.2.7.</span> <span class="toc-text">特殊的forwad_list操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变容器大小"><span class="toc-number">2.2.8.</span> <span class="toc-text">改变容器大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取迭代器"><span class="toc-number">2.2.9.</span> <span class="toc-text">获取迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向容器的额外成员"><span class="toc-number">2.2.10.</span> <span class="toc-text">反向容器的额外成员</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器操作可能使迭代器失效"><span class="toc-number">2.3.</span> <span class="toc-text">容器操作可能使迭代器失效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector对象是如何增长的"><span class="toc-number">2.4.</span> <span class="toc-text">vector对象是如何增长的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管理容量的成员函数"><span class="toc-number">2.4.1.</span> <span class="toc-text">管理容量的成员函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外的String操作"><span class="toc-number">2.5.</span> <span class="toc-text">额外的String操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造string的其他方法"><span class="toc-number">2.5.1.</span> <span class="toc-text">构造string的其他方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr操作"><span class="toc-number">2.5.2.</span> <span class="toc-text">substr操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变string的其他方法"><span class="toc-number">2.5.3.</span> <span class="toc-text">改变string的其他方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string搜索操作"><span class="toc-number">2.5.4.</span> <span class="toc-text">string搜索操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#s-compare的几种参数形式"><span class="toc-number">2.5.5.</span> <span class="toc-text">s.compare的几种参数形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string和数值转换"><span class="toc-number">2.5.6.</span> <span class="toc-text">string和数值转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器适配器"><span class="toc-number">2.6.</span> <span class="toc-text">容器适配器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#适配器的通用操作和类型"><span class="toc-number">2.6.1.</span> <span class="toc-text">适配器的通用操作和类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stack"><span class="toc-number">2.6.2.</span> <span class="toc-text">stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#queue和priority-queue"><span class="toc-number">2.6.3.</span> <span class="toc-text">queue和priority_queue</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-10-泛型算法"><span class="toc-number">3.</span> <span class="toc-text">Chapter 10 泛型算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述-1"><span class="toc-number">3.1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#find算法"><span class="toc-number">3.1.1.</span> <span class="toc-text">find算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初识泛型算法"><span class="toc-number">3.2.</span> <span class="toc-text">初识泛型算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只读算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">只读算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写容器元素的算法"><span class="toc-number">3.2.2.</span> <span class="toc-text">写容器元素的算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重排容器元素的算法"><span class="toc-number">3.2.3.</span> <span class="toc-text">重排容器元素的算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定制操作"><span class="toc-number">3.3.</span> <span class="toc-text">定制操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向算法传递函数："><span class="toc-number">3.3.1.</span> <span class="toc-text">向算法传递函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda表达式"><span class="toc-number">3.3.2.</span> <span class="toc-text">lambda表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda捕获和返回"><span class="toc-number">3.3.3.</span> <span class="toc-text">lambda捕获和返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数绑定"><span class="toc-number">3.3.4.</span> <span class="toc-text">参数绑定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#再探迭代器"><span class="toc-number">3.4.</span> <span class="toc-text">再探迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插入迭代器"><span class="toc-number">3.4.1.</span> <span class="toc-text">插入迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iostream迭代器"><span class="toc-number">3.4.2.</span> <span class="toc-text">iostream迭代器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#泛型算法结构"><span class="toc-number">3.5.</span> <span class="toc-text">泛型算法结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5类迭代器"><span class="toc-number">3.5.1.</span> <span class="toc-text">5类迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法的形参模式"><span class="toc-number">3.5.2.</span> <span class="toc-text">算法的形参模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法命名规范"><span class="toc-number">3.5.3.</span> <span class="toc-text">算法命名规范</span></a></li></ol></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-8-IO库"><span class="toc-number">1.</span> <span class="toc-text">Chapter 8 IO库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-9-顺序容器"><span class="toc-number">2.</span> <span class="toc-text">Chapter 9 顺序容器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器操作"><span class="toc-number">2.2.</span> <span class="toc-text">容器操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">2.2.1.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值与swap"><span class="toc-number">2.2.2.</span> <span class="toc-text">赋值与swap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大小"><span class="toc-number">2.2.3.</span> <span class="toc-text">大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加元素"><span class="toc-number">2.2.4.</span> <span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问元素"><span class="toc-number">2.2.5.</span> <span class="toc-text">访问元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除元素"><span class="toc-number">2.2.6.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊的forwad-list操作"><span class="toc-number">2.2.7.</span> <span class="toc-text">特殊的forwad_list操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变容器大小"><span class="toc-number">2.2.8.</span> <span class="toc-text">改变容器大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取迭代器"><span class="toc-number">2.2.9.</span> <span class="toc-text">获取迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反向容器的额外成员"><span class="toc-number">2.2.10.</span> <span class="toc-text">反向容器的额外成员</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器操作可能使迭代器失效"><span class="toc-number">2.3.</span> <span class="toc-text">容器操作可能使迭代器失效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector对象是如何增长的"><span class="toc-number">2.4.</span> <span class="toc-text">vector对象是如何增长的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管理容量的成员函数"><span class="toc-number">2.4.1.</span> <span class="toc-text">管理容量的成员函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#额外的String操作"><span class="toc-number">2.5.</span> <span class="toc-text">额外的String操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造string的其他方法"><span class="toc-number">2.5.1.</span> <span class="toc-text">构造string的其他方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr操作"><span class="toc-number">2.5.2.</span> <span class="toc-text">substr操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变string的其他方法"><span class="toc-number">2.5.3.</span> <span class="toc-text">改变string的其他方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string搜索操作"><span class="toc-number">2.5.4.</span> <span class="toc-text">string搜索操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#s-compare的几种参数形式"><span class="toc-number">2.5.5.</span> <span class="toc-text">s.compare的几种参数形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string和数值转换"><span class="toc-number">2.5.6.</span> <span class="toc-text">string和数值转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器适配器"><span class="toc-number">2.6.</span> <span class="toc-text">容器适配器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#适配器的通用操作和类型"><span class="toc-number">2.6.1.</span> <span class="toc-text">适配器的通用操作和类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stack"><span class="toc-number">2.6.2.</span> <span class="toc-text">stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#queue和priority-queue"><span class="toc-number">2.6.3.</span> <span class="toc-text">queue和priority_queue</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-10-泛型算法"><span class="toc-number">3.</span> <span class="toc-text">Chapter 10 泛型算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述-1"><span class="toc-number">3.1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#find算法"><span class="toc-number">3.1.1.</span> <span class="toc-text">find算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初识泛型算法"><span class="toc-number">3.2.</span> <span class="toc-text">初识泛型算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只读算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">只读算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写容器元素的算法"><span class="toc-number">3.2.2.</span> <span class="toc-text">写容器元素的算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重排容器元素的算法"><span class="toc-number">3.2.3.</span> <span class="toc-text">重排容器元素的算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定制操作"><span class="toc-number">3.3.</span> <span class="toc-text">定制操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向算法传递函数："><span class="toc-number">3.3.1.</span> <span class="toc-text">向算法传递函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda表达式"><span class="toc-number">3.3.2.</span> <span class="toc-text">lambda表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda捕获和返回"><span class="toc-number">3.3.3.</span> <span class="toc-text">lambda捕获和返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数绑定"><span class="toc-number">3.3.4.</span> <span class="toc-text">参数绑定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#再探迭代器"><span class="toc-number">3.4.</span> <span class="toc-text">再探迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插入迭代器"><span class="toc-number">3.4.1.</span> <span class="toc-text">插入迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iostream迭代器"><span class="toc-number">3.4.2.</span> <span class="toc-text">iostream迭代器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#泛型算法结构"><span class="toc-number">3.5.</span> <span class="toc-text">泛型算法结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5类迭代器"><span class="toc-number">3.5.1.</span> <span class="toc-text">5类迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法的形参模式"><span class="toc-number">3.5.2.</span> <span class="toc-text">算法的形参模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法命名规范"><span class="toc-number">3.5.3.</span> <span class="toc-text">算法命名规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特定容器算法"><span class="toc-number">3.6.</span> <span class="toc-text">特定容器算法</span></a></li></ol></li></ol>
             </div>
             
             <h1 id="Chapter-8-IO库"><a href="#Chapter-8-IO库" class="headerlink" title="Chapter 8 IO库"></a>Chapter 8 IO库</h1><ul>
@@ -1214,12 +1214,87 @@
 <li><p>区分拷贝元素的版本和不拷贝的版本：拷贝版本通常加<code>_copy</code>。</p>
 </li>
 </ul>
+<h2 id="特定容器算法"><a href="#特定容器算法" class="headerlink" title="特定容器算法"></a>特定容器算法</h2><ul>
+<li>对于<code>list</code>和<code>forward_list</code>，优先使用成员函数版本的算法而不是通用算法。</li>
+</ul>
+<p><strong>list和forward_list成员函数版本的算法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lst.merge(lst2)</code></td>
+<td>将来自<code>lst2</code>的元素合并入<code>lst</code>，二者都必须是有序的，合并之后lst2变为空。使用&lt;运算符</td>
+</tr>
+<tr>
+<td><code>lst.merge(lst2, comp)</code></td>
+<td>同上，给定比较操作。</td>
+</tr>
+<tr>
+<td><code>lst.remove(val)</code></td>
+<td>调用<code>erase</code>删除掉与给定值相等(==)的每个元素</td>
+</tr>
+<tr>
+<td><code>lst.remove_if(pred)</code></td>
+<td>调用<code>erase</code>删除掉令一元谓词为真的每个元素</td>
+</tr>
+<tr>
+<td><code>lst.reverse()</code></td>
+<td>反转<code>lst</code>中元素的顺序</td>
+</tr>
+<tr>
+<td><code>lst.sort()</code></td>
+<td>使用<code>&lt;</code>排序元素</td>
+</tr>
+<tr>
+<td><code>lst.sort(comp)</code></td>
+<td>使用给定比较操作排序元素</td>
+</tr>
+<tr>
+<td><code>lst.unique()</code></td>
+<td>调用<code>erase</code>删除同一个值的连续拷贝。使用<code>==</code>。</td>
+</tr>
+<tr>
+<td><code>lst.unique(pred)</code></td>
+<td>调用<code>erase</code>删除同一个值的连续拷贝。使用给定的二元谓词。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>上面的操作都返回<code>void</code></li>
+</ul>
+<p><strong>list和forward_list的splice成员函数版本的参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>(p, lst2)</code></td>
+<td><code>p</code>是一个指向<code>lst</code>中元素的迭代器，或者一个指向<code>flst</code>首前位置的迭代器。函数将<code>lst2</code>中的所有元素移动到<code>lst</code>中<code>p</code>之前的位置或是<code>flst</code>中<code>p</code>之后的位置。将元素从<code>lst2</code>中删除。<code>lst2</code>的类型必须和<code>lst</code>相同，而且不能是同一个链表。</td>
+</tr>
+<tr>
+<td><code>(p, lst2, p2)</code></td>
+<td>同上，<code>p2</code>是一个指向<code>lst2</code>中位置的有效的迭代器，将<code>p2</code>指向的元素移动到<code>lst</code>中，或将<code>p2</code>之后的元素移动到<code>flst</code>中。<code>lst2</code>可以是于<code>lst</code>或<code>flst</code>相同的链表。</td>
+</tr>
+<tr>
+<td><code>(p, lst2, b, e)</code></td>
+<td><code>b</code>和<code>e</code>表示<code>lst2</code>中的合法范围。将给定范围中的元素从<code>lst2</code>移动到<code>lst</code>或<code>first</code>中。<code>lst2</code>与<code>lst</code>可以使相同的链表，但<code>p</code>不能指向给定范围中的元素。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用<code>lst.splice(args)</code>或<code>flst.splice_after(args)</code></li>
+</ul>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/06/21/cppp-note2/" data-title="cppp-note2" data-url="https://Misaka9468.github.io/2020/06/21/cppp-note2/"></div>
+	<div class="ds-thread" data-thread-key="/2020/06/21/cppp-note2/" data-title="cppp二周目补充笔记8-10" data-url="https://Misaka9468.github.io/2020/06/21/cppp-note2/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
