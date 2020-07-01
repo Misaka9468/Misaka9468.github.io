@@ -97,7 +97,7 @@
         <h1>cppp二周目补充笔记13-14</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-25T04:19:38.000Z" itemprop="datePublished">2020-06-25</time>，更新于:<time datetime="2020-07-01T05:22:35.294Z" itemprop="dateModified">2020-07-01</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-25T04:19:38.000Z" itemprop="datePublished">2020-06-25</time>，更新于:<time datetime="2020-07-01T05:51:13.640Z" itemprop="dateModified">2020-07-01</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
@@ -203,7 +203,13 @@
 <li>定义删除的函数：<code>=delete</code>。</li>
 <li>虽然声明了它们，但是不能以任何方式使用它们。即显式通知编译器/代码读者，我们不希望定义这些成员。</li>
 <li>析构函数不能是删除的成员。</li>
-<li>如果一个类有数据成员不能默认构造、拷贝、复制或者销毁，则对应的成员函数将被定义为删除的。</li>
+<li>如果一个类有数据成员不能默认构造、拷贝、复制或者销毁，则对应的成员函数将被定义为删除的：<ul>
+<li>如果类的某个成员的析构函数是删除的或不可访问的(例：private的 )，则类的<strong>合成析构函数</strong>被定义为删除的。</li>
+<li>如果类的某个成员的拷贝构造函数是删除的或不可访问的，则类的合成<strong>拷贝构造函数</strong>被定义为删除的。如果类的某个成员的析构函数是删除的或不可访问的，则类合成的<strong>拷贝构造函数</strong>也被定义为删除的。</li>
+<li>如果类的某个成员的拷贝赋值运算符是删除的或不可访问的，或者类有一个const的或引用成员，则类的合成<strong>拷贝赋值运算符</strong>被定义为删除的。</li>
+<li>如果类的某个成员的析构函数是删除的或不可访问的，或是类有一个引用成员，它没有类内初始化器，或是类有一个const成员，它没有类内初始化器且其类型未显式定义默认构造函数，则该类的<strong>默认构造函数</strong>被定义为删除的。</li>
+</ul>
+</li>
 <li>对于具有引用成员或无法默认构造的const成员的类，编译器不会为其合成默认构造函数。</li>
 <li>如果一个类有const成员，则它不能使用合成的<strong>拷贝赋值运算符</strong>；如果一个类有引用成员，<strong>合成拷贝赋值运算符</strong>被定义为是删除的。</li>
 <li>之前，类通过将其拷贝构造函数和拷贝赋值运算符声明为private来阻止拷贝。</li>
