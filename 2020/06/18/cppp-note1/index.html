@@ -94,7 +94,7 @@
         <h1>cppp二周目补充笔记1-7</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-06-21T09:30:39.237Z" itemprop="dateModified">2020-06-21</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-18T12:34:31.000Z" itemprop="datePublished">2020-06-18</time>，更新于:<time datetime="2020-07-01T03:48:56.043Z" itemprop="dateModified">2020-07-01</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
@@ -182,7 +182,10 @@
 <p>decltype((variable))的结果永远是引用，而decltype(variable)结果只有在variable本身是一个引用时才是引用</p>
 </li>
 </ul>
-<h1 id="Chapter-3-字符串、向量与数组"><a href="#Chapter-3-字符串、向量与数组" class="headerlink" title="Chapter 3 字符串、向量与数组"></a>Chapter 3 字符串、向量与数组</h1><blockquote>
+<h1 id="Chapter-3-字符串、向量与数组"><a href="#Chapter-3-字符串、向量与数组" class="headerlink" title="Chapter 3 字符串、向量与数组"></a>Chapter 3 字符串、向量与数组</h1><ul>
+<li><strong>如果使用等号(=)初始化一个变量，实际上执行的是拷贝初始化；如果不使用等号，则执行的是直接初始化。</strong></li>
+</ul>
+<blockquote>
 <p>string s1 = “hello”;   //拷贝初始化，显式创建一个临时对象用于拷贝</p>
 <p>string s2(“hello”);   // 直接初始化</p>
 </blockquote>
@@ -499,12 +502,14 @@
 </li>
 <li><p>了解<strong>委托构造函数</strong> c++11</p>
 </li>
-<li><p>隐式的类类型转换：<strong>能通过一个实参调用的构造函数</strong>定义了一条从构造函数的参数类型向类类型隐式转换的规则。</p>
+<li><p><strong>隐式的类类型转换</strong>：<strong>能通过一个实参调用的构造函数</strong>定义了一条从构造函数的参数类型向类类型隐式转换的规则。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sale_data定义了一个combine成员函数，接受一个Sale_data&amp;类型参数</span></span><br><span class="line"><span class="comment">// Sale_data定义了一个只接受string的构造函数</span></span><br><span class="line">Sale_data item;</span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span> = <span class="string">"hello"</span>;</span><br><span class="line">item.combine(<span class="keyword">word</span>); <span class="comment">//编译器用给定的string自动创建了一个临时sale_data对象</span></span><br><span class="line"><span class="comment">//只允许一步类型转换</span></span><br><span class="line">item.combine(<span class="string">"hello"</span>); <span class="comment">// 错误</span></span><br><span class="line">item.combine(<span class="built_in">string</span>(<span class="string">"hello"</span>)); <span class="comment">//正确</span></span><br><span class="line">item.combine(Sales_data(<span class="string">"hello"</span>)); <span class="comment">//正确</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>在构造函数的某个版本前面加explict，能够阻止隐式转换</p>
-<p>此时使用该构造函数只能用于直接初始化</p>
+<li><p><strong>如果使用等号(=)初始化一个变量，实际上执行的是拷贝初始化；如果不使用等号，则执行的是直接初始化。</strong></p>
+</li>
+<li><p>在<strong>构造函数</strong>的某个版本前面加explict，能够阻止隐式转换，前提是该构造函数只接收一个实参。</p>
+<p><strong>此时使用该构造函数只能用于直接初始化</strong></p>
 <blockquote>
 <p>Sale_data item(word); // 正确：直接初始化</p>
 <p>Sale_data item1= word; //错误</p>

@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="初始化语法：​    奇葩的c++,连初始化都这么复杂，有点带感。
+
+默认初始化（default-initialization，例如T t;）
+直接（非列表）初始化（direct-(non-list-)initialization，例如T t(args...);）
+拷贝（非列表）初始化（copy-(">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cpp的初始化规则 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/07/01/Initialization/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>cpp的初始化规则</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-07-01T03:39:25.000Z" itemprop="datePublished">2020-07-01</time>，更新于:<time datetime="2020-07-01T05:43:17.662Z" itemprop="dateModified">2020-07-01</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化语法："><span class="toc-number">1.</span> <span class="toc-text">初始化语法：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拷贝初始化与直接初始化"><span class="toc-number">2.</span> <span class="toc-text">拷贝初始化与直接初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">2.1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#隐式的类类型转换"><span class="toc-number">2.2.</span> <span class="toc-text">隐式的类类型转换</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考:</span></a></li></ol>
+            </div>
+            
+            <h1 id="初始化语法："><a href="#初始化语法：" class="headerlink" title="初始化语法："></a>初始化语法：</h1><p>​    奇葩的c++,连初始化都这么复杂，有点带感。</p>
+<ol>
+<li>默认初始化（default-initialization，例如<code>T t;</code>）</li>
+<li>直接（非列表）初始化（direct-(non-list-)initialization，例如<code>T t(args...);</code>）</li>
+<li>拷贝（非列表）初始化（copy-(non-list-)initialization，例如<code>T t = init;</code>）</li>
+<li>直接列表初始化（direct-list-initialization，例如<code>T t{ args... };</code>）</li>
+<li>复制列表初始化（copy-list-initialization，例如<code>T t = { args... };</code>）</li>
+</ol>
+<h1 id="拷贝初始化与直接初始化"><a href="#拷贝初始化与直接初始化" class="headerlink" title="拷贝初始化与直接初始化"></a>拷贝初始化与直接初始化</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><ul>
+<li>如果使用等号(=)初始化一个变量，实际上执行的是拷贝初始化；如果不使用等号，则执行的是直接初始化。</li>
+<li>直接初始化有可能调用拷贝构造函数，如 T a(b);  实际上调用的是拷贝构造函数，但仍为直接初始化。</li>
+<li>当一个类未定义自己的拷贝赋值运算符或拷贝构造函数，编译器为会为他生成一个合成拷贝赋值运算符。使用=delete避免生成。</li>
+<li><strong>直接初始化实际上是要求编译器使用普通的函数匹配来选择与我们提供的参数最匹配的构造函数</strong></li>
+</ul>
+<blockquote>
+<p>string s1 = “hiya”; //拷贝初始化</p>
+<p>string s2 = string(10,’c’); //拷贝初始化</p>
+<p>string s3(“hiya”); //直接初始化</p>
+<p>string s4(10,’c’); //直接初始化</p>
+</blockquote>
+<h2 id="隐式的类类型转换"><a href="#隐式的类类型转换" class="headerlink" title="隐式的类类型转换"></a>隐式的类类型转换</h2><ul>
+<li><p>前提：如果<strong>构造函数</strong>只接收<strong>一个实参</strong>，实际上定义了转换为此类型的隐式转换机制。</p>
+</li>
+<li><p>explicit用于修饰<strong>构造函数</strong>,此时类不能用拷贝初始化(=)，<strong>只能使用直接初始化</strong>。</p>
+<blockquote>
+<p>T a = b; //在构造函数被定义为explicit时，该语法不正确</p>
+<p>T a(b);   //永远正确</p>
+</blockquote>
+</li>
+<li><p><strong>explicit关键字只对有一个参数的类构造函数有效, 如果类构造函数参数大于或等于两个时, 是不会产生隐式转换的, 所以explicit关键字也就无效了</strong></p>
+</li>
+<li><p><strong>对拷贝构造函数使用explicit，则相应的拷贝赋值运算符失效。</strong> </p>
+<p><strong>对非拷贝构造函数使用explicit，则相应的接受该参数的赋值运算符失效。</strong></p>
+</li>
+<li><p><strong>例外：就是当除了第一个参数以外的其他参数都有默认值的时候, explicit关键字依然有效, 此时, 当调用构造函数时只传入一个参数, 等效于只有一个参数的类构造函数</strong></p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设直接初始化和复制初始化具有相同语义</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">42</span>)</span></span>; <span class="comment">// 如果这是合法的...</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;)</span></span>;</span><br><span class="line"><span class="keyword">int</span> x = f(<span class="number">42</span>);          <span class="comment">// ...那么这也是合法的，因此需要引入explicit</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base(); <span class="comment">//默认初始化</span></span><br><span class="line">    Base(<span class="built_in">string</span> <span class="keyword">const</span> &amp;s):number(s)&#123;&#125; <span class="comment">//定义了从string到Base类的隐式转换机制</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Base base)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;base.number&lt;&lt;<span class="built_in">endl</span>;&#125; </span><br><span class="line">    <span class="comment">//or void func(const Base&amp; base)&#123;&#125;</span></span><br><span class="line">    <span class="built_in">string</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> first=<span class="string">"233"</span>;</span><br><span class="line">    <span class="built_in">string</span> second=<span class="string">"2333"</span>;</span><br><span class="line">    <span class="function">Base <span class="title">base1</span><span class="params">(first)</span></span>; <span class="comment">//直接初始化</span></span><br><span class="line">    Base base2 = <span class="string">"2333"</span>; <span class="comment">//拷贝初始化</span></span><br><span class="line">    base1.func(second); <span class="comment">//隐式转换：string到Base类的转换</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//引入expilicit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base(); <span class="comment">//默认初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Base</span><span class="params">(<span class="built_in">string</span> <span class="keyword">const</span> &amp;s)</span>:<span class="title">number</span><span class="params">(s)</span></span>&#123;&#125; <span class="comment">//定义了从string到Base类的隐式转换机制</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Base base)</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;base.number&lt;&lt;<span class="built_in">endl</span>;&#125; </span><br><span class="line">    <span class="built_in">string</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> first=<span class="string">"233"</span>;</span><br><span class="line">    <span class="built_in">string</span> second=<span class="string">"2333"</span>;</span><br><span class="line">    <span class="function">Base <span class="title">base1</span><span class="params">(first)</span></span>; <span class="comment">//直接初始化</span></span><br><span class="line">    Base base2 = <span class="string">"2333"</span>; <span class="comment">//错误:拷贝构造函数是explicit导致无法实现拷贝初始化</span></span><br><span class="line">    base1.func(second); <span class="comment">//错误:现在不可以隐式转换</span></span><br><span class="line">    base1.func(Base(second)); <span class="comment">//正确</span></span><br><span class="line">    base1.func(base2); <span class="comment">//正确</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h1><p>作者：d41d8c<br>链接：<a href="http://www.zhihu.com/question/403578855/answer/1306943217" target="_blank" rel="noopener">www.zhihu.com/question/403578855/answer/1306943217</a><br>来源：知乎</p>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/01/Initialization/" data-title="cpp的初始化规则" data-url="https://Misaka9468.github.io/2020/07/01/Initialization/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
