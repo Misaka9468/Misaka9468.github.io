@@ -26,7 +26,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>cppp-note5 | Misaka妙妙屋</title>
+    <title>cppp二周目补充笔记15 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -96,16 +96,16 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>cppp-note5</h1>
+        <h1>cppp二周目补充笔记15</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-27T14:29:00.000Z" itemprop="datePublished">2020-06-27</time>，更新于:<time datetime="2020-06-30T15:01:36.870Z" itemprop="dateModified">2020-06-30</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-27T14:29:00.000Z" itemprop="datePublished">2020-06-27</time>，更新于:<time datetime="2020-07-02T09:45:33.639Z" itemprop="dateModified">2020-07-02</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-15-面向对象程序设计"><span class="toc-number">1.</span> <span class="toc-text">Chapter 15 面向对象程序设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OOP：概述"><span class="toc-number">1.1.</span> <span class="toc-text">OOP：概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义基类和派生类"><span class="toc-number">1.2.</span> <span class="toc-text">定义基类和派生类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义基类"><span class="toc-number">1.2.1.</span> <span class="toc-text">定义基类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义派生类"><span class="toc-number">1.2.2.</span> <span class="toc-text">定义派生类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换与继承"><span class="toc-number">1.2.3.</span> <span class="toc-text">类型转换与继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚函数"><span class="toc-number">1.3.</span> <span class="toc-text">虚函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象基类"><span class="toc-number">1.4.</span> <span class="toc-text">抽象基类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问控制与继承"><span class="toc-number">1.5.</span> <span class="toc-text">访问控制与继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承中的类作用域"><span class="toc-number">1.6.</span> <span class="toc-text">继承中的类作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数与拷贝控制"><span class="toc-number">1.7.</span> <span class="toc-text">构造函数与拷贝控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚析构函数"><span class="toc-number">1.7.1.</span> <span class="toc-text">虚析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合成拷贝控制与继承"><span class="toc-number">1.7.2.</span> <span class="toc-text">合成拷贝控制与继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#派生类的拷贝控制成员"><span class="toc-number">1.7.3.</span> <span class="toc-text">派生类的拷贝控制成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承的构造函数"><span class="toc-number">1.7.4.</span> <span class="toc-text">继承的构造函数</span></a></li></ol></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-15-面向对象程序设计"><span class="toc-number">1.</span> <span class="toc-text">Chapter 15 面向对象程序设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OOP：概述"><span class="toc-number">1.1.</span> <span class="toc-text">OOP：概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义基类和派生类"><span class="toc-number">1.2.</span> <span class="toc-text">定义基类和派生类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义基类"><span class="toc-number">1.2.1.</span> <span class="toc-text">定义基类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义派生类"><span class="toc-number">1.2.2.</span> <span class="toc-text">定义派生类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换与继承"><span class="toc-number">1.2.3.</span> <span class="toc-text">类型转换与继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚函数"><span class="toc-number">1.3.</span> <span class="toc-text">虚函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象基类"><span class="toc-number">1.4.</span> <span class="toc-text">抽象基类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问控制与继承"><span class="toc-number">1.5.</span> <span class="toc-text">访问控制与继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承中的类作用域"><span class="toc-number">1.6.</span> <span class="toc-text">继承中的类作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数与拷贝控制"><span class="toc-number">1.7.</span> <span class="toc-text">构造函数与拷贝控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚析构函数"><span class="toc-number">1.7.1.</span> <span class="toc-text">虚析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合成拷贝控制与继承"><span class="toc-number">1.7.2.</span> <span class="toc-text">合成拷贝控制与继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#派生类的拷贝控制成员"><span class="toc-number">1.7.3.</span> <span class="toc-text">派生类的拷贝控制成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承的构造函数"><span class="toc-number">1.7.4.</span> <span class="toc-text">继承的构造函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器与继承"><span class="toc-number">1.8.</span> <span class="toc-text">容器与继承</span></a></li></ol></li></ol>
             </div>
             
             <h1 id="Chapter-15-面向对象程序设计"><a href="#Chapter-15-面向对象程序设计" class="headerlink" title="Chapter 15 面向对象程序设计"></a>Chapter 15 面向对象程序设计</h1><h2 id="OOP：概述"><a href="#OOP：概述" class="headerlink" title="OOP：概述"></a>OOP：概述</h2><ul>
@@ -333,28 +333,95 @@
 </li>
 </ul>
 <h3 id="合成拷贝控制与继承"><a href="#合成拷贝控制与继承" class="headerlink" title="合成拷贝控制与继承"></a>合成拷贝控制与继承</h3><ul>
-<li>基类或派生类的合成拷贝控制成员的行为和其他合成的构造函数、赋值运算符或析构函数类似：他们对类本身的成员依次进行初始化、赋值或销毁的操作。</li>
-<li>基类和派生类与其他类情况类似，也会出于同样的原因将其合成的默认构造函数或者任何一个拷贝控制成员定义成被删除的函数，此外还有其他的方式：<ul>
+<li><p>基类或派生类的合成拷贝控制成员的行为和其他合成的构造函数、赋值运算符或析构函数类似：他们对类本身的成员依次进行初始化、赋值或销毁的操作。</p>
+</li>
+<li><p>基类和派生类与其他类情况类似，也会出于同样的原因将其合成的默认构造函数或者任何一个拷贝控制成员定义成被删除的函数，此外还有其他的方式：</p>
+<ul>
 <li>如果基类中的默认构造函数、拷贝构造函数、拷贝赋值函数或析构函数是被删除的函数或者不可访问，则派生类中<strong>对应的成员</strong>将是删除的。</li>
 <li>如果在基类中有一个不可访问或删除掉的析构函数，则派生类中合成的默认和拷贝构造函数将是被删除的。</li>
 <li>当我们使用=default请求一个移动操作时，如果基类中的对应操作是删除的或不可访问的，那么派生类中该函数将是被删除的。同样，如果基类的析构函数是删除的或不可访问的，则派生类的移动构造函数也将是被删除的。</li>
 </ul>
 </li>
+<li><p>大多数基类都会定义一个虚析构函数，因此默认情况下基类通常不含有合成的移动操作，而且在它的派生类中也没有合成的移动操作。因为基类缺少移动操作会阻止派生类拥有自己的合成移动操作，所以当我们确实需要执行移动操作时应该首先在基类中定义。我们的基类可以使用合成的版本，前提是必须显式地定义这些成员，一旦基类定义了自己的移动操作，那么它必须同时显式地定义拷贝操作。</p>
+<p>之后，除非其派生类含有排斥移动地成员，否则它将自动获得合成的移动函数。</p>
+<blockquote>
+<p>即要在基类同时定义拷贝构造函数、拷贝赋值运算符，移动构造函数和移动赋值运算符。</p>
+</blockquote>
+</li>
 </ul>
 <h3 id="派生类的拷贝控制成员"><a href="#派生类的拷贝控制成员" class="headerlink" title="派生类的拷贝控制成员"></a>派生类的拷贝控制成员</h3><ul>
-<li>当派生类定义了拷贝或移动操作时，该操作负责拷贝或移动包括基类部分成员在内的整个对象。</li>
-<li>派生类析构函数：派生类析构函数先执行，然后执行基类的析构函数。</li>
+<li><p>当派生类定义了拷贝或移动操作时（包括运算符），该操作负责拷贝或移动包括基类部分成员在内的整个对象。具体做法为：向基类的构造函数/赋值运算符传递需要操作的派生类对象。</p>
+</li>
+<li><p>与构造函数及赋值运算符不同的是，析构函数只负责销毁派生类自己分配的资源。派生类析构函数：派生类析构函数先执行，然后执行基类的析构函数。</p>
+</li>
+<li><p><strong>派生类拷贝/移动构造函数：</strong></p>
+<blockquote>
+<p>class Base{};</p>
+<p>class D: public Base{</p>
+<p>public:</p>
+<p>​    //默认情况下，基类的<strong>默认构造函数</strong>初始化对象的基类部分</p>
+<p>​    //导致该派生类在拷贝/移动时，基类成员并非得到拷贝/移动</p>
+<p>​    //因此，需要我们显式调用该构造函数</p>
+<p>​    D(const D&amp; d): Base(d)     //拷贝基类成员</p>
+<p>​                                /* D的成员的初始值<em>/{/\</em> */}</p>
+<p>​    D(D&amp;&amp; d): Base(std::move(d))   //移动基类成员</p>
+<p>​                                /*D的成员的初始值<em>/{/*\</em> */}</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p><strong>派生类赋值运算符：</strong></p>
+<blockquote>
+<p>D &amp;D::operator= (const D &amp;rhs)}{</p>
+<p>​    Base::operator=(rhs); //为基类部分赋值</p>
+<p>​    /*  为派生类成员赋值、释放资源  */</p>
+<p>​    return *this;</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p><strong>派生类析构函数：</strong> 只负责销毁由派生类自己分配的资源</p>
+</li>
+<li><p>如果构造函数或析构函数调用了某个虚函数，则我们应该执行与构造函数或析构函数所属类型相对应的虚函数版本。</p>
+</li>
 </ul>
 <h3 id="继承的构造函数"><a href="#继承的构造函数" class="headerlink" title="继承的构造函数"></a>继承的构造函数</h3><ul>
-<li>C++11新标准中，派生类可以重用其直接基类定义的构造函数。</li>
-<li>如<code>using Disc_quote::Disc_quote;</code>，注明了要继承<code>Disc_quote</code>的构造函数。</li>
+<li><p>C++11新标准中，派生类可以重用其直接基类定义的构造函数。一个类只初始化它的直接基类，出于同样的原因，一个类也只继承其基类版本的构造函数。类不能继承默认、拷贝和移动构造函数，如果派生类没有直接定义这些构造函数，则编译器将为派生类合成他们。</p>
+</li>
+<li><p>通常情况下，using声明语句只是令某个名字在当前作用域内可见，而当作用于构造函数时，如<code>using Disc_quote::Disc_quote;</code>，注明了要继承<code>Disc_quote</code>的构造函数，using声明语句将令编译器产生代码。对于基类的每个构造函数，编译器都生成一个形参列表完全相同的构造函数。</p>
+<blockquote>
+<p>//编译器生成的构造函数形如：</p>
+<p><em>derived</em>(<em>parms</em>) : <em>base</em>(<em>args</em>) {}    </p>
+<p>其中derived是派生类的名字，base是基类的名字,parms是构造函数的形参列表,args将派生类构造函数的形参传递给基类的构造函数</p>
+<p>例如：</p>
+<p>Bulk_quote(const std::string&amp; book, double price, std::size_t qty, double disc):</p>
+<p>​    Disc_quote(book,price,qty,disc){}</p>
+<p>如果派生类含有自己的数据成员，则这些成员将被默认初始化。</p>
+</blockquote>
+</li>
+<li><p>继承的构造函数的特点：</p>
+<ul>
+<li>一个构造函数的using声明不会改变该构造函数的访问级别，该构造函数在基类是private的，则在派生类中也是private的.</li>
+<li>如果基类的构造函数是explicit或者constexpr的，则继承的构造函数也拥有相同的属性。</li>
+<li>当一个基类构造函数含有默认实参，这些实参并不会被继承，相反，派生类将获得多个继承的构造函数，其中每个构造函数分别省略掉一个含有默认实参的形参。</li>
+<li>如果基类含有几个构造函数，则除了两个例外情况，大多数派生类会继承所有这些构造函数。<ul>
+<li>例外一：派生类可以继承一部分构造函数，而为其他构造函数定义自己的版本。如果派生类定义的构造函数与基类的构造函数具有相同的参数列表，则该构造函数将不会被继承。定义在派生类中的构造函数将替换继承而来的构造函数。</li>
+<li>例外二：默认、拷贝和移动构造函数不会被继承。这些构造函数按照正常规则被合成。继承的构造函数不会被作为用户定义的构造函数来使用，因此，如果一个类只含有继承的构造函数，则它也将拥有一个合成的默认构造函数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="容器与继承"><a href="#容器与继承" class="headerlink" title="容器与继承"></a>容器与继承</h2><ul>
+<li>当我们使用容器存放继承体系中的对象时，通常必须采用间接存储的方式，原因在于不允许在容器中保存不同类型的元素。</li>
+<li>派生类对象直接赋值给积累对象，其中的派生类部分会被切掉。因此容器与存在继承关系的类型无法兼容。</li>
+<li>在容器中放置（智能）指针而非对象。</li>
+<li>对于C++面向对象的编程来说，一个悖论是我们无法直接使用对象进行面向对象编程。相反，我们必须使用指针和引用。因为指针会增加程序的复杂性，所以经常定义一些辅助的类来处理这些复杂的情况。</li>
 </ul>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/06/27/cppp-note5/" data-title="cppp-note5" data-url="https://Misaka9468.github.io/2020/06/27/cppp-note5/"></div>
+	<div class="ds-thread" data-thread-key="/2020/06/27/cppp-note5/" data-title="cppp二周目补充笔记15" data-url="https://Misaka9468.github.io/2020/06/27/cppp-note5/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

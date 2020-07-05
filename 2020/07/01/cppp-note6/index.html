@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="Chapter 模板和泛型编程面向对象编程和泛型编程都能处理在编写程序时不知道类型的情况。
+
+OOP能处理类型在程序运行之前都未知的情况；
+泛型编程中，在编译时就可以获知类型。
+
+定义模板
+模板：模板是泛型编程的基础。一个模板就是一个创建类或函数的蓝图或者说公式。
+
+函数模板
+template&amp;lt">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cppp二周目补充笔记16+杂七杂八 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "1.png", "2.png", "3.png",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/07/01/cppp-note6/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>cppp二周目补充笔记16+杂七杂八</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-07-01T15:04:15.000Z" itemprop="datePublished">2020-07-01</time>，更新于:<time datetime="2020-07-05T07:59:43.958Z" itemprop="dateModified">2020-07-05</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-模板和泛型编程"><span class="toc-number">1.</span> <span class="toc-text">Chapter 模板和泛型编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义模板"><span class="toc-number">1.1.</span> <span class="toc-text">定义模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数模板"><span class="toc-number">1.1.1.</span> <span class="toc-text">函数模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类模板"><span class="toc-number">1.1.2.</span> <span class="toc-text">类模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板参数"><span class="toc-number">1.1.3.</span> <span class="toc-text">模板参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成员模板"><span class="toc-number">1.1.4.</span> <span class="toc-text">成员模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制实例化"><span class="toc-number">1.1.5.</span> <span class="toc-text">控制实例化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效率与灵活性"><span class="toc-number">1.1.6.</span> <span class="toc-text">效率与灵活性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板实参推断"><span class="toc-number">1.2.</span> <span class="toc-text">模板实参推断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换与模板类型参数"><span class="toc-number">1.2.1.</span> <span class="toc-text">类型转换与模板类型参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数模板显式实参"><span class="toc-number">1.2.2.</span> <span class="toc-text">函数模板显式实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尾置返回类型与类型转换"><span class="toc-number">1.2.3.</span> <span class="toc-text">尾置返回类型与类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数指针和实参推断"><span class="toc-number">1.2.4.</span> <span class="toc-text">函数指针和实参推断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板实参推断和引用"><span class="toc-number">1.2.5.</span> <span class="toc-text">模板实参推断和引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解std-move"><span class="toc-number">1.2.6.</span> <span class="toc-text">理解std::move</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转发"><span class="toc-number">1.2.7.</span> <span class="toc-text">转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重载与模板"><span class="toc-number">1.3.</span> <span class="toc-text">重载与模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变参数模板"><span class="toc-number">1.4.</span> <span class="toc-text">可变参数模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写可变参数函数模板"><span class="toc-number">1.4.1.</span> <span class="toc-text">编写可变参数函数模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#包扩展"><span class="toc-number">1.4.2.</span> <span class="toc-text">包扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转发参数包"><span class="toc-number">1.4.3.</span> <span class="toc-text">转发参数包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板特例化（Specializations）"><span class="toc-number">1.5.</span> <span class="toc-text">模板特例化（Specializations）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bitset类型"><span class="toc-number">2.</span> <span class="toc-text">bitset类型</span></a></li></ol>
+            </div>
+            
+            <h1 id="Chapter-模板和泛型编程"><a href="#Chapter-模板和泛型编程" class="headerlink" title="Chapter 模板和泛型编程"></a>Chapter 模板和泛型编程</h1><p>面向对象编程和泛型编程都能处理在编写程序时不知道类型的情况。</p>
+<ul>
+<li>OOP能处理类型在程序运行之前都未知的情况；</li>
+<li>泛型编程中，在编译时就可以获知类型。</li>
+</ul>
+<h2 id="定义模板"><a href="#定义模板" class="headerlink" title="定义模板"></a>定义模板</h2><ul>
+<li><strong>模板</strong>：模板是泛型编程的基础。一个模板就是一个创建类或函数的蓝图或者说公式。</li>
+</ul>
+<h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><ul>
+<li><p><code>template&lt;typename T&gt; int compare(const T &amp;v1, const T &amp;v2){}</code></p>
+</li>
+<li><p>模板定义以关键字 <code>template</code>开始，后接模板参数列表，模板参数列表是用<strong>尖括号</strong>&lt;&gt;括住的一个或多个<strong>模板参数</strong>的列表，用逗号分隔，<strong>不能为空</strong>。使用模板时，我们显式或隐式地指定模板实参，将其绑定到模板参数上。</p>
+<blockquote>
+<p>cout &lt;&lt; compare(1,0) &lt;&lt; endl;    //T为int</p>
+<p>vector&lt;int&gt; vec1{1,2,3} , vec2{4,5,6};</p>
+<p>cout &lt;&lt; compare(vec1,vec2) &lt;&lt; endl;    // T为vector&lt;int&gt;</p>
+<p>编译器会根据调用编写并编译一个compare版本，其中T被替换，这些编译器生成的版本通常被称为模板的实例</p>
+</blockquote>
+</li>
+<li><p><strong>模板类型参数</strong>：类型参数前必须使用关键字<code>class</code>或者<code>typename</code>，这两个关键字含义相同，可以互换使用。旧的程序只能使用<code>class</code>。</p>
+<blockquote>
+<p>template &lt;typename T, U &gt; T calc (const T&amp;, const U&amp;); //错误: U之前必须加上class或typename</p>
+</blockquote>
+</li>
+<li><p><strong>非类型模板参数</strong>：表示一个值而非一个类型。一个非类型参数可以是一个整型，或者是一个指向对象或函数类型的指针或（左值）引用。传递的实参必须是常量表达式。</p>
+<p>绑定到指针或引用非类型参数的实参必须具有静态的生存期。我们不能一个用普通（非static）局部变量或动态对象作为指针或引用非类型模板参数的实参。指针参数也可以是用nullptr或一个值为0的常量表达式来实例化。</p>
+<blockquote>
+<p>template&lt;unsigned N,unsigned M&gt; </p>
+<p>int compare(const char (&amp;p1)[N], const char (&amp;p2)[M]) {return strcmp(p1,p2);}</p>
+<p>当我们调用这个版本的compare时:</p>
+<p>compare(“hi”,”mom”); </p>
+<p>编译器会使用字面常量的大小代替N和M，从而实例化模板。</p>
+<p>int compare(const char (&amp;p1)[3], const char (&amp;p2)[4]) {return strcmp(p1,p2);}</p>
+</blockquote>
+</li>
+<li><p>函数模板可以声明为inline或constexpr的，如同非模板函数一样，inline或constexpr说明符放在模板参数列表之后，返回类型之前。</p>
+</li>
+<li><p>模板程序应该尽量减少对实参类型的要求。例如，将参数设定为const的引用，保证了函数可以用于不能拷贝的类型。</p>
+</li>
+<li><p>函数模板和类模板成员函数的定义通常放在头文件中。</p>
+</li>
+</ul>
+<h3 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h3><ul>
+<li><p>类模板用于生成类的蓝图。不同于函数模板，编译器不能推断模板参数类型。因此在实例化的时候，我们必须在模板名后的尖括号中提供额外信息——用来代替模板参数的模板<strong>实参列表</strong>。例如: vector&lt;int&gt; vec;</p>
+</li>
+<li><p>定义类模板：</p>
+<ul>
+<li><code>template&lt;typename T&gt; class Blob {};</code></li>
+</ul>
+</li>
+<li><p>实例化类模板：提供显式模板<strong>实参列表</strong>，来实例化出特定的类。</p>
+</li>
+<li><p>一个类模板中所有的实例都形成一个独立的类。类型Blob&lt;string&gt;与任何其他Blob类型都没有关联，也不会对其他任何Blob类型的成员有特殊访问权限。</p>
+</li>
+<li><p><strong>模板形参作用域</strong>：模板形参的名字(例如T)可以在声明为模板形参之后直到模板声明或定义的末尾处使用。</p>
+<blockquote>
+<p>在Blob的类作用域内，可以使用T，到最后会被替换。</p>
+</blockquote>
+</li>
+<li><p><strong>类模板的成员函数</strong>：</p>
+<ul>
+<li><p>在类外定义类模板的成员函数时，举例：</p>
+<blockquote>
+<p>template&lt;T&gt;  ret-type Blob&lt;T&gt;::member-name(parm-list)</p>
+<p>构造函数同理</p>
+<p>template&lt;T&gt; Blob&lt;T&gt;::Blob() : () {}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>默认情况下，对于一个实例化了的类模板，其成员只有在使用时才被实例化。</p>
+</li>
+<li><p>在类代码内简化模板类名的使用，即在类模板自己的作用域内，我们可以直接使用模板名而不提供实参:</p>
+<blockquote>
+<p>template&lt;typename T&gt; class Blob{</p>
+<p>public:</p>
+<p>​    Blob&amp; operator++();  //不用写成 Blob&lt;T&gt;&amp; operator++();</p>
+<p>}</p>
+</blockquote>
+<p>在类模板外定义其他成员时，并不在类的作用域中，直到遇到类名才表示进入类的作用域，此时在函数体内同样可以直接使用模板名而不提供实参。</p>
+</li>
+<li><p>新标准允许模板将自己的类型参数成为友元。如果一个类模板包含一个非模板友元，则友元被授权可以访问所有模板实例。如果友元自身是模板，类可以授权给所有友元模板实例，也可以只授权给特定实例。</p>
+<blockquote>
+<p>template&lt;typename&gt; class BlobPtr;</p>
+<p>template&lt;typename&gt; class Blob;</p>
+<p>template&lt;typename T&gt;</p>
+<p>​    bool operator== (const Blob&lt;T&gt;&amp;, const Blob&lt;T&gt;&amp;);</p>
+<p>template&lt;typename T&gt; class Blob {</p>
+<p>​    friend class BlobPtr&lt;T&gt;;</p>
+<p>​    friend bool operator==&lt;T&gt;</p>
+<p>​            (const Blob&lt;T&gt;&amp;, const Blob&lt;T&gt;&amp;);</p>
+<p>​    template&lt;typename X&gt; friend class Pal2; </p>
+<p>​    //Pal2的所有实例都是Blob的友元，为了让所有实例成为友元，则必须使用与类模板本身不同的模板参数。</p>
+<p>} </p>
+<p>Blob&lt;char&gt; ca; //BlobPtr&lt;char&gt;和operator==&lt;char&gt;都是本对象的友元</p>
+</blockquote>
+</li>
+<li><p>令模板自己的类型参数成为友元:</p>
+<blockquote>
+<p>template &lt;typename Type&gt; class Bar{</p>
+<p>​    friend Type;  //因此对于某个类型名Foo, Foo将成为 Bar&lt;Foo&gt;的友元</p>
+<p>}</p>
+</blockquote>
+</li>
+<li><p><strong>模板类型别名</strong>：因为模板不是一个类型，因此无法定义一个<code>typedef</code>引用一个模板，但是新标准允许我们为类模板定义一个类型别名：</p>
+<blockquote>
+<p> template&lt;typename T&gt; using twin = pair&lt;T,T&gt;;</p>
+<p>twin&lt;string&gt; authors; //authors是一个pair&lt;string,string&gt;</p>
+<p>template&lt;typename T&gt; using partNo = pair&lt;T,unsigned&gt;;</p>
+<p>partNo&lt;string&gt; books; //books是一个pair&lt;string,unsigned&gt;</p>
+</blockquote>
+</li>
+<li><p><strong>类模板的static成员:</strong></p>
+<p>每个给定类型T共享一个static成员，即 </p>
+<blockquote>
+<p>Foo&lt;int&gt; a, b; //a、b共享同一个static成员</p>
+<p>Foo&lt;double&gt; c;  //c不与a、b共享一个static成员</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="模板参数"><a href="#模板参数" class="headerlink" title="模板参数"></a>模板参数</h3><ul>
+<li><p>模板参数与作用域：一个模板参数名的可用范围是在其声明之后，至模板声明或定义结束前。期间，会覆盖外部定义的 typedef T.</p>
+</li>
+<li><p>与函数参数相同，声明中的模板参数的名字不必与定义中相同。 </p>
+</li>
+<li><p>一个特定文件所需要的所有模板的声明通常一起放置在文件开始位置。</p>
+</li>
+<li><p>当我们希望通知编译器一个名字表示类型时，必须使用关键字<code>typename</code>，而不能使用<code>class</code>。</p>
+<blockquote>
+<p>假定T是一个类型参数的名字，编译器无法知道：</p>
+<p>T::size_type *p ; //是在定义一个名为p的变量，还是使用名为size_type的静态成员乘以p</p>
+<p>因此引入typename ,显式告诉编译器该名字是一个类型</p>
+<p>template&lt;typename T&gt;</p>
+<p>typename T::value_type top(const T&amp; c){</p>
+<p>​    …</p>
+<p>} </p>
+</blockquote>
+</li>
+<li><p><strong>默认模板实参</strong></p>
+<blockquote>
+<p>template&lt;typename T, typename F = less&lt;T&gt;&gt;</p>
+<p>int compare(const T &amp;v1, const T &amp;v2 , F f= F()){</p>
+<p>​    if( f(v1,v2) ) return -1;</p>
+<p>​    if ( f(v2,v1) ) return1;</p>
+<p>}</p>
+<p>调用</p>
+<p>bool i = compare(0,42); //使用less, i为-1</p>
+<p>Sales_Data item1(cin),item2(cin);</p>
+<p>bool j = compare(item1, item2, compareIsbn); //调用compareIsbn</p>
+<p>template&lt;class T = int&gt; class Numbers{</p>
+<p>public: </p>
+<p>​        Numbers(T v=0): val(v){}</p>
+<p>private:</p>
+<p>​        T val;</p>
+<p>}</p>
+<p>Numbers&lt;&gt; average_precision; //空&lt;&gt;表示我们希望使用默认类型</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="成员模板"><a href="#成员模板" class="headerlink" title="成员模板"></a>成员模板</h3><ul>
+<li><p>成员模板（member template）：一个类(无论是普通类还是类模板)可以包含本身是模板的成员函数，这种<strong>成员</strong>被称为成员模板。【成员模板不能是虚函数】</p>
+<ul>
+<li><p>普通（非模板）类的成员模板【正常用法】</p>
+<blockquote>
+<p>class DebugDelete{</p>
+<p>public:</p>
+<p>​    DebugDelete(std::ostream &amp;s=std::cerr): os(s){}</p>
+<p>​    <strong>template&lt;typename T&gt; void operator()(T *p) const</strong></p>
+<p>​    <strong>{ os &lt;&lt; “delete it” &lt;&lt; std::endl; delete p;}</strong></p>
+<p>private:</p>
+<p>​    std::ostream &amp;os</p>
+<p>};</p>
+<p>…</p>
+<p>double*p = new double;</p>
+<p>DebugDdelete d; //该类可以像delete表达式一样使用，即函数对象</p>
+<p>d(p); //生成并调用DebugDelete::operator()(double*),释放p</p>
+<p>//也可以被传递</p>
+<p>unique_ptr&lt;int, DebugDelete&gt; p(new int, <strong>DebugDelete()</strong> ); //当作删除器被传递</p>
+</blockquote>
+</li>
+<li><p>类模板的成员模板</p>
+<blockquote>
+<p>我们将为Blob类定义一个构造函数，它接受两个迭代器，表示要拷贝的元素范围，我们希望支持不同类型序列的迭代器，因此将构造函数定义为模板：</p>
+<p>template&lt;typename T&gt; class Blob{</p>
+<p>​    template&lt;typename It&gt; Blob(It b, It e);</p>
+<p>​    //…</p>
+<p>}</p>
+<p>当我们在<strong>类模板外</strong>定义一个成员模板时，必须同时为类模板和成员模板提供模板参数列表。类模板的参数列表在前，后跟成员自己的模板参数列表.</p>
+<p>template&lt;typename T&gt; </p>
+<p>template&lt;typename It&gt;</p>
+<p>​    Blob&lt;T&gt;::Blob(It b,It e): data(std::make_shared&lt;std::vector&lt;T&gt;&gt;(b,3)){}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="控制实例化"><a href="#控制实例化" class="headerlink" title="控制实例化"></a>控制实例化</h3><ul>
+<li><p>动机：当模板被使用时才会进行实例化，这一特性意味着相同的实例可能出现在多个对象文件中。当两个或多个独立编译的源文件使用了相同的模板，并提供了相同的模板参数时，每个文件中就都会有该模板的一个实例。在多个文件中实例化相同模板的额外开销可能非常严重。我们可以通过<strong>显式实例化</strong>来避免这种开销。    </p>
+</li>
+<li><p>显式实例化：</p>
+<ul>
+<li><p>extern template <em>declaration</em>; // 实例化声明</p>
+<blockquote>
+<p>extern template class Blob&lt;string&gt;;  //声明</p>
+</blockquote>
+</li>
+<li><p>template <em>declaration</em>; // 实例化定义</p>
+<blockquote>
+<p>template int compare(const int&amp;, const int&amp;); //定义</p>
+</blockquote>
+</li>
+<li><p>当编译器遇到extern模板声明时，不会再本文件中<strong>生成实例化代码</strong>。将一个实例化声明为extern就表示承诺在程序其他位置又该实例化的一个非extern声明(定义)。对于一个给定的实例化版本，可能有多个extern声明，但必须只有一个定义。</p>
+</li>
+<li><p>extern声明必须出现在任何使用此实例化版本的代码之前。</p>
+<blockquote>
+<p>//Application.cc</p>
+<p>extern template class Blob&lt;string&gt;;</p>
+<p>Blob&lt;string&gt; sa1,sa2; //实例化会出现在其他位置</p>
+<p>Blob&lt;int&gt; a1= {1,2,3}; //Blob&lt;int&gt;及其接受Initializer_list的构造函数在本文件中初始化</p>
+<p>// templateBuild.cc</p>
+<p>//实例化文件必须为(在每个其他文件中声明为extern的类型和函数)提供一个(非extern)的定义</p>
+<p>template class Blob&lt;string&gt;; //实例化类模板的所有成员</p>
+</blockquote>
+</li>
+<li><p>类模板的普通初始化：只有该成员函数被调用，才会实例化该成员函数</p>
+<p>类模板的实例化定义：实例化该模板的所有成员，包括内联的成员函数</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="效率与灵活性"><a href="#效率与灵活性" class="headerlink" title="效率与灵活性"></a>效率与灵活性</h3><ul>
+<li>在一个shared_ptr的生存期中，我们可以随时改变其删除器的类型，即其删除器是运行时绑定的。</li>
+<li>unique_ptr类中，删除器的类型是类类型的一部分，故删除器成员的类型是在编译时知道的。</li>
+</ul>
+<h2 id="模板实参推断"><a href="#模板实参推断" class="headerlink" title="模板实参推断"></a>模板实参推断</h2><ul>
+<li>对于函数模板，编译器利用调用的函数实参来确定其模板参数，这个过程叫<strong>模板实参推断</strong>。</li>
+</ul>
+<h3 id="类型转换与模板类型参数"><a href="#类型转换与模板类型参数" class="headerlink" title="类型转换与模板类型参数"></a>类型转换与模板类型参数</h3><ul>
+<li><p>能够自动转换类型的只有：</p>
+<ul>
+<li><p>和其他函数一样，顶层<code>const</code>会被忽略。</p>
+</li>
+<li><p>数组实参或函数实参转换为指针。</p>
+<p>其他类型转换如算术类型转换、派生类向基类的转换以及用户定义的转换，都不能应用于函数模板。</p>
+<blockquote>
+<p>template&lt;typename T&gt; T fobj(T,T); //实参被拷贝</p>
+<p>template&lt;typename T&gt; T fref(const T&amp;, const T&amp;); //引用</p>
+<p>int a[10],b[42];</p>
+<p>fboj(a,b); //调用f(int<em>,int\</em>)</p>
+<p>fref(a,b); //错误：数组类型不匹配【如果形参是一个引用，则数组不会转换】</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="函数模板显式实参"><a href="#函数模板显式实参" class="headerlink" title="函数模板显式实参"></a>函数模板显式实参</h3><ul>
+<li><p>某些情况下，编译器无法推断出模板实参的类型。</p>
+</li>
+<li><p>定义：<code>template&lt;typename T1,typename T2,typename T3&gt; T1 sum(T2, T3);</code></p>
+</li>
+<li><p>使用函数显式实参调用：<code>auto val3 = sum&lt;long long&gt;(i, lng);</code></p>
+<p>等价于 long long sum(int,long)</p>
+<p>T1是显式指定，T2和T3都是从函数实参类型推断而来</p>
+</li>
+<li><p>显式模板实参必须按由左到右的顺序与对应的模板参数匹配</p>
+<blockquote>
+<p>template&lt;typename T1,typename T2,typename T3&gt; T1 sum(T2, T3);</p>
+<p>auto val2 = sum&lt;long long, int, long&gt;(i,lng)  //显式指定参数类型</p>
+</blockquote>
+</li>
+<li><p><strong>注意</strong>：正常类型转换可以应用于显式指定的实参。</p>
+<blockquote>
+<p>long lng;</p>
+<p>compare(lng, 1024); //错误:模板参数不匹配，compare定义时两个参数都是T，而这里一个long一个int</p>
+<p>compare&lt;long&gt;(lng,1024); //正确:实例化compare(long,long) ，用实参列表显式进行类型转换</p>
+<p>compare&lt;int&gt;(lng,1024); //正确：实例化compare(int,int)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="尾置返回类型与类型转换"><a href="#尾置返回类型与类型转换" class="headerlink" title="尾置返回类型与类型转换"></a>尾置返回类型与类型转换</h3><ul>
+<li><p>使用场景：并不清楚返回结果的准确类型，但知道所需类型是和参数相关的。</p>
+<blockquote>
+<p>template&lt;typename It&gt;</p>
+<p>auto fcn(It beg, It end) -&gt; decltype(*beg) {</p>
+<p>​    return *beg;  //返回序列中一个元素的引用</p>
+<p>}</p>
+<p>//不能直接标明ret-type为decltype(*beg)，因为编译器在遇到参数列表前beg是不存在的</p>
+</blockquote>
+</li>
+<li><p>尾置返回允许我们在参数列表之后声明返回类型。</p>
+</li>
+</ul>
+<p>标准库的<strong>类型转换</strong>模板：</p>
+<ul>
+<li>定义在头文件<code>type_traits</code>中。</li>
+</ul>
+<ul>
+<li><p>举例：返回拷贝值而非类型</p>
+<blockquote>
+<p>template&lt;typename It&gt;</p>
+<p>auto fcn(It beg, It end) -&gt; typename remove_reference&lt;decltype(*beg)&gt;::type  {</p>
+<p>​    return *beg;  //返回序列中一个元素的拷贝</p>
+<p>}</p>
+<p>注意,type是一个类的成员，而该类以来一个模板参数。因此，我们必须在返回类型的声明中使用typename来告知编译器，type表示一个类型(对应前文笔记)</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>对<code>Mod</code>，其中<code>Mod</code>是：</th>
+<th>若<code>T</code>是：</th>
+<th>则<code>Mod::type</code>是：</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>remove_reference</code></td>
+<td><code>X&amp;</code>或<code>X&amp;&amp;</code></td>
+<td><code>X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td><code>add_const</code></td>
+<td><code>X&amp;</code>或<code>const X</code>或函数</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>const T</code></td>
+</tr>
+<tr>
+<td><code>add_lvalue_reference</code></td>
+<td><code>X&amp;</code></td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>X&amp;&amp;</code></td>
+<td><code>X&amp;</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T&amp;</code></td>
+</tr>
+<tr>
+<td><code>add_rvalue_reference</code></td>
+<td><code>X&amp;</code>或<code>X&amp;&amp;</code></td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T&amp;&amp;</code></td>
+</tr>
+<tr>
+<td><code>remove_pointer</code></td>
+<td><code>X*</code></td>
+<td><code>X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td><code>add_pointer</code></td>
+<td><code>X&amp;</code>或<code>X&amp;&amp;</code></td>
+<td><code>X*</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T*</code></td>
+</tr>
+<tr>
+<td><code>make_signed</code></td>
+<td><code>unsigned X</code></td>
+<td><code>X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td><code>make_unsigned</code></td>
+<td>带符号类型</td>
+<td><code>unsigned X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td><code>remove_extent</code></td>
+<td><code>X[n]</code></td>
+<td><code>X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+<tr>
+<td><code>remove_all_extents</code></td>
+<td><code>X[n1][n2]...</code></td>
+<td><code>X</code></td>
+</tr>
+<tr>
+<td></td>
+<td>否则</td>
+<td><code>T</code></td>
+</tr>
+</tbody></table>
+<h3 id="函数指针和实参推断"><a href="#函数指针和实参推断" class="headerlink" title="函数指针和实参推断"></a>函数指针和实参推断</h3><ul>
+<li><p>当使用一个函数模板初始化一个函数指针或为一个函数指针赋值时，编译器使用指针的类型来推断模板实参。</p>
+<blockquote>
+<p>template&lt;typename T&gt;int compare(const T&amp;, const T&amp;);</p>
+<p>int (*pf1)(const int&amp;, const int&amp;) =compare; //pf1指向compare的int版本实例</p>
+<p>void func(int(*)(const string&amp;, const string&amp;));</p>
+<p>void func(int(*)(const int&amp;, const int&amp;));</p>
+<p>func(compare); //错误：使用compare的哪个实例?</p>
+<p>//显式指出实例化哪个compare版本</p>
+<p>func(compare&lt;int&gt;); //传递 compare(const int&amp;, const int&amp;)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="模板实参推断和引用"><a href="#模板实参推断和引用" class="headerlink" title="模板实参推断和引用"></a>模板实参推断和引用</h3><ul>
+<li><p>从左值引用函数推断类型：若形如<code>T&amp;</code>，则只能传递给它一个左值。但如果是<code>const T&amp;</code>，则可以接受一个右值。</p>
+<blockquote>
+<p>template&lt;typename T&gt; void f1(T&amp;); //实参必须是一个左值</p>
+<p>template&lt;typename T&gt; void f1(const T&amp;); //可以接受一个右值</p>
+<p>f1(i); // i是一个int,模板参数类型T是int</p>
+<p>f1(ci); //ci是一个const int ; 模板参数T是const int</p>
+<p>f1(5); //错误:传递给一个&amp;参数的实参必须是一个左值</p>
+<p>f2(5); //可以，T是int</p>
+</blockquote>
+</li>
+<li><p>从右值引用函数推断类型：若形如<code>T&amp;&amp;</code>，则只能传递给它一个右值。</p>
+</li>
+<li><p>引用折叠和右值引用参数：</p>
+<ul>
+<li><p>通常我们不能将一个右值引用绑定到一个左值上，但是c++定义了两种例外规则：</p>
+</li>
+<li><p>规则1：当我们将一个左值传递给函数的右值引用参数，且右值引用指向模板类型参数时（如<code>T&amp;&amp;</code>），编译器会推断模板类型参数为实参的左值引用类型。</p>
+<blockquote>
+<p>template&lt;typename T&gt;void f3(T&amp;&amp;);</p>
+<p>f3(i); // i是int，但编译器推断T的类型是int&amp;, 而非int</p>
+</blockquote>
+</li>
+<li><p>规则2：如果我们间接创造一个引用的引用，则这些引用形成了折叠。折叠引用只能应用在间接创造的引用的引用，如类型别名或模板参数。对于一个给定类型X：</p>
+<ul>
+<li><code>X&amp; &amp;</code>、<code>X&amp; &amp;&amp;</code>和<code>X&amp;&amp; &amp;</code>都折叠成类型<code>X&amp;</code>。</li>
+<li>类型<code>X&amp;&amp; &amp;&amp;</code>折叠成<code>X&amp;&amp;</code>。</li>
+</ul>
+</li>
+<li><p>上面两个例外规则导致两个重要结果：</p>
+<ul>
+<li>1.如果一个函数参数是一个指向模板类型参数的右值引用（如<code>T&amp;&amp;</code>），则它可以被绑定到一个左值上；</li>
+<li>2.如果实参是一个左值，则推断出的模板实参类型将是一个左值引用，且函数参数将被实例化为一个左值引用参数（<code>T&amp;</code>）。</li>
+</ul>
+</li>
+<li><p>这两个规则暗示：我们可以将任意类型的实参传递给T&amp;&amp;类型的函数的函数参数。</p>
+</li>
+<li><p>使用右值引用的函数模板通常应该有两种重载方式：</p>
+<ul>
+<li>template&lt;typename T&gt; void f (T&amp;&amp;) ; //绑定到非const右值</li>
+<li>tempalte&lt;typename T&gt; void f (const T&amp;); //左值和const右值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="理解std-move"><a href="#理解std-move" class="headerlink" title="理解std::move"></a>理解std::move</h3><ul>
+<li>标准库<code>move</code>函数是使用右值引用的模板的一个很好的例子。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">typename remove_reference&lt;T&gt;::type&amp;&amp; move(T&amp;&amp; t)</span><br><span class="line">&#123;</span><br><span class="line">  return static_cast&lt;typename remove_reference&lt;T&gt;::type&amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分析：函数参数T&amp;&amp;是一个指向模板类型参数的右值引用。通过引用折叠，此参数可以与任何类型的实参匹配。即我们既可以传递给move一个左值，也可以传递给它一个右值。</li>
+<li>从一个左值<code>static_cast</code>到一个右值引用是允许的。</li>
+</ul>
+<h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><ul>
+<li><p>某些函数需要将其一个或多个实参连同类型不变地转发给其他函数。在此情况下，我们需要保持转发实参的所有性质，包括实参类型是否是const的以及实参是左值还是右值。</p>
+</li>
+<li><p>将函数形参定义为指向模板类型参数的右值引用(如T&amp;&amp;)，它对应的实参的const属性和左值/右值属性得到保持。【通过折叠的方式】</p>
+</li>
+<li><p>使用一个名为<code>forward</code>的新标准库设施来传递参数，它能够保持原始实参的类型。</p>
+</li>
+<li><p>定义在头文件<code>utility</code>中。</p>
+</li>
+<li><p>通常情况下，我们使用forward传递那些定义为模板类型参数的右值引用的函数参数。通过其返回类型上的引用折叠，forward可以保持给定实参的左值/右值属性。</p>
+<blockquote>
+<p>template&lt;typename Type&gt; intermediary(Type &amp;&amp;arg){</p>
+<p>​    finalFcm( std::forward&lt;Type&gt;(arg) );</p>
+<p>}</p>
+<p>如果实参是一个右值，则Type是一个普通非引用类型，forward&lt;Type&gt;将返回Type&amp;&amp;</p>
+<p>如果实参是一个左值，则通过引用折叠，Type本身是一个左值引用类型。在此情况下，返回类型是一个指向左值引用类型的右值引用，再次对forward&lt;Type&gt;的返回类型进行引用折叠，将返回一个左值引用类型。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="重载与模板"><a href="#重载与模板" class="headerlink" title="重载与模板"></a>重载与模板</h2><ul>
+<li>多个可行模板：当有多个重载模板对一个调用提供同样好的匹配时，会选择最特例化的版本。</li>
+<li>非模板和模板重载：对于一个调用，如果一个非函数模板与一个函数模板提供同样好的匹配，则选择非模板版本。</li>
+</ul>
+<h2 id="可变参数模板"><a href="#可变参数模板" class="headerlink" title="可变参数模板"></a>可变参数模板</h2><p><strong>可变参数模板</strong>就是一个接受可变数目参数的模板函数或模板类。</p>
+<ul>
+<li><p>可变数目的参数被称为参数包。</p>
+<ul>
+<li>模板参数包：表示零个或多个模板参数。</li>
+<li>函数参数包：表示零个或者多个函数参数。</li>
+</ul>
+</li>
+<li><p>用一个省略号来指出一个模板参数或函数参数，表示一个包。</p>
+<blockquote>
+<p>template&lt;typename T, typename… Args&gt;</p>
+<p>void foo(const T &amp;t, const Args&amp; … rest);</p>
+<p>string s =”hello”;</p>
+<p>foo(s,42,”hi”);  </p>
+<p>//实例化为： void foo(const string&amp;, const int&amp;, const char[3]&amp;);</p>
+</blockquote>
+</li>
+<li><p><code>sizeof...</code>运算符，返回参数的数目。</p>
+<blockquote>
+<p>template&lt;typename… Args&gt; void g(Args… args){</p>
+<p>​    cout &lt;&lt; sizeof… (Args) &lt;&lt; endl;   //类型参数的数目</p>
+<p>​    cout &lt;&lt; sizeof… (args) &lt;&lt; endl;   //函数参数的数目</p>
+<p>}</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="编写可变参数函数模板"><a href="#编写可变参数函数模板" class="headerlink" title="编写可变参数函数模板"></a>编写可变参数函数模板</h3><ul>
+<li>我们可以使用一个initializer_list来定义一个可接受可变数目实参的函数，但是这要求所有实参必须具有相同的类型。</li>
+<li>可变参数函数通常是递归的：第一步调用处理包中的第一个实参，然后用剩余实参调用自身。</li>
+</ul>
+<h3 id="包扩展"><a href="#包扩展" class="headerlink" title="包扩展"></a>包扩展</h3><ul>
+<li>对于一个参数包，除了获取它的大小，唯一能做的事情就是<strong>扩展</strong>（expand）。</li>
+<li>扩展一个包时，还要提供用于每个扩展元素的<strong>模式</strong>（pattern）。</li>
+</ul>
+<h3 id="转发参数包"><a href="#转发参数包" class="headerlink" title="转发参数包"></a>转发参数包</h3><ul>
+<li>新标准下可以组合使用可变参数模板和<code>forward</code>机制，实现将实参不变地传递给其他函数。</li>
+</ul>
+<h2 id="模板特例化（Specializations）"><a href="#模板特例化（Specializations）" class="headerlink" title="模板特例化（Specializations）"></a>模板特例化（Specializations）</h2><ul>
+<li><p>定义函数模板特例化：关键字<code>template</code>后面跟一个空尖括号对（<code>&lt;&gt;</code>）。</p>
+</li>
+<li><p>特例化的本质是实例化一个模板，而不是重载它。特例化不影响函数匹配。</p>
+</li>
+<li><p>模板及其特例化版本应该声明在同一个头文件中。所有同名模板的声明应该放在前面，然后是特例化版本。</p>
+</li>
+<li><p>我们可以部分特例化类模板，但不能部分特例化函数模板。</p>
+</li>
+<li><p>我们可以特例化特定成员函数而不是特例化整个模板。</p>
+<blockquote>
+<p>template&lt;typename T&gt; struct Foo{</p>
+<p>​    Foo(const T&amp; t = T() ) : mem(t) {}</p>
+<p>​    void Bar(){/*…*/}</p>
+<p>​    T mem;</p>
+<p>}</p>
+<p>template&lt;&gt;</p>
+<p>void Foo&lt;int&gt;::Bar(){   //特例化Foo&lt;int&gt;的成员Bar</p>
+<p>​    //进行应用于int的特殊处理</p>
+<p>}</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="bitset类型"><a href="#bitset类型" class="headerlink" title="bitset类型"></a>bitset类型</h1><ul>
+<li>处理二进制位的有序集；</li>
+<li><code>bitset</code>也是类模板，但尖括号中输入的是<code>bitset</code>的长度而不是元素类型，因为元素类型是固定的，都是一个二进制位。</li>
+</ul>
+<p>初始化<code>bitset</code>的方法：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bitset&lt;n&gt; b;</code></td>
+<td align="left"><code>b</code>有<code>n</code>位；每一位均是0.此构造函数是一个<code>constexpr</code>。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(u);</code></td>
+<td align="left"><code>b</code>是<code>unsigned long long</code>值<code>u</code>的低<code>n</code>位的拷贝。如果<code>n</code>大于<code>unsigned long long</code>的大小，则<code>b</code>中超出<code>unsigned long long</code>的高位被置为0。此构造函数是一个<code>constexpr</code>。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(s, pos, m, zero, one);</code></td>
+<td align="left"><code>b</code>是<code>string s</code>从位置<code>pos</code>开始<code>m</code>个字符的拷贝。<code>s</code>只能包含字符<code>zero</code>或<code>one</code>：如果<code>s</code>包含任何其他字符，构造函数会抛出<code>invalid_argument</code>异常。字符在<code>b</code>中分别保存为<code>zero</code>和<code>one</code>。<code>pos</code>默认为0，<code>m</code>默认为<code>string::npos</code>，<code>zero</code>默认为’0’，<code>one</code>默认为’1’。</td>
+</tr>
+<tr>
+<td><code>bitset&lt;n&gt; b(cp, pos, m, zero, one);</code></td>
+<td align="left">和上一个构造函数相同，但从<code>cp</code>指向的字符数组中拷贝字符。如果未提供<code>m</code>，则<code>cp</code>必须指向一个<code>C</code>风格字符串。如果提供了<code>m</code>，则从<code>cp</code>开始必须至少有<code>m</code>个<code>zero</code>或<code>one</code>字符。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>bitset&lt;13&gt; bitvec1(0xbeef);  //bitvec1比初始值少，初始值中的高位被截断</p>
+<p>bitset&lt;20&gt; bitvec2(0xbeef);  //bitvec2比初始值大，它的高位被设置为0</p>
+</blockquote>
+<ul>
+<li><p>从一个string初始化bitset</p>
+<blockquote>
+<p>bitset&lt;32&gt; bitvec3(“1100”); // 2、3两位为1，剩余两位为0</p>
+<p>string中下标最大的字符(最右字符)用来初始化bitset中的低位(下标为0的二进制位)</p>
+<p>string str(“1111111000000011001101”);</p>
+<p>bitset&lt;32&gt; bitvec4(str,5,4); //从str[5]开始的四个二进制位，即1100</p>
+</blockquote>
+</li>
+</ul>
+<p><code>bitset</code>操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>b.any()</code></td>
+<td><code>b</code>中是否存在1。</td>
+</tr>
+<tr>
+<td><code>b.all()</code></td>
+<td><code>b</code>中都是1。</td>
+</tr>
+<tr>
+<td><code>b.none()</code></td>
+<td><code>b</code>中是否没有1。</td>
+</tr>
+<tr>
+<td><code>b.count()</code></td>
+<td><code>b</code>中1的个数。</td>
+</tr>
+<tr>
+<td><code>b.size()</code></td>
+<td>返回<code>b</code>中的位数</td>
+</tr>
+<tr>
+<td><code>b.test(pos)</code></td>
+<td><code>pos</code>下标是否是1</td>
+</tr>
+<tr>
+<td><code>b.set(pos)</code></td>
+<td><code>pos</code>置1</td>
+</tr>
+<tr>
+<td><code>b.set()</code></td>
+<td>所有都置1</td>
+</tr>
+<tr>
+<td><code>b.reset(pos)</code></td>
+<td>将位置<code>pos</code>处的位复位</td>
+</tr>
+<tr>
+<td><code>b.reset()</code></td>
+<td>将<code>b</code>中所有位复位</td>
+</tr>
+<tr>
+<td><code>b.flip(pos)</code></td>
+<td>将位置<code>pos</code>处的位取反</td>
+</tr>
+<tr>
+<td><code>b.flip()</code></td>
+<td>将<code>b</code>中所有位取反</td>
+</tr>
+<tr>
+<td><code>b[pos]</code></td>
+<td>访问<code>b</code>中位置<code>pos</code>处的位；如果<code>b</code>是<code>const</code>的，则当该位置位时，返回<code>true</code>；否则返回<code>false</code>。</td>
+</tr>
+<tr>
+<td><code>b.to_ulong()</code></td>
+<td>返回一个<code>unsigned long</code>值，其位模式和<code>b</code>相同。如果<code>b</code>中位模式不能放入指定的结果类型，则抛出一个<code>overflow_error</code>异常。</td>
+</tr>
+<tr>
+<td><code>b.to_ullong()</code></td>
+<td>类似上面，返回一个<code>unsigned long long</code>值。</td>
+</tr>
+<tr>
+<td><code>b.to_string(zero, one)</code></td>
+<td>返回一个<code>string</code>，表示<code>b</code>中位模式。<code>zero</code>和<code>one</code>默认为0和1。</td>
+</tr>
+<tr>
+<td><code>os &lt;&lt; b</code></td>
+<td>将<code>b</code>中二进制位打印为字符<code>1</code>或<code>0</code>，打印到流<code>os</code>。</td>
+</tr>
+<tr>
+<td><code>is &gt;&gt; b</code></td>
+<td>从<code>is</code>读取字符存入<code>b</code>。当下一个字符不是1或0时，或是已经读入<code>b.size()</code>个位时，读取过程停止。</td>
+</tr>
+</tbody></table>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/01/cppp-note6/" data-title="cppp二周目补充笔记16+杂七杂八" data-url="https://Misaka9468.github.io/2020/07/01/cppp-note6/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
