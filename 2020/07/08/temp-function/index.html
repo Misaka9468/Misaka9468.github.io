@@ -6,7 +6,18 @@
     
     <meta name="author" content="Misaka Mikoto">
     
-    <meta name="description" content="记录成长路...">
+    <meta name="description" content="字符串与数字的转换
+直接计算
+
+
+定义在stdlib.h中
+均会扫描字符串，直到遇到数字或正负号才开始转换
+atoi 字符串转换成整型数
+atof 字符串转换成浮点数
+atol 字符串转换成long
+strtod 字符串转换成浮点数
+strtol 根据第三个参数base(2~256)转换成long
+">
     
     
 
@@ -19,7 +30,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Misaka妙妙屋</title>
+    <title>刷题杂碎-有用的函数 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -79,7 +90,7 @@
         
     $(function() {
         // page-id...
-        var pageId = "page/2/index.html";
+        var pageId = "2020/07/08/temp-function/";
         pageId = pageId.substr(0, pageId.indexOf("/"));
         if(pageId === "") pageId = "index";
         
@@ -87,90 +98,75 @@
     });
     </script>
 
-    
-<article class="post container">
-    <div class="jumbotron">
-        <h1><a href="/2020/06/18/Greek alphabet/" title="如何优雅地打出希腊字母">如何优雅地打出希腊字母</a></h1>
-
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>刷题杂碎-有用的函数</h1>
         
-            <p>说明想法来源于复习大雾的时候，因为太菜了不会打希腊字母，只能百度希腊字母表然后手动cv
-后来不知道脑子搭错了哪根筋，本能地打出了
-
-….
-索性干脆把这些希腊字母都找全吧
-
-输入法：Windows10自带微软拼音输入法
-正文
-
-
-大写
-小写
-国际音标
-对应输入法打出(不代表真实的对</p>
+        <div class="time-info">
+发表于:<time datetime="2020-07-08T14:05:41.000Z" itemprop="datePublished">2020-07-08</time>，更新于:<time datetime="2020-07-09T03:19:04.989Z" itemprop="dateModified">2020-07-09</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
         
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串与数字的转换"><span class="toc-number">1.</span> <span class="toc-text">字符串与数字的转换</span></a></li></ol>
+            </div>
+            
+            <h1 id="字符串与数字的转换"><a href="#字符串与数字的转换" class="headerlink" title="字符串与数字的转换"></a>字符串与数字的转换</h1><ul>
+<li><p>直接计算</p>
+</li>
+<li><blockquote>
+<p>定义在stdlib.h中</p>
+<p>均会扫描字符串，直到遇到数字或正负号才开始转换</p>
+<p>atoi 字符串转换成整型数</p>
+<p>atof 字符串转换成浮点数</p>
+<p>atol 字符串转换成long</p>
+<p>strtod 字符串转换成浮点数</p>
+<p>strtol 根据第三个参数base(2~256)转换成long</p>
+<p>strtoul 根据base转换成无符号的长整型</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>定义在stdlib.h</p>
+<p>{</p>
+<p>​       char buf[512];</p>
+<p>​       sscanf(“123456”,”%s”,buf);  </p>
+<p>​       printf(“%s”,buf); // 123456</p>
+<p>}</p>
+<p>{</p>
+<p>​       char buf[512];</p>
+<p>​       int k=123;</p>
+<p>​       sprintf(buf,”%d”,k); </p>
+<p>​       printf(“%s”,buf); //123</p>
+<p>}</p>
+</blockquote>
+</li>
+</ul>
 
-        <p class="say-title">
-            —— <img src="/images/misaka.png" class="img-circle index-post-avatar" />
-            <a href="https://Misaka9468.github.io" target="_blank" title="Misaka Mikoto">Misaka Mikoto</a>
-            于2020-06-18自豪地唠嗑
-        </p>
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/08/temp-function/" data-title="刷题杂碎-有用的函数" data-url="https://Misaka9468.github.io/2020/07/08/temp-function/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
     </div>
 </article>
 
-<article class="post container">
-    <div class="jumbotron">
-        <h1><a href="/2020/06/10/Markdown/" title="Markdown学习笔记">Markdown学习笔记</a></h1>
-
-        
-            <p>写在前面掌握Markdown也是一项重要的技能，作为一名CS专业的带学生很有学一个的必要。
-由于博客里的文章都是用Markdown编写的嘛，相信这篇文章写成的时候，大概也就是俺的Markdown入门的时候。
-(基于Typora
-Markdown 标题
-# 一级标题
-## 二级标题</p>
-        
-
-        <p class="say-title">
-            —— <img src="/images/misaka.png" class="img-circle index-post-avatar" />
-            <a href="https://Misaka9468.github.io" target="_blank" title="Misaka Mikoto">Misaka Mikoto</a>
-            于2020-06-10自豪地唠嗑
-        </p>
-    </div>
-</article>
-
-<article class="post container">
-    <div class="jumbotron">
-        <h1><a href="/2020/06/07/first_blog/" title="👴的第一篇博客">👴的第一篇博客</a></h1>
-
-        
-            <p>计划不定时更新一些想法
-~~现在连Markdown语法还不会~~
-
-总之现在还处于什么也不会的阶段，希望自己能快快成长</p>
-        
-
-        <p class="say-title">
-            —— <img src="/images/misaka.png" class="img-circle index-post-avatar" />
-            <a href="https://Misaka9468.github.io" target="_blank" title="Misaka Mikoto">Misaka Mikoto</a>
-            于2020-06-07自豪地唠嗑
-        </p>
-    </div>
-</article>
-
-
-
-<div class="container pagination-div">
-    <div class="well">
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </div>
-</div>
-
-
-<script>
-$(function() {
-    $("article:first").addClass("first-post");
-});
-</script>
     <footer id="footer">
     <div id="bottom-tip">
         Misaka妙妙屋
