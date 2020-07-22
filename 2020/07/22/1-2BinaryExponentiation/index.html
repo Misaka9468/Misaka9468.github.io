@@ -6,6 +6,11 @@
     
     <meta name="author" content="Misaka Mikoto">
     
+    <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$">
+    
     
 
     
@@ -17,7 +22,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Binary-Exponentiation | Misaka妙妙屋</title>
+    <title>快速幂 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -87,24 +92,73 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>Binary-Exponentiation</h1>
+        <h1>快速幂</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-07-22T02:52:11.000Z" itemprop="datePublished">2020-07-22</time>，更新于:<time datetime="2020-07-22T02:54:15.163Z" itemprop="dateModified">2020-07-22</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-07-22T02:52:11.000Z" itemprop="datePublished">2020-07-22</time>，更新于:<time datetime="2020-07-22T13:34:40.166Z" itemprop="dateModified">2020-07-22</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#快速幂"><span class="toc-number">1.</span> <span class="toc-text">快速幂</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法描述与代码实现"><span class="toc-number">1.1.</span> <span class="toc-text">算法描述与代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模意义下取幂"><span class="toc-number">1.2.</span> <span class="toc-text">模意义下取幂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高精度快速幂"><span class="toc-number">1.3.</span> <span class="toc-text">高精度快速幂</span></a></li></ol></li></ol>
             </div>
             
-            
+            <head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<h1 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h1><blockquote>
+<p>参考 oi-wiki.org/math/bignum</p>
+</blockquote>
+<p>快速幂是在O(log n)的时间内计算a^n的小技巧，而暴力计算则需要O(n)的时间。</p>
+<h2 id="算法描述与代码实现"><a href="#算法描述与代码实现" class="headerlink" title="算法描述与代码实现"></a>算法描述与代码实现</h2><ul>
+<li><p><strong>算法描述</strong></p>
+<p> 举例：$3^{13}=3^{(1101)_2}=3^{8}·3^{4}·3^{1}$</p>
+<p> 因为n有$[log_2n]+1$个二进制位，因此当我们知道了$a^1$ ,$ a^2$,$a^4$,…,$a^{[log_2n]}$后,我们只需要计算O(logn)次乘法就可以计算出$a^n$</p>
+<p> 于是我们只需要知道一个快速的方法来计算上述 3 的$2^k$次幂的序列。这个问题很简单，因为序列中(除第一个)任意一个元素就是其前一个元素的平方。</p>
+<p> ​        $3^1=3$</p>
+<p> ​        $3^2=(3^1)^2=9$</p>
+<p> ​        $3^4=(3^2)^2=81$</p>
+<p> ​        $3^8=(3^4)^2=6561$</p>
+<p>  把n写作二进制$n=n_t2^t+n_{t-1}2^{t-1}+···+n_12^1+n_02^0$ ，那么就有 $a^n=(a^{n_t2^t+···+n_02^0})=a^{n_02^0}×a^{n_12^1}×···×a^{n_t2^t}$</p>
+<p> 我们可以在常数时间内从$2^i$项推出$2^{i+1}$项。</p>
+<p> 这个算法的复杂度是$O(log n)$的，我们计算了$O(log n)$个$2^k$次幂的数，然后花费$O(log n)$的时间选择二进制为1对应的幂来相乘</p>
+</li>
+<li><p><strong>代码实现</strong></p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归法</span></span><br><span class="line"><span class="comment">// 假设有n+1层递归，第n层如果b%2==1，代表2^n前的系数是1 ，在逐层向外的递归中，该位上的值不断平方，最后成为3^(2^n)</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">binpow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> res = binpow(a, b / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">if</span> (b % <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> res * res * a;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> res * res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//迭代法</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">binpow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (b &amp; <span class="number">1</span>) res = res * a;  <span class="comment">//从最低位开始处理</span></span><br><span class="line">    a = a * a;</span><br><span class="line">    b &gt;&gt;= <span class="number">1</span>;        <span class="comment">// b=b/2;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="模意义下取幂"><a href="#模意义下取幂" class="headerlink" title="模意义下取幂"></a>模意义下取幂</h2><p>取模的运算不会干涉乘法运算，因此我们只需要在计算的过程中取模即可</p>
+<ul>
+<li><strong>(a + b) % p = (a%p + b%p) %p</strong></li>
+<li><strong>(a - b) % p = ((a%p - b%p) + p) %p</strong></li>
+<li><strong>(a * b) % p = (a%p)*(b%p) %p</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">binpow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> m)</span> </span>&#123;</span><br><span class="line">  a %= m;    <span class="comment">//相当于每一个乘数%m</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (b &amp; <span class="number">1</span>) res = res * a % m;  <span class="comment">//相当于最后乘法的结果%m</span></span><br><span class="line">    a = a * a % m; <span class="comment">//相当于每一个乘数%m</span></span><br><span class="line">    b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：根据费马小定理，如果m是一个质数，我们可以计算$x^{n\mod(m-1)}$来加速算法过程。</p>
+<h2 id="高精度快速幂"><a href="#高精度快速幂" class="headerlink" title="高精度快速幂"></a>高精度快速幂</h2><p>例：</p>
+<p>从文件中输入 P（1000&lt;P&lt;3100000），计算$2^P-1$的最后 100 位数字（用十进制高精度数表示），不足 100 位时高位补 0。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">505</span>], b[<span class="number">505</span>], t[<span class="number">505</span>], i, j;  <span class="comment">//a[]在这里作为底数2  b[0]a[0]起到</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mult</span><span class="params">(<span class="keyword">int</span> x[], <span class="keyword">int</span> y[])</span>  <span class="comment">// 高精度乘法</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">memset</span>(t, <span class="number">0</span>, <span class="keyword">sizeof</span>(t));</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= x[<span class="number">0</span>]; i++) &#123;    <span class="comment">//作为b[]</span></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= y[<span class="number">0</span>]; j++) &#123;   <span class="comment">//作为b[]或作为a[]，作为a[]时让t[0]++</span></span><br><span class="line">      <span class="keyword">if</span> (i + j - <span class="number">1</span> &gt; <span class="number">100</span>)  </span><br><span class="line">          <span class="keyword">continue</span>;  <span class="comment">//跳出内层循环</span></span><br><span class="line">      t[i + j - <span class="number">1</span>] += x[i] * y[j];</span><br><span class="line">      t[i + j] += t[i + j - <span class="number">1</span>] / <span class="number">10</span>;</span><br><span class="line">      t[i + j - <span class="number">1</span>] %= <span class="number">10</span>;</span><br><span class="line">      t[<span class="number">0</span>] = i + j;  <span class="comment">//t[0]最终成为b[0],最终输出p</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">memcpy</span>(b, t, <span class="keyword">sizeof</span>(b));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ksm</span><span class="params">(<span class="keyword">int</span> p)</span>  <span class="comment">// 快速幂</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (p == <span class="number">1</span>) &#123;  <span class="comment">//无论p初始值是什么，最后都会执行这里</span></span><br><span class="line">    <span class="built_in">memcpy</span>(b, a, <span class="keyword">sizeof</span>(b));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  ksm(p / <span class="number">2</span>);  <span class="comment">//最后一次调用是ksm(1)，ksm(1)结束后b[]=&#123;1,2,0,...,0&#125;</span></span><br><span class="line">  mult(b, b);  <span class="comment">//在本程序中，数组的有效下标是从1开始的，b包含着各级底数次方，伴随递归不断平方直至归位</span></span><br><span class="line">  <span class="keyword">if</span> (p % <span class="number">2</span> == <span class="number">1</span>) mult(b, a); <span class="comment">//判断是否要带上某位的底数，这里第一个2是a[]作为的底数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> p;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p);</span><br><span class="line">  a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  a[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">  b[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  b[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">  ksm(p);</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">100</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, b[i] - <span class="number">1</span>); <span class="comment">//2^p-1的-1要求</span></span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%d"</span>, b[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/07/22/1-2BinaryExponentiation/" data-title="Binary-Exponentiation" data-url="https://Misaka9468.github.io/2020/07/22/1-2BinaryExponentiation/"></div>
+	<div class="ds-thread" data-thread-key="/2020/07/22/1-2BinaryExponentiation/" data-title="快速幂" data-url="https://Misaka9468.github.io/2020/07/22/1-2BinaryExponentiation/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
