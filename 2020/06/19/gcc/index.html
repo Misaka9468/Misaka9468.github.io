@@ -6,12 +6,11 @@
     
     <meta name="author" content="Misaka Mikoto">
     
-    <meta name="description" content="前言
-写给泡在IDE蜜罐中的自己。
+    <meta name="description" content="前言写给泡在IDE蜜罐中的自己。
 个人粗浅理解，肯定会有疏漏与错误，会在以后慢慢补正。
 基础: 多文件编译
 //main.cpp#include “header.h”int main(){   fun();}
-//header.h#ifndef HEADER_H#define HEADER_Hvo">
+//header.h#ifndef HEADER_H#define HEADER_Hvoi">
     
     
 
@@ -97,7 +96,7 @@
         <h1>g++ gcc MinGW make究竟是什么鬼</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-06-19T07:51:05.000Z" itemprop="datePublished">2020-06-19</time>，更新于:<time datetime="2020-06-20T09:35:40.928Z" itemprop="dateModified">2020-06-20</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-06-19T07:51:05.000Z" itemprop="datePublished">2020-06-19</time>，更新于:<time datetime="2020-07-19T13:38:56.363Z" itemprop="dateModified">2020-07-19</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
@@ -106,8 +105,7 @@
                 <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础-多文件编译"><span class="toc-number">2.</span> <span class="toc-text">基础: 多文件编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、预处理"><span class="toc-number">2.1.</span> <span class="toc-text">一、预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、编译"><span class="toc-number">2.2.</span> <span class="toc-text">二、编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、链接"><span class="toc-number">2.3.</span> <span class="toc-text">三、链接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MinGW"><span class="toc-number">3.</span> <span class="toc-text">MinGW</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gcc与g"><span class="toc-number">4.</span> <span class="toc-text">gcc与g++</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#make"><span class="toc-number">5.</span> <span class="toc-text">make</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CMake"><span class="toc-number">6.</span> <span class="toc-text">CMake</span></a></li></ol>
             </div>
             
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://wx2.sbimg.cn/2020/06/20/25acdcd01149760c3.png" alt="clion"></p>
-<p>写给泡在IDE蜜罐中的自己。</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>写给泡在IDE蜜罐中的自己。</p>
 <p>个人粗浅理解，肯定会有疏漏与错误，会在以后慢慢补正。</p>
 <h1 id="基础-多文件编译"><a href="#基础-多文件编译" class="headerlink" title="基础: 多文件编译"></a>基础: 多文件编译</h1><blockquote>
 <p>//main.cpp<br>#include “header.h”<br>int main(){<br>   fun();<br>}</p>

@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="高精度计算
+参考 oi-wiki.org/math/bignum
+
+存储为了使各位对齐，使用string/数组逆序存储，再逆序打印。
+加法与减法略
+乘法高精度-低精度将a的每一位数字乘以b，得到的结果%10作为该位数字，/10得到进位的增量值
+以 1337*42为例：
+123456789101112">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1-1 高精度计算 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "background.jpg",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/07/20/1-1HighAccuracy/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>1-1 高精度计算</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-07-20T06:47:08.000Z" itemprop="datePublished">2020-07-20</time>，更新于:<time datetime="2020-07-22T03:20:32.692Z" itemprop="dateModified">2020-07-22</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高精度计算"><span class="toc-number">1.</span> <span class="toc-text">高精度计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#存储"><span class="toc-number">1.1.</span> <span class="toc-text">存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加法与减法"><span class="toc-number">1.2.</span> <span class="toc-text">加法与减法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乘法"><span class="toc-number">1.3.</span> <span class="toc-text">乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#高精度-低精度"><span class="toc-number">1.3.1.</span> <span class="toc-text">高精度-低精度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高精度-高精度"><span class="toc-number">1.3.2.</span> <span class="toc-text">高精度-高精度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#除法"><span class="toc-number">1.4.</span> <span class="toc-text">除法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题："><span class="toc-number">1.5.</span> <span class="toc-text">例题：</span></a></li></ol></li></ol>
+            </div>
+            
+            <h1 id="高精度计算"><a href="#高精度计算" class="headerlink" title="高精度计算"></a>高精度计算</h1><blockquote>
+<p>参考 oi-wiki.org/math/bignum</p>
+</blockquote>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><p>为了使各位对齐，使用string/数组逆序存储，再逆序打印。</p>
+<h2 id="加法与减法"><a href="#加法与减法" class="headerlink" title="加法与减法"></a>加法与减法</h2><p>略</p>
+<h2 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h2><h3 id="高精度-低精度"><a href="#高精度-低精度" class="headerlink" title="高精度-低精度"></a>高精度-低精度</h3><p>将a的每一位数字乘以b，得到的结果%10作为该位数字，/10得到进位的增量值</p>
+<p>以 1337*42为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mul_short</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> b, <span class="keyword">int</span> c[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">clear</span>(c);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LEN - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">    <span class="comment">// 直接把 a 的第 i 位数码乘以乘数，加入结果</span></span><br><span class="line">    c[i] += a[i] * b;</span><br><span class="line">    <span class="keyword">if</span> (c[i] &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">      <span class="comment">// 处理进位</span></span><br><span class="line">      <span class="comment">// c[i] / 10 即除法的商数成为进位的增量值</span></span><br><span class="line">      c[i + <span class="number">1</span>] += c[i] / <span class="number">10</span>;</span><br><span class="line">      <span class="comment">// 而 c[i] % 10 即除法的余数成为在当前位留下的值</span></span><br><span class="line">      c[i] %= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="高精度-高精度"><a href="#高精度-高精度" class="headerlink" title="高精度-高精度"></a>高精度-高精度</h3><p>竖式乘法    以1337*42为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> c[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">clear</span>(c);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LEN - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">    <span class="comment">// 这里直接计算结果中的从低到高第 i 位，且一并处理了进位</span></span><br><span class="line">    <span class="comment">// 第 i 次循环为 c[i] 加上了所有满足 p + q = i 的 a[p] 与 b[q] 的乘积之和</span></span><br><span class="line">    <span class="comment">// 这样做的效果和直接进行上图的运算最后求和是一样的，只是更加简短的一种实现方式</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; ++j) c[i] += a[j] * b[i - j];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (c[i] &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">      c[i + <span class="number">1</span>] += c[i] / <span class="number">10</span>;</span><br><span class="line">      c[i] %= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h2><p>竖式长除法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 被除数 a 以下标 last_dg 为最低位，是否可以再减去除数 b 而保持非负</span></span><br><span class="line"><span class="comment">// len 是除数 b 的长度，避免反复计算</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">greater_eq</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> last_dg, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 有可能被除数剩余的部分比除数长，这个情况下最多多出 1 位，故如此判断即可</span></span><br><span class="line">  <span class="keyword">if</span> (a[last_dg + len] != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="comment">// 从高位到低位，逐位比较</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a[last_dg + i] &gt; b[i]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (a[last_dg + i] &lt; b[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 相等的情形下也是可行的</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">div</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> c[], <span class="keyword">int</span> d[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">clear</span>(c);</span><br><span class="line">  <span class="built_in">clear</span>(d);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> la, lb;</span><br><span class="line">  <span class="keyword">for</span> (la = LEN - <span class="number">1</span>; la &gt; <span class="number">0</span>; --la)</span><br><span class="line">    <span class="keyword">if</span> (a[la - <span class="number">1</span>] != <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">for</span> (lb = LEN - <span class="number">1</span>; lb &gt; <span class="number">0</span>; --lb)</span><br><span class="line">    <span class="keyword">if</span> (b[lb - <span class="number">1</span>] != <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">if</span> (lb == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"&gt; &lt;"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;  <span class="comment">// 除数不能为零</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// c 是商</span></span><br><span class="line">  <span class="comment">// d 是被除数的剩余部分，算法结束后自然成为余数</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; la; ++i) d[i] = a[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = la - lb; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    <span class="comment">// 计算商的第 i 位</span></span><br><span class="line">    <span class="keyword">while</span> (greater_eq(d, b, i, lb)) &#123;</span><br><span class="line">      <span class="comment">// 若可以减，则减</span></span><br><span class="line">      <span class="comment">// 这一段是一个高精度减法</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lb; ++j) &#123;</span><br><span class="line">        d[i + j] -= b[j];</span><br><span class="line">        <span class="keyword">if</span> (d[i + j] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">          d[i + j + <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">          d[i + j] += <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 使商的这一位增加 1</span></span><br><span class="line">      c[i] += <span class="number">1</span>;</span><br><span class="line">      <span class="comment">// 返回循环开头，重新检查</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h2><ul>
+<li>洛谷P1009 阶乘之和<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fill</span><span class="params">(<span class="keyword">int</span> numbers1[],<span class="keyword">int</span> numbers2[],<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i) &#123;</span><br><span class="line">        numbers2[i] += numbers1[i] * index;</span><br><span class="line">        <span class="keyword">if</span> (numbers2[i] &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">            numbers2[i + <span class="number">1</span>] += numbers2[i] / <span class="number">10</span>;</span><br><span class="line">            numbers2[i] %= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addnum</span><span class="params">(<span class="keyword">int</span> answer[],<span class="keyword">int</span> numbers[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">        answer[i]+=numbers[i];</span><br><span class="line">        <span class="keyword">if</span>(answer[i]&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            answer[i+<span class="number">1</span>]++;</span><br><span class="line">            answer[i]%=<span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer[<span class="number">100</span>]=&#123;<span class="number">1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> index=<span class="number">0</span>,i=<span class="number">0</span>,n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">int</span> numbers[n][<span class="number">100</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    numbers[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="built_in">fill</span>(numbers[i<span class="number">-1</span>],numbers[i],i+<span class="number">1</span>);</span><br><span class="line">        addnum(answer,numbers[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(index=<span class="number">99</span>;index&gt;=<span class="number">0</span>;index--)</span><br><span class="line">        <span class="keyword">if</span>(answer[index]!=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">for</span>(;index&gt;=<span class="number">0</span>;index--)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;answer[index];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/20/1-1HighAccuracy/" data-title="1-1 高精度计算" data-url="https://Misaka9468.github.io/2020/07/20/1-1HighAccuracy/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
