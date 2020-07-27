@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>递归与分治 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "background.jpg",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/07/27/1-4RecursionAndPartition/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>递归与分治</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-07-27T06:39:00.000Z" itemprop="datePublished">2020-07-27</time>，更新于:<time datetime="2020-07-27T14:15:18.128Z" itemprop="dateModified">2020-07-27</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#递归-amp-递推"><span class="toc-number">1.</span> <span class="toc-text">递归&amp;递推</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分治"><span class="toc-number">2.</span> <span class="toc-text">分治</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简述"><span class="toc-number">2.1.</span> <span class="toc-text">简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间复杂度"><span class="toc-number">2.2.</span> <span class="toc-text">时间复杂度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题："><span class="toc-number">3.</span> <span class="toc-text">例题：</span></a></li></ol>
+            </div>
+            
+            <head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<blockquote>
+<p>参考: zhuanlan.zhihu.com/p/45986027</p>
+</blockquote>
+<h1 id="递归-amp-递推"><a href="#递归-amp-递推" class="headerlink" title="递归&amp;递推"></a>递归&amp;递推</h1><p>心得 :  活在当下？找规律?</p>
+<h1 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h1><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>“分而治之”，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。</p>
+<p><strong>问题：有100枚硬币，其中1枚重量与众不同，是假币，略轻一些。如果用天平秤，请问至少称几次一定能找到这枚假币。</strong></p>
+<p>1.将100硬币分成3份，33,33,34。 </p>
+<p>2.称量1、2份，若天平平衡，则假币必在另外34枚中。若不平衡，假币在轻的那33枚里。</p>
+<p>3.将34枚分为11/11/12枚（或将33枚分成11*3）。</p>
+<p>4.称量两组11枚的硬币，若平衡，假币在12枚里（或另外的11枚）若不平衡，假币在轻的11里。 </p>
+<p>5.将11（或12）枚分成3/4/4（或4/4/4），称量4/4，方法同上。 </p>
+<p>6.将剩下的3（或4）分为1/1/1（或1/1），称量1/1，若平衡，则剩下的一枚是假币，若不平衡，轻的是假币。 若还剩4枚，出现1/1平衡，剩下2枚则称量，显然轻的是假币。</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>在解决规模为n的问题时，总是先递归地求解a个规模为n/b的子问题，然后在$O(n^d)$时间内将子问题的解合并起来，其中a,b,d&gt;0a,b,d 是一些特定的整数。</p>
+<p>一般的， 我们假设分解和合并过程所用的时间分别为D(n),C(n), 设T(n)为处理一个规模为n的序列所消耗的时间为子序列个数，每一个子序列是原序列的1/b，α为把每个问题分解成α个子问题,则所消耗的时间为</p>
+<p>有$T(n)=αT(n/b)+D(n)+C(n)$</p>
+<p>例如在分析快速排序的时间复杂度情况下,α与b都是2， $D(n)+C(n)$可作为线性时间$Θ(n)$，经过推导得时间复杂度为$O(nlogn)$</p>
+<h1 id="例题："><a href="#例题：" class="headerlink" title="例题："></a><strong>例题：</strong></h1><p><a href="https://www.luogu.com.cn/problem/P5461" target="_blank" rel="noopener">洛谷P5461 赦免战俘</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _rep(x,y,z) for (int x=(y);x&lt;(z);++x)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">bool</span> arr[<span class="number">1026</span>][<span class="number">1026</span>];</span><br><span class="line"><span class="comment">//把每次函数的的任务，确定为 划分-填充</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fill_arr</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> index_i,<span class="keyword">int</span> index_j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> border=<span class="built_in">pow</span>(<span class="number">2</span>,n)/<span class="number">2</span>;</span><br><span class="line">    _rep(i,index_i,border+index_i)</span><br><span class="line">        _rep(j,index_j,border+index_j)</span><br><span class="line">            arr[i][j]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(border!=<span class="number">1</span>) &#123;</span><br><span class="line">        fill_arr(n - <span class="number">1</span>,index_i,border+index_j);</span><br><span class="line">        fill_arr(n - <span class="number">1</span>,border+index_i,index_j);</span><br><span class="line">        fill_arr(n - <span class="number">1</span>,border+index_i,border+index_j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">memset</span>(arr,<span class="number">1</span>,<span class="keyword">sizeof</span>(arr));</span><br><span class="line">    <span class="keyword">int</span> index=<span class="built_in">pow</span>(<span class="number">2</span>,n);</span><br><span class="line">    fill_arr(n,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    _rep(i,<span class="number">0</span>,index)&#123;</span><br><span class="line">        _rep(j,<span class="number">0</span>,index)</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;arr[i][j]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.luogu.com.cn/problem/P1028" target="_blank" rel="noopener">洛谷P1028 数的计算</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//无耻的打表 不然会TLE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,count;</span><br><span class="line"><span class="keyword">int</span> arr[<span class="number">102</span>]=&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">14</span>,<span class="number">14</span>,<span class="number">20</span>,<span class="number">20</span>,<span class="number">26</span>,<span class="number">26</span>,<span class="number">36</span>,<span class="number">36</span>,<span class="number">46</span>,<span class="number">46</span>,<span class="number">60</span>,<span class="number">60</span>,<span class="number">74</span>,<span class="number">74</span>,<span class="number">94</span>,<span class="number">94</span>,<span class="number">114</span>,<span class="number">114</span>,</span><br><span class="line">              <span class="number">140</span>,<span class="number">140</span>,<span class="number">166</span>,<span class="number">166</span>,<span class="number">202</span>,<span class="number">202</span>,<span class="number">238</span>,<span class="number">238</span>,<span class="number">284</span>,<span class="number">284</span>,<span class="number">330</span>,<span class="number">330</span>,<span class="number">390</span>,<span class="number">390</span>,<span class="number">450</span>,<span class="number">450</span>,<span class="number">524</span>,<span class="number">524</span>,<span class="number">598</span>,<span class="number">598</span>,</span><br><span class="line">              <span class="number">692</span>,<span class="number">692</span>,<span class="number">786</span>,<span class="number">786</span>,<span class="number">900</span>,<span class="number">900</span>,<span class="number">1014</span>,<span class="number">1014</span>,<span class="number">1154</span>,<span class="number">1154</span>,<span class="number">1294</span>,<span class="number">1294</span>,<span class="number">1460</span>,<span class="number">1460</span>,<span class="number">1626</span>,<span class="number">1626</span>,<span class="number">1828</span>,<span class="number">1828</span>,</span><br><span class="line">              <span class="number">2030</span>,<span class="number">2030</span>,<span class="number">2268</span>,<span class="number">2268</span>,<span class="number">2506</span>,<span class="number">2506</span>,<span class="number">2790</span>,<span class="number">2790</span>,<span class="number">3074</span>,<span class="number">3074</span>,<span class="number">3404</span>,<span class="number">3404</span>,<span class="number">3734</span>,<span class="number">3734</span>,<span class="number">4124</span>,<span class="number">4124</span>,<span class="number">4514</span>,</span><br><span class="line">              <span class="number">4514</span>,<span class="number">4964</span>,<span class="number">4964</span>,<span class="number">5414</span>,<span class="number">5414</span>,<span class="number">5938</span>,<span class="number">5938</span>,<span class="number">6462</span>,<span class="number">6462</span>,<span class="number">7060</span>,<span class="number">7060</span>,<span class="number">7658</span>,<span class="number">7658</span>,<span class="number">8350</span>,<span class="number">8350</span>,<span class="number">9042</span>,<span class="number">9042</span>,<span class="number">9828</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">find_num</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num&lt;=<span class="number">100</span>)&#123;</span><br><span class="line">        count+=arr[num];</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=num/<span class="number">2</span>;i&gt;=<span class="number">0</span>;--i)</span><br><span class="line">            find_num(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    find_num(n);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;count;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//递推找规律</span></span><br><span class="line"><span class="comment">/*	n%2==0时</span></span><br><span class="line"><span class="comment">    	f(n)=f(n-1)+f(n/2)</span></span><br><span class="line"><span class="comment">	n%2==1时</span></span><br><span class="line"><span class="comment">    	f(n)=f(n-1)*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">1001</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=i/<span class="number">2</span>;j++)&#123;</span><br><span class="line">            f[i]+=f[j];</span><br><span class="line">        &#125;</span><br><span class="line">        f[i]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;f[n];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.luogu.com.cn/problem/P1259" target="_blank" rel="noopener">洛谷P1259 黑白棋子的移动</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> arr[<span class="number">210</span>];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//最后四行无规律 打表</span></span><br><span class="line"><span class="built_in">string</span> out[<span class="number">4</span>] = &#123;<span class="string">"ooo*o**--*"</span>, <span class="string">"o--*o**oo*"</span>, <span class="string">"o*o*o*--o*"</span>, <span class="string">"--o*o*o*o*"</span>&#125;;</span><br><span class="line"><span class="comment">//每次递归完成 打印当前-移动1-打印-移动2-判断结束</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">move_chess</span><span class="params">(<span class="keyword">int</span> times)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index_begin=n-times,index_end=<span class="number">2</span>*(n-times)+<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n+<span class="number">2</span>;i++)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;arr[i];</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    arr[index_begin]=arr[index_begin+<span class="number">1</span>]=<span class="string">'-'</span>;</span><br><span class="line">    arr[index_end]=<span class="string">'o'</span>;</span><br><span class="line">    arr[index_end+<span class="number">1</span>]=<span class="string">'*'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n+<span class="number">2</span>;i++)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;arr[i];</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    arr[index_begin]=arr[index_begin+<span class="number">1</span>]=<span class="string">'*'</span>;</span><br><span class="line">    arr[index_end<span class="number">-2</span>]=arr[index_end<span class="number">-1</span>]=<span class="string">'-'</span>;</span><br><span class="line">    <span class="keyword">if</span>(times==n<span class="number">-3</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        move_chess(++times);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        arr[i]=<span class="string">'o'</span>;</span><br><span class="line">        arr[i+n]=<span class="string">'*'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    arr[<span class="number">2</span>*n]=arr[<span class="number">2</span>*n+<span class="number">1</span>]=<span class="string">'-'</span>;</span><br><span class="line">    move_chess(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">string</span> ss;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">4</span>; i++)</span><br><span class="line">        ss += <span class="string">"o*"</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; out[i] &lt;&lt; ss &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.luogu.com.cn/problem/P1228" target="_blank" rel="noopener">洛谷P1228 地毯填补问题</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分治思想 对于k=1和k=2，都可以具体解决</span></span><br><span class="line"><span class="comment">//k=2的，需要在中间2*2添加一块地毯，具体放哪块由公主位置决定，即四个if要判断的内容</span></span><br><span class="line"><span class="comment">//对于k&gt;2的，则每层递归的任务就是将1个2^k块分为4个2^(k-1)块</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line">ll x,y,len; <span class="keyword">int</span> k;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(ll x,ll y,ll a,ll b,ll l)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==<span class="number">1</span>)  <span class="keyword">return</span>;  <span class="comment">//终止条件</span></span><br><span class="line">    <span class="comment">//把l=4 分析下面这段代码 了解思想后推广</span></span><br><span class="line">    <span class="keyword">if</span>(x-a&lt;=l/<span class="number">2</span><span class="number">-1</span> &amp;&amp; y-b&lt;=l/<span class="number">2</span><span class="number">-1</span>)&#123;      <span class="comment">//四个if用于判断公主与当前位置的关系</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld %lld 1\n"</span>,a+l/<span class="number">2</span>,b+l/<span class="number">2</span>); </span><br><span class="line">        solve(x,y,a,b,l/<span class="number">2</span>);   <span class="comment">//1号</span></span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span>,a,b+l/<span class="number">2</span>,l/<span class="number">2</span>); <span class="comment">//会定位到2号</span></span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a+l/<span class="number">2</span>,b,l/<span class="number">2</span>); <span class="comment">//同理</span></span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,l/<span class="number">2</span>); <span class="comment">//同理</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x-a&lt;=l/<span class="number">2</span><span class="number">-1</span> &amp;&amp; y-b&gt;l/<span class="number">2</span><span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld %lld 2\n"</span>,a+l/<span class="number">2</span>,b+l/<span class="number">2</span><span class="number">-1</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(x,y,a,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a+l/<span class="number">2</span>,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x-a&gt;l/<span class="number">2</span><span class="number">-1</span> &amp;&amp; y-b&lt;=l/<span class="number">2</span><span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld %lld 3\n"</span>,a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span>,a,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">        solve(x,y,a+l/<span class="number">2</span>,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld %lld 4\n"</span>,a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span><span class="number">-1</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span><span class="number">-1</span>,b+l/<span class="number">2</span>,a,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">        solve(a+l/<span class="number">2</span>,b+l/<span class="number">2</span><span class="number">-1</span>,a+l/<span class="number">2</span>,b,l/<span class="number">2</span>);</span><br><span class="line">        solve(x,y,a+l/<span class="number">2</span>,b+l/<span class="number">2</span>,l/<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %lld %lld"</span>,&amp;k,&amp;x,&amp;y);</span><br><span class="line">    len=<span class="built_in">pow</span>(<span class="number">2</span>,k); <span class="comment">//计算边长</span></span><br><span class="line">    solve(x,y,<span class="number">1</span>,<span class="number">1</span>,len);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/27/1-4RecursionAndPartition/" data-title="递归与分治" data-url="https://Misaka9468.github.io/2020/07/27/1-4RecursionAndPartition/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
