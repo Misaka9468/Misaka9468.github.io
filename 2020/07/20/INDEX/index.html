@@ -6,7 +6,7 @@
     
     <meta name="author" content="Misaka Mikoto">
     
-    <meta name="description" content="数学高精度计算快速幂算法基础排序">
+    <meta name="description" content="数学高精度计算快速幂算法基础排序与二分查找递归与分治贪心策略">
     
     
 
@@ -92,16 +92,16 @@
         <h1>とある魔術の禁書目録</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-07-20T06:46:19.000Z" itemprop="datePublished">2020-07-20</time>，更新于:<time datetime="2020-07-24T03:34:22.617Z" itemprop="dateModified">2020-07-24</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-07-20T06:46:19.000Z" itemprop="datePublished">2020-07-20</time>，更新于:<time datetime="2020-07-30T09:16:55.086Z" itemprop="dateModified">2020-07-30</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学"><span class="toc-number">1.</span> <span class="toc-text">数学</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高精度计算"><span class="toc-number">1.1.</span> <span class="toc-text">高精度计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速幂"><span class="toc-number">1.2.</span> <span class="toc-text">快速幂</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#算法基础"><span class="toc-number">2.</span> <span class="toc-text">算法基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序"><span class="toc-number">2.1.</span> <span class="toc-text">排序</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学"><span class="toc-number">1.</span> <span class="toc-text">数学</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高精度计算"><span class="toc-number">1.1.</span> <span class="toc-text">高精度计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速幂"><span class="toc-number">1.2.</span> <span class="toc-text">快速幂</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#算法基础"><span class="toc-number">2.</span> <span class="toc-text">算法基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序与二分查找"><span class="toc-number">2.1.</span> <span class="toc-text">排序与二分查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归与分治"><span class="toc-number">2.2.</span> <span class="toc-text">递归与分治</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贪心策略"><span class="toc-number">2.3.</span> <span class="toc-text">贪心策略</span></a></li></ol></li></ol>
             </div>
             
-            <h1 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h1><h2 id="高精度计算"><a href="#高精度计算" class="headerlink" title="高精度计算"></a><a href="https://misaka9468.github.io/2020/07/20/1-1HighAccuracy">高精度计算</a></h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a><a href="https://misaka9468.github.io/2020/07/22/1-2BinaryExponentiation">快速幂</a></h2><h1 id="算法基础"><a href="#算法基础" class="headerlink" title="算法基础"></a>算法基础</h1><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a><a href="https://misaka9468.github.io/2020/07/23/1-3SortingAlgorithm">排序</a></h2>
+            <h1 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h1><h2 id="高精度计算"><a href="#高精度计算" class="headerlink" title="高精度计算"></a><a href="https://misaka9468.github.io/2020/07/20/1-1HighAccuracy">高精度计算</a></h2><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a><a href="https://misaka9468.github.io/2020/07/22/1-2BinaryExponentiation">快速幂</a></h2><h1 id="算法基础"><a href="#算法基础" class="headerlink" title="算法基础"></a>算法基础</h1><h2 id="排序与二分查找"><a href="#排序与二分查找" class="headerlink" title="排序与二分查找"></a><a href="https://misaka9468.github.io/2020/07/23/1-3SortingAlgorithm">排序与二分查找</a></h2><h2 id="递归与分治"><a href="#递归与分治" class="headerlink" title="递归与分治"></a><a href="https://misaka9468.github.io/2020/07/27/1-4RecursionAndPartition">递归与分治</a></h2><h2 id="贪心策略"><a href="#贪心策略" class="headerlink" title="贪心策略"></a><a href="https://misaka9468.github.io/2020/07/27/1-5GreedyAlgorithm">贪心策略</a></h2>
 
 			
             <section class="comment">

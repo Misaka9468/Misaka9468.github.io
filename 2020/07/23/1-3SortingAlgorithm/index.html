@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>排序算法 | Misaka妙妙屋</title>
+    <title>排序算法与二分查找 | Misaka妙妙屋</title>
 
     <!-- Bootstrap -->
     
@@ -92,16 +92,16 @@
 
     <article class="post container">
     <div class="well post-body first-post last-post">
-        <h1>排序算法</h1>
+        <h1>排序算法与二分查找</h1>
         
         <div class="time-info">
-发表于:<time datetime="2020-07-23T02:04:45.000Z" itemprop="datePublished">2020-07-23</time>，更新于:<time datetime="2020-07-27T14:15:32.070Z" itemprop="dateModified">2020-07-27</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+发表于:<time datetime="2020-07-23T02:04:45.000Z" itemprop="datePublished">2020-07-23</time>，更新于:<time datetime="2020-07-30T09:16:35.584Z" itemprop="dateModified">2020-07-30</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
         </div>
         
         <div class="post-body-inner">
             <div id="toc" class="toc-article well">
                 <strong class="toc-title">大纲</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#排序算法"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识"><span class="toc-number">1.1.</span> <span class="toc-text">前置知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序"><span class="toc-number">1.2.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-number">1.3.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-number">1.4.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序"><span class="toc-number">1.5.</span> <span class="toc-text">计数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">1.6.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-number">1.7.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间复杂度计算："><span class="toc-number">1.7.1.</span> <span class="toc-text">时间复杂度计算：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性找第K大的数"><span class="toc-number">1.7.2.</span> <span class="toc-text">线性找第K大的数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体排序"><span class="toc-number">1.8.</span> <span class="toc-text">结构体排序</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#排序算法"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置知识"><span class="toc-number">1.1.</span> <span class="toc-text">前置知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序"><span class="toc-number">1.2.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-number">1.3.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-number">1.4.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序"><span class="toc-number">1.5.</span> <span class="toc-text">计数排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">1.6.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-number">1.7.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-number">1.8.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间复杂度计算："><span class="toc-number">1.8.1.</span> <span class="toc-text">时间复杂度计算：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性找第K大的数"><span class="toc-number">1.8.2.</span> <span class="toc-text">线性找第K大的数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体排序"><span class="toc-number">1.9.</span> <span class="toc-text">结构体排序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二分查找"><span class="toc-number">2.</span> <span class="toc-text">二分查找</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#标准写法"><span class="toc-number">2.1.</span> <span class="toc-text">标准写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上下界"><span class="toc-number">2.2.</span> <span class="toc-text">上下界</span></a></li></ol></li></ol>
             </div>
             
             <head>
@@ -124,6 +124,8 @@
 <li><p><strong>稳定性</strong>：在原序列中，<strong>r[i]=r[j]</strong>，且r[i]在r[j]之前，而在排序后的序列中，r[i]仍在r[j]之前</p>
 <p>​                <strong>稳定排序</strong>：基数排序、计数排序、插入排序、冒泡排序、归并排序</p>
 <p>​                <strong>非稳定排序</strong>：选择排序、堆排序、快速排序</p>
+</li>
+<li><p>时间复杂度为$O(n)$的排序：桶排序 基数排序 计数排序</p>
 </li>
 </ul>
 <h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>每次找出第i小的元素，将这个元素与数组上第i个位置上的元素交换</p>
@@ -150,6 +152,22 @@
 
 <h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>依次取出堆顶元素，就可以得到排好序的序列。</p>
 <p>时间复杂度$O(nlogn)$</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><ul>
+<li>划分问题： 将序列分成元素个数尽量相等的两半。</li>
+<li>递归求解：把两半元素分别排序。</li>
+<li>合并问题：把两个有序表合并成一个。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//尾后版本</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mege_sort</span><span class="params">(<span class="keyword">int</span>* A,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span>* T)</span></span>&#123; <span class="comment">//T为辅助数组</span></span><br><span class="line">	<span class="keyword">if</span>(y-x&gt;<span class="number">1</span>)&#123;  <span class="comment">//最小的可执行的划分单位长度是3个</span></span><br><span class="line">		<span class="keyword">int</span> m=x+(y-x)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> p=x,q=m,i=x; <span class="comment">// p扫描本次划分区域的左侧，q扫描本次划分区域的右侧</span></span><br><span class="line">        merge_sort(A,x,m,T); <span class="comment">//递归求解左半部分</span></span><br><span class="line">        merge_sort(A,m,y,T); <span class="comment">//递归求解右半部分</span></span><br><span class="line">        <span class="keyword">while</span>( p&lt;m || q&lt;y )&#123; <span class="comment">//两边只要有一个序列为非空，就要合并 通过记录p、q与m、y的关系来判断左右部分是否已被扫描空</span></span><br><span class="line">            				 <span class="comment">//p负责扫描[x,m) q负责扫描[m,y) 最终对[x,y)进行排序 可以判断y应该是尾后</span></span><br><span class="line">            <span class="keyword">if</span>(q&gt;=y||(p&lt;m &amp;&amp; A[p]&lt;=A[q]))	T[i++]=A[p++]; <span class="comment">// 右侧空||(右侧非空，左侧非空,但是左边更小)-&gt;扫描左部分</span></span><br><span class="line">            <span class="comment">// if(q&gt;=y||) 这里巧妙地使用了短路原理</span></span><br><span class="line">            <span class="keyword">else</span> T[i++]=A[q++]; <span class="comment">//右侧非空,左侧空或左侧非空但右边更小-&gt;扫描右部分</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=x;i&lt;y;i++) A[i]=T[i]; <span class="comment">//扫描进入原数组  应该会出现覆盖的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在数据集较大的时候逊于快排，大概是最后合并的原因。</p>
+</li>
+<li><p><strong>逆序对问题：</strong>给一列数$a_i,a_2,…,a_n$，求它的逆序对数，即有多少个有序对$(i,j)$，使得$i&lt;j$但$a_i&gt;a_j$。n可以高达$10^6$</p>
+<p><strong>解题思路：</strong> 分治三步法。”划分问题”过程把序列分成元素个数尽量相等的两半；”递归求解”统计i和j均在左边或均在右边的逆序对个数；”合并问题”统计i在左边，j在右边的逆序对个数。</p>
+<p>那么，如何合并呢：只要对于右边的每个j，统计左边比它大的元素f(j)，则所有的f(j)之和都是答案。</p>
+<p>归并排序可以“顺便”完成f(j)的计算：由于合并操作是从小到大进行的，当右边A[j]复制到T中时，左边还没来得及复制到T的那些数就是左边所有比A[j]大的数(由其在T中比a[j]后可知其比a[j]大，由于左边的都是p~m序号一定比j小，满足逆序对条件)。因此只需把代码中的”else T[i++]=A[q++];”改成”else {T[i++]=A[q++]; cnt+=m-p;}”</p>
+</li>
+</ul>
 <h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序分为三个过程：</p>
 <ol>
 <li>先从数列中取出一个数作为基准数。</li>
@@ -211,62 +229,24 @@
 <p>例：<a href="luogu.com.cn/problem/P1093">洛谷P1093 奖学金</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">people</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number,chinese,math,english,whole;</span><br><span class="line">&#125;students[<span class="number">303</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare_grade</span><span class="params">(struct people stu1,struct people stu2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(stu1.whole!=stu2.whole)</span><br><span class="line">        <span class="keyword">return</span> (stu1.whole&gt;stu2.whole);</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(stu1.chinese!=stu2.chinese)</span><br><span class="line">            <span class="keyword">return</span> (stu1.chinese&gt;stu2.chinese);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (stu1.number&lt;stu2.number);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        students[i].number=i;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;students[i].chinese&gt;&gt;students[i].math&gt;&gt;students[i].english;</span><br><span class="line">        students[i].whole=students[i].chinese+students[i].math+students[i].english;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(students+<span class="number">1</span>,students+n+<span class="number">1</span>,compare_grade);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">5</span>;i++)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;students[i].number&lt;&lt;<span class="string">" "</span>&lt;&lt;students[i].whole&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><h2 id="标准写法"><a href="#标准写法" class="headerlink" title="标准写法"></a>标准写法</h2><p>遵循分治三步法，把源序列划分成元素个数尽量接近的两个子序列，然后递归查找。</p>
+<p>虽然可以用递归实现，但一般把其写成非递归的。</p>
+<p>时间复杂度$O(logn)$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span>* A,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m;</span><br><span class="line">    <span class="keyword">while</span>(x&lt;y)&#123;</span><br><span class="line">        m = x + (y-x)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(A[m]==v)	<span class="keyword">return</span> m;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(A[m]&gt;v) y=m;</span><br><span class="line">        <span class="keyword">else</span> x=m+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="上下界"><a href="#上下界" class="headerlink" title="上下界"></a>上下界</h2><p><strong>lower_bound：</strong>如果有多个元素是v，返回最后第一次出现的v；如果没有，返回一个位置i，在这个位置i上插入v，后面的元素向后移，保证整个序列仍有序。</p>
+<p><strong>upper_bound同理</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lower_bound</span><span class="params">(<span class="keyword">int</span>* A,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m;</span><br><span class="line">    <span class="keyword">while</span>(x&lt;y)&#123;</span><br><span class="line">        m = x + (y-x)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(A[m]&gt;=v) y=m;</span><br><span class="line">        <span class="keyword">else</span> x=m+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//返回的是尾后</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upper_bound</span><span class="params">(<span class="keyword">int</span>* A,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m;</span><br><span class="line">    <span class="keyword">while</span>(x&lt;y)&#123;</span><br><span class="line">        m = x + (y-x)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(A[m]&lt;=v) x=m+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> y=m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<ul>
+<li>设lower_bound和upper_bound返回值分别是L和R，则v出现的子序列为[L,R);当v不存在时此结论也成立，此时L=R，区间为空。</li>
+</ul>
 
 
 			
             <section class="comment">
 <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="/2020/07/23/1-3SortingAlgorithm/" data-title="排序算法" data-url="https://Misaka9468.github.io/2020/07/23/1-3SortingAlgorithm/"></div>
+	<div class="ds-thread" data-thread-key="/2020/07/23/1-3SortingAlgorithm/" data-title="排序算法与二分查找" data-url="https://Misaka9468.github.io/2020/07/23/1-3SortingAlgorithm/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

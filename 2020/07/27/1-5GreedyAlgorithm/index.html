@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>贪心算法 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "background.jpg",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/07/27/1-5GreedyAlgorithm/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>贪心算法</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-07-27T14:23:36.000Z" itemprop="datePublished">2020-07-27</time>，更新于:<time datetime="2020-07-30T09:16:48.876Z" itemprop="dateModified">2020-07-30</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#贪心算法"><span class="toc-number">1.</span> <span class="toc-text">贪心算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思路"><span class="toc-number">1.2.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#经典模型"><span class="toc-number">1.3.</span> <span class="toc-text">经典模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#背包相关问题"><span class="toc-number">1.3.1.</span> <span class="toc-text">背包相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最优装载"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">最优装载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#部分背包"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">部分背包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#乘船问题"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">乘船问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区间相关问题"><span class="toc-number">1.3.2.</span> <span class="toc-text">区间相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#选择不相交空间"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">选择不相交空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间选点问题"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">区间选点问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间覆盖问题"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">区间覆盖问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正确性证明"><span class="toc-number">1.4.</span> <span class="toc-text">正确性证明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他例题"><span class="toc-number">1.5.</span> <span class="toc-text">其他例题</span></a></li></ol></li></ol>
+            </div>
+            
+            <head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<blockquote>
+<p>参考: blog.csdn.net/maverickfw/article/details/78203567</p>
+</blockquote>
+<h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>贪心算法没有固定的算法框架，算法设计的关键是贪心策略的选择。</p>
+<p>贪心算法不是对所有问题都能得到整体最优解，选择的贪心策略必须具备无后效性（即某个状态以后的过程不会影响以前的状态，只与当前状态有关。）</p>
+<p>(其实有时候解题并没有刻意的去想着向贪心的方向靠，在分析题解的过程中不知不觉就采用了贪心算法)</p>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><ol>
+<li><p>把求解的问题分为若干个子问题。</p>
+</li>
+<li><p>对每个子问题求解，得到子问题的最有局部解。</p>
+</li>
+<li><p>把子问题的局部最优解合成原来问题的一个解。</p>
+</li>
+</ol>
+<h2 id="经典模型"><a href="#经典模型" class="headerlink" title="经典模型"></a>经典模型</h2><h3 id="背包相关问题"><a href="#背包相关问题" class="headerlink" title="背包相关问题"></a>背包相关问题</h3><h4 id="最优装载"><a href="#最优装载" class="headerlink" title="最优装载"></a>最优装载</h4><ul>
+<li>给出n个问题，第i个物体重量为$w_i$。选择尽量多的物体，使得总重量不超过C。</li>
+<li><strong>解题思路:</strong> 将所有物体按重量从小到大排序，依次选择每个物体。</li>
+<li><strong>变体：</strong>选择人民币问题，规定钱数，从面值大的开始选起，保证所用钞票张数最小。</li>
+</ul>
+<p><a href="https://leetcode-cn.com/problems/assign-cookies/" target="_blank" rel="noopener">leetcode455 分发饼干</a></p>
+<ul>
+<li>要尽可能地满足更多的孩子，于是优先满足胃口小的孩子。</li>
+<li>尽量选用小饼干喂胃口小的孩子。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findContentChildren</span><span class="params">(<span class="keyword">int</span>[] g, <span class="keyword">int</span>[] s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> child = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> cookie = <span class="number">0</span>;</span><br><span class="line">        Arrays.sort(g);  <span class="comment">//先将饼干和孩子胃口大小都进行排序</span></span><br><span class="line">        Arrays.sort(s);</span><br><span class="line">        <span class="keyword">while</span> (child &lt; g.length &amp;&amp; cookie &lt; s.length )&#123; <span class="comment">//当其中一个遍历就结束</span></span><br><span class="line">            <span class="keyword">if</span> (g[child] &lt;= s[cookie])&#123; <span class="comment">//当用当前饼干可以满足当前孩子的需求，可以满足的孩子数量+1</span></span><br><span class="line">                child++;</span><br><span class="line">            &#125;</span><br><span class="line">            cookie++; <span class="comment">//这块饼干被吃了，就找下一块；没被吃，也不够大，需要找下一块</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> child; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="部分背包"><a href="#部分背包" class="headerlink" title="部分背包"></a>部分背包</h4><ul>
+<li><p>与动态规划不同的一点在于，每一个物体只取走一部分。</p>
+</li>
+<li><p><strong>解题思路：</strong>优先拿“性价比”高的货物，直到重量和正好为C。</p>
+</li>
+</ul>
+<p><a href="https://www.luogu.com.cn/problem/P2240" target="_blank" rel="noopener">洛谷P2240 部分背包问题</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N,T,m,v,temp_weight;</span><br><span class="line"><span class="keyword">double</span> ans;</span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;arr[<span class="number">205</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&amp; stk1,pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&amp; stk2)</span></span>&#123;  <span class="comment">//性价比</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1.0</span>*stk1.second/stk1.first)&gt;(<span class="number">1.0</span>*stk2.second/stk2.first);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;N&gt;&gt;T;</span><br><span class="line">    <span class="keyword">if</span>(N==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"0.00"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;m&gt;&gt;v;</span><br><span class="line">        arr[i]=make_pair(m,v);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(arr,arr+N,cmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp_weight+arr[i].first&lt;=T) &#123;</span><br><span class="line">            temp_weight += arr[i].first;</span><br><span class="line">            ans += arr[i].second;</span><br><span class="line">            <span class="keyword">if</span>(temp_weight==T) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%.2f"</span>,ans);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> left_weight=T-temp_weight;</span><br><span class="line">            ans+=(<span class="number">1.0</span>*arr[i].second/arr[i].first)*left_weight;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%.2f"</span>,ans);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.2f"</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="乘船问题"><a href="#乘船问题" class="headerlink" title="乘船问题"></a>乘船问题</h4><ul>
+<li>有n个人，第i个人的重量为$w_i$。每艘船的最大载重量均为C，且最多只能乘两个人。用最少的船载最多的人。</li>
+<li><strong>解题思路：</strong>考虑最轻的人i，它应当与能和<strong>其共上一艘船</strong>的人中最重的人一起乘船，让本次的浪费最少。经过一次遍历后，剩下的人单独乘船。排序后用下标 i 和 j 表示最轻与最终，每次先将 j 左移至能乘船，之后 ++i , – j , 继续重复 j 左移。时间复杂度$O(n)$</li>
+<li>证明贪心策略的正确性可用反证法来证明。</li>
+</ul>
+<h3 id="区间相关问题"><a href="#区间相关问题" class="headerlink" title="区间相关问题"></a>区间相关问题</h3><h4 id="选择不相交空间"><a href="#选择不相交空间" class="headerlink" title="选择不相交空间"></a>选择不相交空间</h4><ul>
+<li><p>数轴上有n个开区间$(a_i,b_i)$。尽量选择多个区间，使得这些区间两两间没有公共点。(若为闭区间，则指除了边界点之外)</p>
+</li>
+<li><p><strong>解题思路：</strong></p>
+<p>按照$b_i$从小到大的顺序给区间排序，现在有$b_1≤b_2≤b_3…$了，再考虑$a_1$与$a_2$的大小关系.</p>
+<ul>
+<li>$a_1&gt;a_2$即区间2大于区间1，这个时候选择区间1</li>
+<li>即排除掉上述情况，只剩下$a_1≤a_2≤a_3…$ ，此时仍从区间1开始选起，并剔除掉所有与区间1相交的区间，这需要我们记录上一个被选择的区间编号。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.luogu.com.cn/problem/P1803" target="_blank" rel="noopener">洛谷P1803 线段覆盖</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">game</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">begin</span>,<span class="built_in">end</span>;</span><br><span class="line">&#125;arr[<span class="number">100002</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(struct game&amp; first,struct game&amp; second)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first.<span class="built_in">end</span>&lt;second.<span class="built_in">end</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,game_count=<span class="number">0</span>,index;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; arr[i].<span class="built_in">begin</span>&gt;&gt;arr[i].<span class="built_in">end</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(arr,arr+n,cmp);   <span class="comment">// 按右区间进行排序</span></span><br><span class="line">    index=<span class="number">0</span>,game_count++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i].<span class="built_in">begin</span>&lt;arr[index].<span class="built_in">begin</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(arr[i].<span class="built_in">begin</span>&lt;arr[index].<span class="built_in">end</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        game_count++;</span><br><span class="line">        index=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;game_count;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="区间选点问题"><a href="#区间选点问题" class="headerlink" title="区间选点问题"></a>区间选点问题</h4><ul>
+<li><p>数轴上有n个闭区间$[a_i,b_i]$。取尽量少的点，使得各个区间内都至少有一个点。</p>
+</li>
+<li><p><strong>解题思路：</strong></p>
+<p>把所有区间按b从小到大进行排序 (b相同时，按a从大到小进行排序),从而保证如果区间包含的情况，小区间位于前面。</p>
+<p>取第一区间的最后一个点，向后扫描直至一张新纸条的a大于最后一个点的位置，重复以上步骤。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,tot,lst;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> data &amp;right) <span class="keyword">const</span> &#123;   <span class="comment">//给结构体重载一个比较运算符</span></span><br><span class="line">        <span class="keyword">return</span> b &lt; right.b || b == right.b &amp;&amp; a &gt; right.a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">data arr[<span class="number">1001</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;arr[i].a&gt;&gt;arr[i].b;</span><br><span class="line">    sort(arr, arr+n);</span><br><span class="line">    lst = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">if</span>(lst &lt; arr[i].a)</span><br><span class="line">            lst = arr[i].b, tot++;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;tot;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="区间覆盖问题"><a href="#区间覆盖问题" class="headerlink" title="区间覆盖问题"></a>区间覆盖问题</h4><ul>
+<li>数轴上有n个闭区间$[a_i,b_i]$，选择个数尽量少的区间覆盖一条指定线段[s,t]</li>
+<li><strong>解题思路：</strong><ul>
+<li>先进行一次预处理，每个区间在 [s,t] 外的部分都应该被预先切掉。</li>
+<li>把各区间按照a从小到大排序。<ul>
+<li>如果区间1的起点不是s，无解</li>
+<li>否则选取起点在s的最长区间$[a_i,b_i]$。</li>
+</ul>
+</li>
+<li>新的起点被设置为$b_i$, 重复以上步骤。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>现有一块草坪，长为20米，宽为2米，要在横中心线上放置半径为Ri的喷水装置，每个喷水装置的效果都会让以它为中心的半径为实数Ri(0&lt;Ri&lt;15)的圆被湿润，这有充足的喷水装置i（1&lt;i&lt;600)个，并且一定能把草坪全部湿润，你要做的是：选择尽量少的喷水装置，把整个草坪的全部湿润。</p>
+<p>第一行有一个整数数n，n表示共有n个喷水装置，随后的一行，有n个实数ri，ri表示该喷水装置能覆盖的圆的半径</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 将每个能喷洒到草坪边缘的喷水装置的喷洒范围映射成在x轴的长度，然后按线段长度递增顺序排列，再从后往前贪心选线段即可得到选择最少的喷水装置来润湿整个草坪*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,cnt;</span><br><span class="line"><span class="keyword">double</span> ans,ri,dt[<span class="number">605</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;ans=<span class="number">0</span>;cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;ri,dt[i]=ri&gt;<span class="number">1</span>?<span class="built_in">sqrt</span>(ri*ri<span class="number">-1</span>):<span class="number">0</span>; <span class="comment">//这里可以设置为0，因为题目已经保证一定可以将草坪全部润湿</span></span><br><span class="line">    sort(dt,dt+n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;ans&lt;=<span class="number">10.0</span>&amp;&amp;i&gt;=<span class="number">0</span>;--i)</span><br><span class="line">        cnt++,ans+=dt[i];<span class="comment">//从后往前能选出最少数量的喷水装置，且一定能将草坪润湿</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;cnt&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="正确性证明"><a href="#正确性证明" class="headerlink" title="正确性证明"></a>正确性证明</h2><ul>
+<li><p>归纳法</p>
+</li>
+<li><p>交换论证法</p>
+<p><a href="[https://pkucss.github.io/2019/03/15/%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5/#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7%E8%AF%81%E6%98%8E](https://pkucss.github.io/2019/03/15/贪心策略/#贪心算法的正确性证明)">参考</a></p>
+</li>
+</ul>
+<h2 id="其他例题"><a href="#其他例题" class="headerlink" title="其他例题"></a>其他例题</h2><p><a href="https://leetcode-cn.com/problems/jump-game" target="_blank" rel="noopener">leetcode55 跳跃游戏</a></p>
+<ul>
+<li>能跳到最后一格 -&gt; 倒数第二个<strong>能达到</strong>的格子，步数大于能达到最后一格的个数-&gt; 倒数第三个<strong>能达到</strong>的格子，能达到倒数第二个能达到的格子-&gt;…</li>
+<li>时间复杂度为$O(n)$</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> index=nums.<span class="built_in">end</span>()-nums.<span class="built_in">begin</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(index==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> flag,i=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(index!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;index-i&gt;=<span class="number">0</span>;++i)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[index-i]&gt;=i)&#123;</span><br><span class="line">                    flag=<span class="number">1</span>;</span><br><span class="line">                    index=index-i;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                flag=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!flag)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a href="https://www.luogu.com.cn/problem/P1031" target="_blank" rel="noopener">洛谷P1031 均分纸牌</a></p>
+<ul>
+<li>只研究研究第一堆和第二堆<ul>
+<li>由第二堆向第一堆供给/索取，在这一过程中发生了移动；</li>
+<li>如果第一恰好满足条件，则不需要移动。</li>
+</ul>
+</li>
+<li>将第一堆解决，无论第二堆现在的牌数是多少(甚至为负)</li>
+<li>现在把第二堆视为“第一堆”，重复以上步骤</li>
+<li>贪心思想：只求每次两堆的最优解</li>
+<li>难点：判断贪心思想即最优解的证明；看待每次排位的第二堆的负数情况</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[<span class="number">101</span>],mid,all,ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]),all+=a[i];</span><br><span class="line">	all/=n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="keyword">if</span>(a[i]-all) <span class="comment">// 不是恰好满足条件</span></span><br><span class="line">	a[i+<span class="number">1</span>]+=a[i]-all,ans++;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a href="https://www.luogu.com.cn/problem/P5019" target="_blank" rel="noopener">P5109 铺设道路</a></p>
+<ul>
+<li><p>贪心策略：若a[i]&gt;a[i-1],计数器sum+=a[i]-a[i-1];</p>
+</li>
+<li><p>贪心策略证明：</p>
+<p>对于只有两个坑来讲，会出现:  a[i]&gt;a[i-1] 或 a[i]&lt;=a[i-1]两种情况，按照制定的贪心策略，我们只在a[i]&gt;a[i-1]时填充第一个，即填充最浅的一个坑，当该坑被填满时，后面一个坑变为a[i]-a[i-1] 。</p>
+<p>此时可以将第一个坑排除，将第二个坑当作新的第一个坑，sum+=的是新一个坑的深度。重复以上步骤。</p>
+<p>最后不要忘了+a[1]，表示第一个必填的坑的次数。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[<span class="number">100005</span>];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)     <span class="built_in">cin</span>&gt;&gt;a[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)     <span class="keyword">if</span>(a[i]&gt;a[i<span class="number">-1</span>]) ans+=a[i]-a[i<span class="number">-1</span>];</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;ans+a[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/07/27/1-5GreedyAlgorithm/" data-title="贪心算法" data-url="https://Misaka9468.github.io/2020/07/27/1-5GreedyAlgorithm/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
