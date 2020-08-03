@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>枚举与回溯 | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "background.jpg",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/08/01/1-6Enumerate/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>枚举与回溯</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-08-01T07:21:03.000Z" itemprop="datePublished">2020-08-01</time>，更新于:<time datetime="2020-08-03T02:44:03.462Z" itemprop="dateModified">2020-08-03</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#枚举"><span class="toc-number">1.</span> <span class="toc-text">枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#排列生成"><span class="toc-number">1.1.</span> <span class="toc-text">排列生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成1-n的排列"><span class="toc-number">1.1.1.</span> <span class="toc-text">生成1~n的排列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成可重集的排列"><span class="toc-number">1.1.2.</span> <span class="toc-text">生成可重集的排列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用库函数生成"><span class="toc-number">1.1.3.</span> <span class="toc-text">使用库函数生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子集生成"><span class="toc-number">1.2.</span> <span class="toc-text">子集生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#增量构造法"><span class="toc-number">1.2.1.</span> <span class="toc-text">增量构造法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位向量法"><span class="toc-number">1.2.2.</span> <span class="toc-text">位向量法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制法"><span class="toc-number">1.2.3.</span> <span class="toc-text">二进制法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#回溯"><span class="toc-number">2.</span> <span class="toc-text">回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#八皇后问题"><span class="toc-number">2.1.</span> <span class="toc-text">八皇后问题</span></a></li></ol></li></ol>
+            </div>
+            
+            <head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><h2 id="排列生成"><a href="#排列生成" class="headerlink" title="排列生成"></a>排列生成</h2><ul>
+<li>枚举排列的方法通常有两种，一是递归枚举，二是使用STL中的next_permutation.</li>
+<li>学会构建解答树，理清解题思路</li>
+</ul>
+<h3 id="生成1-n的排列"><a href="#生成1-n的排列" class="headerlink" title="生成1~n的排列"></a>生成1~n的排列</h3><ul>
+<li>按字典序输出1~n的所有排列。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_permutation</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> *A,<span class="keyword">int</span> cur)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(cur==n)&#123; <span class="comment">//递归边界</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) <span class="built_in">printf</span>(<span class="string">"% d"</span>,A[i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;  <span class="comment">//尝试在A[cur]中填充各种整数</span></span><br><span class="line">        <span class="keyword">int</span> ok=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;cur;j++)</span><br><span class="line">            <span class="keyword">if</span>(A[j]==i)	ok=<span class="number">0</span>; <span class="comment">//如果i已经在A[0]~A[cur-1]中出现，则A[cur]不能是i</span></span><br><span class="line">        <span class="keyword">if</span>(ok)&#123;</span><br><span class="line">            A[cur]=i;</span><br><span class="line">            print_permutation(n,A,cur+<span class="number">1</span>); <span class="comment">//递归调用</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成可重集的排列"><a href="#生成可重集的排列" class="headerlink" title="生成可重集的排列"></a>生成可重集的排列</h3><ul>
+<li><p>把问题改成，输入数组P，并按字典序输出数组A各元素的所有全排列。</p>
+</li>
+<li><p>数组P需要提前从小到大排序</p>
+</li>
+<li><p>若数组是{1，1，1}，原设计模式不允许重复，则无法输出，因此需要利用c1 c2改进，在0~cur之间的代表已经使用过的’1’,与总’1’比较，只要没用过就可以填充</p>
+</li>
+<li><p>但是，前者会导致{1,1,1}的三个’1’都被算入，导致最后的结果是$3^3=27$种，所以需要保证每个相同元素在相同位置只被枚举一次。</p>
+<p>if( !P || P[i] != P[i-1] )</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_permutation</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> *P,<span class="keyword">int</span> *A,<span class="keyword">int</span> cur)</span></span>&#123;  <span class="comment">//n现在是P的元素个数</span></span><br><span class="line">    <span class="keyword">if</span>(cur==n)&#123; <span class="comment">//递归边界</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) <span class="built_in">printf</span>(<span class="string">"%d "</span>,A[i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        <span class="keyword">if</span>(!i||P[i]!=P[i<span class="number">-1</span>]) &#123;  <span class="comment">//尝试在A[cur]中填充各种整数,同时巧妙地利用了短路原理</span></span><br><span class="line">            <span class="keyword">int</span> c1=<span class="number">0</span>,c2=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;cur;j++) <span class="keyword">if</span>(A[j]==P[i]) c1++; </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++) <span class="keyword">if</span>(P[j]==P[i]) c2++;</span><br><span class="line">            <span class="keyword">if</span>(c1&lt;c2)&#123;</span><br><span class="line">                A[cur]=P[i];</span><br><span class="line">                print_permutation(n,P,A,cur+<span class="number">1</span>); <span class="comment">//递归调用</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用库函数生成"><a href="#使用库函数生成" class="headerlink" title="使用库函数生成"></a>使用库函数生成</h3><ul>
+<li>c++的STL中提供了一个库函数next_permutation 在algorithm库中</li>
+<li>next_permutation(start,end)用来求当前排列的下一个排列，与之对应的是prev_permutation. 我们可以把这里的上下理解为字典序的前后。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,p[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;p[i]);</span><br><span class="line">    sort(p,p+n);  <span class="comment">//得到P的最小排列</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">printf</span>(<span class="string">"%d "</span>,p[i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;<span class="keyword">while</span>(next_permutation(p,p+n)); <span class="comment">//求下一个排列</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.luogu.com.cn/problem/P1157" target="_blank" rel="noopener">洛谷P1157 组合的输出</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> x[<span class="number">50</span>];/<span class="number">1</span>选 <span class="number">0</span>不选 从<span class="number">1</span>开始计数</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,r;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;r;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=r+<span class="number">1</span>;i&lt;=n;++i) <span class="comment">//除了前r个，其他都是0</span></span><br><span class="line">        x[i]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">            <span class="keyword">if</span>(x[i]==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"%3d"</span>,i);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);<span class="comment">//</span></span><br><span class="line">    &#125;<span class="keyword">while</span>(next_permutation(x+<span class="number">1</span>,x+n+<span class="number">1</span>));<span class="comment">//生成下一个 next_permutation自动按字典序排列0 1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="子集生成"><a href="#子集生成" class="headerlink" title="子集生成"></a>子集生成</h2><ul>
+<li>给定一个集合，枚举所有可能的子集。</li>
+</ul>
+<h3 id="增量构造法"><a href="#增量构造法" class="headerlink" title="增量构造法"></a>增量构造法</h3><ul>
+<li>按从小到大的顺序依次选出一个元素放到集合中</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成0~n的所有子集 (刘汝佳版本)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_subset</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> *A,<span class="keyword">int</span> cur)</span></span>&#123;  <span class="comment">//n现在是P的元素个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cur;++i) <span class="built_in">printf</span>(<span class="string">"%d "</span>,A[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">int</span> s = cur ? A[cur<span class="number">-1</span>]+<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=s;i&lt;n;++i)&#123;</span><br><span class="line">        A[cur]=i;</span><br><span class="line">        print_subset(n,A,cur+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成集合P的所有子集(自己对着刘汝佳版本改编一下)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_subset</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> *P,<span class="keyword">int</span> *A,<span class="keyword">int</span> cur)</span> </span>&#123;<span class="comment">//n现在是P的元素个数 P要预先从小到大排</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cur; ++i)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>, A[i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        <span class="keyword">if</span>(cur&gt;<span class="number">0</span>&amp;&amp;A[cur<span class="number">-1</span>]==P[n<span class="number">-1</span>]) <span class="comment">//按字典序打印的话，这里已经到枚举子集的底部了</span></span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">int</span> s = cur ? A[cur<span class="number">-1</span>]:INT_MIN; <span class="comment">//保证每次枚举的数都比前一个大,尽量照顾首元素是负数的情况</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = cur; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span>(P[i]&gt;s)&#123; <span class="comment">//保证每次枚举的数都比前一个大</span></span><br><span class="line">                A[cur] = P[i];</span><br><span class="line">                print_subset(n, P, A, cur + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="位向量法"><a href="#位向量法" class="headerlink" title="位向量法"></a>位向量法</h3><ul>
+<li>构造一个位向量B[i]，而不是直接构造子集A本身，其中B[i]=1，当且仅当i在子集A中。</li>
+<li>必须当”所有元素是否选择“全部确定完毕后才是一完整的子集。因此在if(cur==n)时才输出。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//刘汝佳版本 0~n子集</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_subset</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span>* B,<span class="keyword">int</span> cur)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(cur==n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cur;++i)</span><br><span class="line">            <span class="keyword">if</span>(B[i]) <span class="built_in">printf</span>(<span class="string">"%d "</span>,i);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    B[cur]=<span class="number">1</span>;</span><br><span class="line">    print_subset(n,B,cur+<span class="number">1</span>);</span><br><span class="line">    B[cur]=<span class="number">0</span>;</span><br><span class="line">    print_subset(n,B,cur+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 改编输出P的子集</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_subset</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span>* P,<span class="keyword">int</span>* B,<span class="keyword">int</span> cur)</span> </span>&#123; <span class="comment">//P无需排序</span></span><br><span class="line">    <span class="keyword">if</span>(cur==n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cur;++i)</span><br><span class="line">            <span class="keyword">if</span>(B[i]) <span class="built_in">printf</span>(<span class="string">"%d "</span>,P[i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    B[cur]=<span class="number">1</span>;</span><br><span class="line">    print_subset(n,P,B,cur+<span class="number">1</span>);</span><br><span class="line">    B[cur]=<span class="number">0</span>;</span><br><span class="line">    print_subset(n,P,B,cur+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二进制法"><a href="#二进制法" class="headerlink" title="二进制法"></a>二进制法</h3><ul>
+<li>用二进制来表示${0,1,2,···,n-1}$的子集 S :从右往左第i位(从0开始计数)，表示元素i是否在集合S中。</li>
+<li>例：二进制 10110对应集合${1,2,4}$</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_subset</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s &amp; (<span class="number">1</span> &lt;&lt; i)) &#123; <span class="comment">//(1&lt;&lt;i)表示2^i与s取&amp;操作表示判断第i位上是否是1 即集合中是否有该元素</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; n) ; ++i) <span class="comment">//(1&lt;&lt;n)表示2^n 枚举所有的0 1组合</span></span><br><span class="line">        print_subset(n, i);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><ul>
+<li>当把问题分成若干步骤并递归求解时，如果当前步骤没有合法选择，则函数将返回上一级递归调用。</li>
+</ul>
+<h2 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h2><ul>
+<li><p>思路一：按行每次选取，每次枚举一列，判断是否和之前的皇后出现同列、同主副对角线的情况。</p>
+<p>假设皇后的坐标是(x,y) 已知同在一条主对角线上的格子y-x相同，在同一条副对角线上的格子x+y相同</p>
+<p>最后输出可行解的个数</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> cur)</span></span>&#123; <span class="comment">//cur在这里充当了行数的作用 是从0开始计数的</span></span><br><span class="line">    <span class="keyword">if</span>(cur==n) tot++; <span class="comment">//此时皇后们已经全部就位</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123; <span class="comment">//开始枚举列</span></span><br><span class="line">        <span class="keyword">int</span> ok=<span class="number">1</span>;</span><br><span class="line">        C[cur]=i;  <span class="comment">// 表示选定第cur行第i列</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;cur;++j)&#123; <span class="comment">//遍历之前的行</span></span><br><span class="line">            <span class="keyword">if</span>(C[j]==C[cur]||j+C[j]==cur+C[cur]||C[j]-j==C[cur]-cur)&#123; <span class="comment">//行、主副对角线</span></span><br><span class="line">                ok=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span>(ok) search(cur+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>思路二：优化思路一。</p>
+<p>思路一在枚举每列的时候，将每列对应的格子都与之前的皇后位置比较，略显重复</p>
+<p>思路二则在每次成功选取皇后后，通过引入vis[3][n]数组来从列、主对角线、副对角线三个维度来标识至今为止，已有哪列、主副对角线不可选，因此在枚举每列的时候只需对新格子的位置查找数组元素即可，而不需要对之前的皇后再对比。</p>
+<p>注意，计算主对角线时y-x可能会出现负数，这里要+n处理</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> cur)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(cur==n) tot++;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!vis[<span class="number">0</span>][i]&amp;&amp;!vis[<span class="number">1</span>][i+cur]&amp;&amp;vis[<span class="number">1</span>][i-cur+n])&#123; <span class="comment">//三个位置都是0</span></span><br><span class="line">            C[cur]=i;</span><br><span class="line">            vis[<span class="number">0</span>][i]=vis[<span class="number">1</span>][i+cur]=vis[<span class="number">1</span>][i-cur+n]=<span class="number">1</span>;</span><br><span class="line">            search(cur+<span class="number">1</span>);</span><br><span class="line">            vis[<span class="number">0</span>][i]=vis[<span class="number">1</span>][i+cur]=vis[<span class="number">1</span>][i-cur+n]=<span class="number">0</span>; <span class="comment">//重置，因为可能一行有多列解，本次选列不能影响下次</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果在回溯法中使用了辅助的全局变量，一定要在每个出口处恢复被修改的值。</p>
+</li>
+<li><p>待补充完善…</p>
+</li>
+</ul>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/08/01/1-6Enumerate/" data-title="枚举与回溯" data-url="https://Misaka9468.github.io/2020/08/01/1-6Enumerate/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
