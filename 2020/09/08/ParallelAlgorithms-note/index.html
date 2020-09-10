@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+    <meta name="author" content="Misaka Mikoto">
+    
+    <meta name="description" content="MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: [&#39;script&#39;, &#39;noscript&#39;, &#39;style&#39;, &#39;textarea&#39;, &#39;pre&#39;],
+            inlineMath: [[&#39;$&#39;,&#39;$">
+    
+    
+
+    
+    <link rel="alternative" href="YOUR_RSS_ADDRESS" title="Misaka妙妙屋" type="application/atom+xml">
+    
+    
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ParallelAlgorithms-note | Misaka妙妙屋</title>
+
+    <!-- Bootstrap -->
+    
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Javascript -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/headroom.min.js"></script>
+    <script src="/js/jquery.headroom.min.js"></script> 
+    <script src="/js/common.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://Misaka9468.github.io" title="Misaka妙妙屋">Misaka妙妙屋</a>
+            </div>
+
+            <div role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                
+
+                <ul class="nav navbar-nav">
+                    
+                    <li id="nav-index"><a href="/">首页</a></li>
+                    
+                    <li id="nav-archives"><a href="/archives">归档</a></li>
+                    
+                    
+                    <li><a href="https://github.com/Misaka9468" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+    var backRoot = "/images/background/";
+    var backArray = [ "background.jpg",  ];
+        
+    $(function() {
+        // page-id...
+        var pageId = "2020/09/08/ParallelAlgorithms-note/";
+        pageId = pageId.substr(0, pageId.indexOf("/"));
+        if(pageId === "") pageId = "index";
+        
+        $("#nav-" + pageId).addClass("active");
+    });
+    </script>
+
+    <article class="post container">
+    <div class="well post-body first-post last-post">
+        <h1>ParallelAlgorithms-note</h1>
+        
+        <div class="time-info">
+发表于:<time datetime="2020-09-08T12:40:20.000Z" itemprop="datePublished">2020-09-08</time>，更新于:<time datetime="2020-09-10T14:38:14.019Z" itemprop="dateModified">2020-09-10</time>，By <a href="https://Misaka9468.github.io" title="Misaka Mikoto">Misaka Mikoto</a>
+        </div>
+        
+        <div class="post-body-inner">
+            <div id="toc" class="toc-article well">
+                <strong class="toc-title">大纲</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Before"><span class="toc-number">1.</span> <span class="toc-text">Before</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter2-Parallelism"><span class="toc-number">2.</span> <span class="toc-text">Chapter2 Parallelism</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Work-and-Span"><span class="toc-number">2.1.</span> <span class="toc-text">Work and Span</span></a></li></ol></li></ol>
+            </div>
+            
+            <head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<h1 id="Before"><a href="#Before" class="headerlink" title="Before"></a>Before</h1><p>This is my note about <strong><em>Parallel and Sequential Data Structures and Algorithms</em></strong></p>
+<blockquote>
+<p>cs.cmu.edu/~15210/</p>
+</blockquote>
+<h1 id="Chapter2-Parallelism"><a href="#Chapter2-Parallelism" class="headerlink" title="Chapter2 Parallelism"></a>Chapter2 Parallelism</h1><h2 id="Work-and-Span"><a href="#Work-and-Span" class="headerlink" title="Work and Span"></a>Work and Span</h2><ul>
+<li><p><strong>Work:</strong> The work of an algorithm corresponds to the total number of primitive operations performed by an algorithm.</p>
+<p><strong>它告诉你这个算法如果你只有一个 processor，串行，它的时间复杂度是什么。</strong></p>
+</li>
+<li><p><strong>perfect speedup:</strong> If we had <strong>W</strong> work and <strong>P</strong> processors to work on it in parallel, then even division would give each processor <strong>W/P</strong> fraction of the work, and hence the total time would be <strong>W/P</strong> .We cannot break dependencies, we have to complete tasks in order.</p>
+</li>
+<li><p><strong>Span:</strong> The <strong>span</strong> of an algorithm basically corresponds to the longest sequence of dependences in the computation. <strong>It can be thought of as the time an algorithm would take if we had an unlimited number of processors on an ideal machine.</strong> </p>
+<p><strong>即最长的并行依赖链</strong></p>
+</li>
+<li><p>The <strong>Work</strong> is the same both in Sequential composition and Parallel composition, however, the <strong>Span</strong> of  Sequential composition is $1+S1+S2$ while $1+max(S1,S2)$ in Parallel composition.</p>
+</li>
+<li><p>According to the greedy scheduling principle, the range of time is $S≤T≤W/P+S$ .</p>
+<p>consider we have unlimited number of processors, 则  $lim_{P \to ∞} W/P+S=S$</p>
+<blockquote>
+<p>尝试证明：</p>
+<p>每个timestep 中可<strong>并行地执行n个</strong>任务，n取决于processer的个数以及任务之间的关系</p>
+<p>假设一共有N个timestep, 每个timestep执行的任务数为n_k，每次执行任务的时间都是单位时间Δt，在有p个processer的情况下:</p>
+<p>T_p &lt;= Σ(k=1-&gt;N)[n_k/p]Δt           Σ(k=1-&gt;N)n_k=W    NΔt=S</p>
+<p>且[m/p] &lt;= (m+p-1)/p</p>
+<p>故T_p &lt;=  Σ(k=1-&gt;N)[n_k/p]Δt &lt;= (W-S)/P + S  // 但怎么从这步到W/P+S呢</p>
+</blockquote>
+</li>
+<li><p><strong>Work Efficiency:</strong> We say that a parallel algorithm is (asymptotically) work efficient, if the work is asymptotically the same as the time for an optimal sequential algorithm that solves the same problem.</p>
+</li>
+<li><p>In general the work is more important than the span.</p>
+</li>
+</ul>
+
+
+			
+            <section class="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2020/09/08/ParallelAlgorithms-note/" data-title="ParallelAlgorithms-note" data-url="https://Misaka9468.github.io/2020/09/08/ParallelAlgorithms-note/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"YOUR_DUOSHUO_SHORT_NAME"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+        </div>
+    </div>
+</article>
+
+    <footer id="footer">
+    <div id="bottom-tip">
+        Misaka妙妙屋
+    </div>
+        <small>该博客由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动，搭载 <a href="https://github.com/XadillaX/hexadillax" target="_blank">Hexadillax</a> 主题</small><br />
+        <small>&copy; 2014 Misaka Mikoto</small>
+    </footer>
+
+    
+
+
+</body>
+</html>
+
